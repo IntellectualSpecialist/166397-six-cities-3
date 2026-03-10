@@ -1,7 +1,7 @@
 type Offer = {
   id: string;
   title: string;
-  type: string;
+  type: 'apartment' | 'room' | 'house' | 'hotel';
   price: number;
   city: {
     name: string;
@@ -26,7 +26,7 @@ export const offers: Offer[] = [
   {
     'id': '0',
     'title': 'Beautiful & luxurious apartment at great location',
-    'type': 'Apartment',
+    'type': 'apartment',
     'price': 120,
     'previewImage': 'img/apartment-01.jpg',
     'city': {
@@ -49,7 +49,7 @@ export const offers: Offer[] = [
   {
     'id': '1',
     'title': 'Wood and stone place',
-    'type': 'Room',
+    'type': 'room',
     'price': 80,
     'previewImage': 'img/room.jpg',
     'city': {
@@ -72,7 +72,7 @@ export const offers: Offer[] = [
   {
     'id': '2',
     'title': 'Canal View Prinsengracht',
-    'type': 'Apartment',
+    'type': 'apartment',
     'price': 132,
     'previewImage': 'img/apartment-02.jpg',
     'city': {
@@ -95,7 +95,7 @@ export const offers: Offer[] = [
   {
     'id': '3',
     'title': 'Nice, cozy, warm big bed apartment',
-    'type': 'Apartment',
+    'type': 'apartment',
     'price': 180,
     'previewImage': 'img/apartment-03.jpg',
     'city': {
@@ -118,7 +118,7 @@ export const offers: Offer[] = [
   {
     'id': '4',
     'title': 'Wood and stone place',
-    'type': 'Room',
+    'type': 'room',
     'price': 80,
     'previewImage': 'img/room.jpg',
     'city': {

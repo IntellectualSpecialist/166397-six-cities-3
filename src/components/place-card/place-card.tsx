@@ -1,6 +1,6 @@
 type PlaceCardProps = {
   title: string;
-  type: string;
+  type: 'apartment' | 'room' | 'house' | 'hotel';
   rating: number;
   isFavorite: boolean;
   price: number;
@@ -14,6 +14,7 @@ type PlaceCardProps = {
 
 function PlaceCard({isPremium, previewImage, price, isFavorite, rating, title, type, className, imgClassName, width = 260, height = 200}: PlaceCardProps): JSX.Element {
   const starWidth = `${Math.round(rating) / 5 * 100}%`;
+  const capitalizedType = type[0].toUpperCase() + type.slice(1, type.length);
 
   return (
     <article className={`${className} place-card`}>
@@ -48,7 +49,7 @@ function PlaceCard({isPremium, previewImage, price, isFavorite, rating, title, t
         <h2 className="place-card__name">
           <a href="#">{title}</a>
         </h2>
-        <p className="place-card__type">{type}</p>
+        <p className="place-card__type">{capitalizedType}</p>
       </div>
     </article>
   );
