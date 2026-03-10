@@ -4,7 +4,7 @@ import PlaceCard from '../place-card/place-card';
 type Offer = {
   id: string;
   title: string;
-  type: string;
+  type: 'apartment' | 'room' | 'house' | 'hotel';
   price: number;
   city: {
     name: string;
