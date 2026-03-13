@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async';
 import Header from '../../layout/header/header';
 import Footer from '../../layout/footer/footer';
 import Tab from '../../ui/tab/tab';
@@ -7,6 +8,9 @@ import PlaceCard from '../../ui/place-card/place-card';
 function FavoritesPage(): JSX.Element {
   return (
     <div className="page">
+      <Helmet>
+        <title>6 cities. Избранное</title>
+      </Helmet>
       <Header />
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
