@@ -5,7 +5,6 @@ function Footer(): JSX.Element {
     <footer className="footer container">
       <Logo
         className="footer__logo-link"
-        href="main.html"
         imgClassName="footer__logo"
         width={64}
         height={33}

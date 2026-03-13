@@ -1,14 +1,18 @@
+import { useLocation, Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
+
 type LogoProps = {
-  href?: string;
   width?: number;
   height?: number;
   className?: string;
   imgClassName?: string;
 }
 
-function Logo({ width = 81, height = 41, href, className, imgClassName }: LogoProps): JSX.Element {
-  return (
-    <a className={`${className}`} {...(href && {href: href})}>
+function Logo({ width = 81, height = 41, className, imgClassName }: LogoProps): JSX.Element {
+  const { pathname } = useLocation();
+
+  return pathname as AppRoute === AppRoute.Root ? (
+    <a className={`${className}`}>
       <img
         className={imgClassName}
         src="img/logo.svg"
@@ -16,7 +20,16 @@ function Logo({ width = 81, height = 41, href, className, imgClassName }: LogoPr
         width={width}
         height={height}
       />
-    </a>
+    </a>) : (
+    <Link className={`${className}`} to={AppRoute.Root}>
+      <img
+        className={imgClassName}
+        src="img/logo.svg"
+        alt="6 cities logo"
+        width={width}
+        height={height}
+      />
+    </Link>
   );
 }
 

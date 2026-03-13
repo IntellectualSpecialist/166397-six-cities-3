@@ -1,4 +1,5 @@
 import Header from '../../layout/header/header';
+import Tab from '../../ui/tab/tab';
 
 function LoginPage(): JSX.Element {
   return (
@@ -22,11 +23,7 @@ function LoginPage(): JSX.Element {
             </form>
           </section>
           <section className="locations locations--login locations--current">
-            <div className="locations__item">
-              <a className="locations__item-link" href="#">
-                <span>Amsterdam</span>
-              </a>
-            </div>
+            <Tab name='Amsterdam' isLi={false} />
           </section>
         </div>
       </main>

@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async';
 import Header from '../../layout/header/header';
 import Reviews from '../../components/reviews/reviews';
 import Places from '../../components/places/places';
@@ -7,6 +8,9 @@ import { offers } from '../../mocks/offers';
 function OfferPage(): JSX.Element {
   return (
     <div className="page">
+      <Helmet>
+        <title>6 cities. Предложения</title>
+      </Helmet>
       <Header />
       <main className="page__main page__main--offer">
         <section className="offer">
