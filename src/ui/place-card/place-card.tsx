@@ -10,11 +10,11 @@ type PlaceCardProps = {
   isPremium: boolean;
   className: string;
   imgClassName: string;
-  width?: number;
-  height?: number;
+  imgWidth?: number;
+  imgHeight?: number;
 }
 
-function PlaceCard({isPremium, previewImage, price, isFavorite, rating, title, type, className, imgClassName, width = 260, height = 200}: PlaceCardProps): JSX.Element {
+function PlaceCard({isPremium, previewImage, price, isFavorite, rating, title, type, className, imgClassName, imgWidth: width = 260, imgHeight: height = 200}: PlaceCardProps): JSX.Element {
   const starsWidth = getRaitingPercentage(rating);
   const capitalizedType = capitalizeValue(type);
 

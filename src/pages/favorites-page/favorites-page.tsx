@@ -19,7 +19,7 @@ function FavoritesPage(): JSX.Element {
                 <Tab name="Amsterdam" />
               </div>
               <div className="favorites__places">
-                {offers.slice(0, 2).map(({id, isPremium, previewImage, price, isFavorite, rating, title, type}) => <PlaceCard key={id} isPremium={isPremium} previewImage={previewImage} price={price} isFavorite={isFavorite} rating={rating} title={title} type={type} className="favorites__card" imgClassName="favorites__image-wrapper" width={150} height={110} />)}
+                {offers.slice(0, 2).map(({id, isPremium, previewImage, price, isFavorite, rating, title, type}) => <PlaceCard key={id} isPremium={isPremium} previewImage={previewImage} price={price} isFavorite={isFavorite} rating={rating} title={title} type={type} className="favorites__card" imgClassName="favorites__image-wrapper" imgWidth={150} imgHeight={110} />)}
               </div>
             </li>
             <li className="favorites__locations-items">
@@ -27,7 +27,7 @@ function FavoritesPage(): JSX.Element {
                 <Tab name="Cologne" />
               </div>
               <div className="favorites__places">
-                {offers.slice(0, 1).map(({id, isPremium, previewImage, price, isFavorite, rating, title, type}) => <PlaceCard key={id} isPremium={isPremium} previewImage={previewImage} price={price} isFavorite={isFavorite} rating={rating} title={title} type={type} className="favorites__card" imgClassName="favorites__image-wrapper" width={150} height={110} />)}
+                {offers.slice(0, 1).map(({id, isPremium, previewImage, price, isFavorite, rating, title, type}) => <PlaceCard key={id} isPremium={isPremium} previewImage={previewImage} price={price} isFavorite={isFavorite} rating={rating} title={title} type={type} className="favorites__card" imgClassName="favorites__image-wrapper" imgWidth={150} imgHeight={110} />)}
               </div>
             </li>
           </ul>
