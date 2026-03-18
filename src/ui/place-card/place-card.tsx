@@ -12,14 +12,15 @@ type PlaceCardProps = {
   imgClassName: string;
   imgWidth?: number;
   imgHeight?: number;
+  onMouseOver?: () => void;
 }
 
-function PlaceCard({isPremium, previewImage, price, isFavorite, rating, title, type, className, imgClassName, imgWidth: width = 260, imgHeight: height = 200}: PlaceCardProps): JSX.Element {
+function PlaceCard({isPremium, previewImage, price, isFavorite, rating, title, type, className, imgClassName, imgWidth: width = 260, imgHeight: height = 200, onMouseOver}: PlaceCardProps): JSX.Element {
   const starsWidth = getRaitingPercentage(rating);
   const capitalizedType = capitalizeValue(type);
 
   return (
-    <article className={`${className} place-card`}>
+    <article className={`${className} place-card`} onMouseOver={onMouseOver}>
       {isPremium &&
       <div className="place-card__mark">
         <span>Premium</span>
