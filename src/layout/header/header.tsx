@@ -1,4 +1,7 @@
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
 import Logo from '../../ui/logo/logo';
+
 
 type HeaderProps = {
   shouldRenderUser?: boolean;
@@ -17,9 +20,9 @@ function Header({isUserSignIn, shouldRenderUser = true}: HeaderProps): JSX.Eleme
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <a
+                  <Link
                     className="header__nav-link header__nav-link--profile"
-                    href="#"
+                    to={AppRoute.Favorites}
                   >
                     <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                     {isUserSignIn ? (
@@ -30,7 +33,7 @@ function Header({isUserSignIn, shouldRenderUser = true}: HeaderProps): JSX.Eleme
                         <span className="header__favorite-count">3</span>
                       </>
                     ) : <span className="header__login">Sign In</span>}
-                  </a>
+                  </Link>
                 </li>
                 {isUserSignIn &&
                 <li className="header__nav-item">

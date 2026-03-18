@@ -1,9 +1,13 @@
 import { Helmet } from 'react-helmet-async';
+import { Offer } from '../../types/offer-type';
 import Tab from '../../ui/tab/tab';
-import { offers } from '../../mocks/offers';
 import PlaceCard from '../../ui/place-card/place-card';
 
-function FavoritesPage(): JSX.Element {
+type FavoritesPageProps = {
+  offers: Offer[];
+}
+
+function FavoritesPage({offers}: FavoritesPageProps): JSX.Element {
   return (
     <>
       <Helmet>
@@ -19,7 +23,7 @@ function FavoritesPage(): JSX.Element {
                 <Tab name="Amsterdam" />
               </div>
               <div className="favorites__places">
-                {offers.slice(0, 2).map(({id, isPremium, previewImage, price, isFavorite, rating, title, type}) => <PlaceCard key={id} isPremium={isPremium} previewImage={previewImage} price={price} isFavorite={isFavorite} rating={rating} title={title} type={type} className="favorites__card" imgClassName="favorites__image-wrapper" imgWidth={150} imgHeight={110} />)}
+                {offers.slice(0, 2).map(({id, isPremium, previewImage, price, isFavorite, rating, title, type}) => <PlaceCard key={id} id={id} isPremium={isPremium} previewImage={previewImage} price={price} isFavorite={isFavorite} rating={rating} title={title} type={type} className="favorites__card" imgClassName="favorites__image-wrapper" imgWidth={150} imgHeight={110} />)}
               </div>
             </li>
             <li className="favorites__locations-items">
@@ -27,7 +31,7 @@ function FavoritesPage(): JSX.Element {
                 <Tab name="Cologne" />
               </div>
               <div className="favorites__places">
-                {offers.slice(0, 1).map(({id, isPremium, previewImage, price, isFavorite, rating, title, type}) => <PlaceCard key={id} isPremium={isPremium} previewImage={previewImage} price={price} isFavorite={isFavorite} rating={rating} title={title} type={type} className="favorites__card" imgClassName="favorites__image-wrapper" imgWidth={150} imgHeight={110} />)}
+                {offers.slice(0, 1).map(({id, isPremium, previewImage, price, isFavorite, rating, title, type}) => <PlaceCard key={id} id={id} isPremium={isPremium} previewImage={previewImage} price={price} isFavorite={isFavorite} rating={rating} title={title} type={type} className="favorites__card" imgClassName="favorites__image-wrapper" imgWidth={150} imgHeight={110} />)}
               </div>
             </li>
           </ul>

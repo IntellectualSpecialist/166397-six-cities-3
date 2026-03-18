@@ -1,6 +1,8 @@
+import { Link } from 'react-router-dom';
 import { getRaitingPercentage, capitalizeValue } from '../../utils/common';
 
 type PlaceCardProps = {
+  id: string;
   title: string;
   type: 'apartment' | 'room' | 'house' | 'hotel';
   rating: number;
@@ -15,7 +17,7 @@ type PlaceCardProps = {
   onMouseOver?: () => void;
 }
 
-function PlaceCard({isPremium, previewImage, price, isFavorite, rating, title, type, className, imgClassName, imgWidth: width = 260, imgHeight: height = 200, onMouseOver}: PlaceCardProps): JSX.Element {
+function PlaceCard({id, isPremium, previewImage, price, isFavorite, rating, title, type, className, imgClassName, imgWidth: width = 260, imgHeight: height = 200, onMouseOver}: PlaceCardProps): JSX.Element {
   const starsWidth = getRaitingPercentage(rating);
   const capitalizedType = capitalizeValue(type);
 
@@ -26,9 +28,9 @@ function PlaceCard({isPremium, previewImage, price, isFavorite, rating, title, t
         <span>Premium</span>
       </div>}
       <div className={`${imgClassName} place-card__image-wrapper`}>
-        <a href="#">
+        <Link to={`/offer/${id}`}>
           <img className="place-card__image" src={previewImage} width={width} height={height} alt="Place image"/>
-        </a>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -50,7 +52,7 @@ function PlaceCard({isPremium, previewImage, price, isFavorite, rating, title, t
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{title}</a>
+          <Link to={`/offer/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{capitalizedType}</p>
       </div>
