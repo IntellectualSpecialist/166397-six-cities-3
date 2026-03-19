@@ -39,6 +39,7 @@ function ReviewForm({onSubmit}: ReviewFormProps): JSX.Element {
   const handleFormSubmit: SubmitHandler = (evt) => {
     evt.preventDefault();
     onSubmit(userReview);
+    setUserReview({rating: 0, review: ''});
   };
 
   const handleRaitingChange: ChangeHandler = (evt) => {
@@ -47,9 +48,6 @@ function ReviewForm({onSubmit}: ReviewFormProps): JSX.Element {
       [evt.currentTarget.name]: evt.currentTarget.value
     });
   };
-
-  // eslint-disable-next-line no-console
-  console.log(userReview);
 
   return (
     <form className="reviews__form form" action="#" method="post" onSubmit={handleFormSubmit}>
