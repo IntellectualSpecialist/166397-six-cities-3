@@ -2,10 +2,6 @@ import { Fragment, ReactEventHandler, useState } from 'react';
 
 const MIN_REVIEW_LENGTH = 50;
 
-type ReviewFormProps = {
-  className: string;
-}
-
 type ChangeHandler = ReactEventHandler<HTMLInputElement | HTMLTextAreaElement>
 
 const raitingValues = [
@@ -31,7 +27,7 @@ const raitingValues = [
   }
 ];
 
-function ReviewForm({className}: ReviewFormProps): JSX.Element {
+function ReviewForm(): JSX.Element {
   const [userReview, setUserReview] = useState({rating: 0, review: ''});
 
   const handleRaitingChange: ChangeHandler = (evt) => {
@@ -45,7 +41,7 @@ function ReviewForm({className}: ReviewFormProps): JSX.Element {
   console.log(userReview);
 
   return (
-    <form className={`${className} form`} action="#" method="post">
+    <form className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>

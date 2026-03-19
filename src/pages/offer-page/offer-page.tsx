@@ -146,7 +146,7 @@ function OfferPage({isUserSignIn = false}: OfferPageProps): JSX.Element {
               Reviews · <span className="reviews__amount">{reviews.length}</span>
               </h2>
               <Reviews reviews={reviews} />
-              {isUserSignIn && <ReviewForm className="reviews__form" />}
+              {isUserSignIn && <ReviewForm />}
             </section>
           </div>
         </div>
