@@ -8,7 +8,7 @@ type PlaceCardProps = {
   imgClassName: string;
   imgWidth?: number;
   imgHeight?: number;
-  handleHover: (offer?: Offer) => void;
+  handleHover?: (offer?: Offer) => void;
 }
 
 function PlaceCard({offer, className, imgClassName, imgWidth = 260, imgHeight = 200, handleHover}: PlaceCardProps): JSX.Element {
@@ -16,13 +16,18 @@ function PlaceCard({offer, className, imgClassName, imgWidth = 260, imgHeight = 
   const starsWidth = getRaitingPercentage(rating);
   const capitalizedType = capitalizeValue(type);
 
-  function handleMouseOver () {
-    handleHover(offer);
-  }
 
-  function handleMouseOut () {
-    handleHover();
-  }
+  const handleMouseOver = () => {
+    if (handleHover) {
+      handleHover(offer);
+    }
+  };
+
+  const handleMouseOut = () => {
+    if (handleHover) {
+      handleHover();
+    }
+  };
 
   return (
     <article className={`${className} place-card`} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
