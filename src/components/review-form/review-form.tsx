@@ -66,6 +66,7 @@ function ReviewForm({onSubmit}: ReviewFormProps): JSX.Element {
               id={`${value}-stars`}
               type="radio"
               onChange={handleRaitingChange}
+              checked={value === Number(userReview.rating)}
             />
             <label
               htmlFor={`${value}-stars`}
@@ -84,7 +85,6 @@ function ReviewForm({onSubmit}: ReviewFormProps): JSX.Element {
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        defaultValue={''}
         value={userReview.review}
         onChange={handleRaitingChange}
       />
