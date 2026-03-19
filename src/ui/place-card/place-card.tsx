@@ -1,35 +1,38 @@
 import { Link } from 'react-router-dom';
+import { Offer } from '../../types/offer-type';
 import { getRaitingPercentage, capitalizeValue } from '../../utils/common';
 
 type PlaceCardProps = {
-  id: string;
-  title: string;
-  type: 'apartment' | 'room' | 'house' | 'hotel';
-  rating: number;
-  isFavorite: boolean;
-  price: number;
-  previewImage: string;
-  isPremium: boolean;
+  offer: Offer;
   className: string;
   imgClassName: string;
   imgWidth?: number;
   imgHeight?: number;
-  onMouseOver?: () => void;
+  handleHover: (offer?: Offer) => void;
 }
 
-function PlaceCard({id, isPremium, previewImage, price, isFavorite, rating, title, type, className, imgClassName, imgWidth: width = 260, imgHeight: height = 200, onMouseOver}: PlaceCardProps): JSX.Element {
+function PlaceCard({offer, className, imgClassName, imgWidth = 260, imgHeight = 200, handleHover}: PlaceCardProps): JSX.Element {
+  const {id, isPremium, previewImage, price, isFavorite, rating, title, type} = offer;
   const starsWidth = getRaitingPercentage(rating);
   const capitalizedType = capitalizeValue(type);
 
+  function handleMouseOver () {
+    handleHover(offer);
+  }
+
+  function handleMouseOut () {
+    handleHover();
+  }
+
   return (
-    <article className={`${className} place-card`} onMouseOver={onMouseOver}>
+    <article className={`${className} place-card`} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
       {isPremium &&
       <div className="place-card__mark">
         <span>Premium</span>
       </div>}
       <div className={`${imgClassName} place-card__image-wrapper`}>
         <Link to={`/offer/${id}`}>
-          <img className="place-card__image" src={previewImage} width={width} height={height} alt="Place image"/>
+          <img className="place-card__image" src={previewImage} width={imgWidth} height={imgHeight} alt="Place image"/>
         </Link>
       </div>
       <div className="place-card__info">

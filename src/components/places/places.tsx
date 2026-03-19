@@ -1,6 +1,7 @@
 import { PropsWithChildren, useState } from 'react';
 import PlaceCard from '../../ui/place-card/place-card';
 import { Offer } from '../../types/offer-type';
+import { Nullable } from 'vitest';
 
 type PlacesProps = PropsWithChildren<{
   offers: Offer[];
@@ -11,16 +12,23 @@ type PlacesProps = PropsWithChildren<{
 }>;
 
 function Places({ offers, className, listClassName, cardClassName, imgClassName, children}: PlacesProps): JSX.Element {
-  const [activeCard, setActiveCard] = useState<string | null>(null);
+  const [activeCard, setActiveCard] = useState<Nullable<Offer>>(null);
+
+  function handleHover(offer?: Offer): void {
+    setActiveCard(offer || null);
+  }
 
   // eslint-disable-next-line no-console
   console.log(activeCard);
+
 
   return (
     <section className={`${className} places`}>
       {children}
       <div className={`${listClassName} cities__places-list places__list tabs__content`}>
-        {offers.map(({id, isPremium, previewImage, price, isFavorite, rating, title, type}) => <PlaceCard key={id} id={id} isPremium={isPremium} previewImage={previewImage} price={price} isFavorite={isFavorite} rating={rating} title={title} type={type} className={cardClassName} imgClassName={imgClassName} onMouseOver={() => setActiveCard(id)} />)}
+        {offers.map((offer) =>
+          (<PlaceCard key={offer.id} offer={offer} className={cardClassName} imgClassName={imgClassName} handleHover={handleHover} />
+          ))}
       </div>
     </section>
   );
