@@ -32,7 +32,7 @@ const App = ({placesCount, offers}: AppProps): JSX.Element => (
           />
 
           <Route path={AppRoute.Offer} element={
-            <OfferPage isUserSignIn={authorizationStatus === AuthorizationStatus.Auth} onSubmit={
+            <OfferPage onSubmit={
               // eslint-disable-next-line no-console
               (review) => console.log(review)
             }

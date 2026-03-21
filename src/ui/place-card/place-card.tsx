@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Offer } from '../../types/offer-type';
 import { getRaitingPercentage, capitalizeValue } from '../../utils/common';
+import { AppRoute } from '../../const';
 
 type PlaceCardProps = {
   offer: Offer;
@@ -15,6 +16,7 @@ const PlaceCard = ({offer, className, imgClassName, imgWidth = 260, imgHeight = 
   const {id, isPremium, previewImage, price, isFavorite, rating, title, type} = offer;
   const starsWidth = getRaitingPercentage(rating);
   const capitalizedType = capitalizeValue(type);
+  const linkRoute = AppRoute.Offer.replace(':id', id);
 
   const handleMouseOver = () => {
     if (handleActiveCardChange) {
@@ -35,7 +37,7 @@ const PlaceCard = ({offer, className, imgClassName, imgWidth = 260, imgHeight = 
         <span>Premium</span>
       </div>}
       <div className={`${imgClassName} place-card__image-wrapper`}>
-        <Link to={`/offer/${id}`}>
+        <Link to={linkRoute}>
           <img className="place-card__image" src={previewImage} width={imgWidth} height={imgHeight} alt="Place image"/>
         </Link>
       </div>
@@ -59,7 +61,7 @@ const PlaceCard = ({offer, className, imgClassName, imgWidth = 260, imgHeight = 
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`/offer/${id}`}>{title}</Link>
+          <Link to={linkRoute}>{title}</Link>
         </h2>
         <p className="place-card__type">{capitalizedType}</p>
       </div>
