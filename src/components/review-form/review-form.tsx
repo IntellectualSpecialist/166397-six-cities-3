@@ -33,17 +33,17 @@ const raitingValues = [
 ];
 
 const ReviewForm = ({onSubmit}: ReviewFormProps): JSX.Element => {
-  const [userReview, setUserReview] = useState({rating: 0, review: ''});
+  const [formData, setFormData] = useState({rating: 0, review: ''});
 
   const handleFormSubmit: SubmitHandler = (evt) => {
     evt.preventDefault();
-    onSubmit(userReview);
-    setUserReview({rating: 0, review: ''});
+    onSubmit(formData);
+    setFormData({rating: 0, review: ''});
   };
 
-  const handleRaitingChange: ChangeHandler = (evt) => {
-    setUserReview({
-      ...userReview,
+  const handleFormDataChange: ChangeHandler = (evt) => {
+    setFormData({
+      ...formData,
       [evt.currentTarget.name]: evt.currentTarget.value
     });
   };
@@ -62,8 +62,8 @@ const ReviewForm = ({onSubmit}: ReviewFormProps): JSX.Element => {
               defaultValue={value}
               id={`${value}-stars`}
               type="radio"
-              onChange={handleRaitingChange}
-              checked={value === Number(userReview.rating)}
+              onChange={handleFormDataChange}
+              checked={value === Number(formData.rating)}
             />
             <label
               htmlFor={`${value}-stars`}
@@ -82,20 +82,20 @@ const ReviewForm = ({onSubmit}: ReviewFormProps): JSX.Element => {
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        value={userReview.review}
-        onChange={handleRaitingChange}
+        value={formData.review}
+        onChange={handleFormDataChange}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set{' '}
           <span className="reviews__star">rating</span> and describe
           your stay with at least{' '}
-          <b className="reviews__text-amount">50 characters</b>.
+          <b className="reviews__text-amount">{ReviewLength.Min} characters</b>.
         </p>
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={userReview.review.length < ReviewLength.Min || userReview.review.length >= ReviewLength.Max || userReview.rating === 0}
+          disabled={formData.review.length < ReviewLength.Min || formData.review.length >= ReviewLength.Max || formData.rating === 0}
         >
           Submit
         </button>
