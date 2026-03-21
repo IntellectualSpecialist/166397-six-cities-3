@@ -1,23 +1,23 @@
+import { ElementType } from 'react';
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
+
 type TabProp = {
   name: 'Paris' | 'Cologne' | 'Brussels' | 'Amsterdam' | 'Hamburg' | 'Dusseldorf' ;
   className?: string;
-  isLi?: boolean;
+  tag?: ElementType;
 }
 
-function Tab({name, className, isLi = true}: TabProp): JSX.Element {
+function Tab({name, className, tag}: TabProp): JSX.Element {
 
-  return isLi ? (
-    <li className="locations__item">
-      <a className={`locations__item-link tabs__item ${className || ''}`} href="#">
+  const Tag = tag || 'div';
+
+  return (
+    <Tag className="locations__item">
+      <Link className={`locations__item-link tabs__item ${className || ''}`} to={AppRoute.Root}>
         <span>{name}</span>
-      </a>
-    </li>
-  ) : (
-    <div className="locations__item">
-      <a className={`locations__item-link tabs__item ${className || ''}`} href="#">
-        <span>{name}</span>
-      </a>
-    </div>
+      </Link>
+    </Tag>
   );
 }
 

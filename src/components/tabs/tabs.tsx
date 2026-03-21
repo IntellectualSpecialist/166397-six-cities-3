@@ -11,7 +11,7 @@ function Tabs(): JSX.Element {
     <div className="tabs">
       <section className="locations container">
         <ul className="locations__list tabs__list">
-          {TabsNames.map((name) => <Tab name={name} key={name} className={currentTab === name ? 'tabs__item--active' : ''} />)}
+          {TabsNames.map((name) => <Tab name={name} key={name} className={currentTab === name ? 'tabs__item--active' : ''} tag="li" />)}
         </ul>
       </section>
     </div>

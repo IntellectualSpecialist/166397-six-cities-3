@@ -18,7 +18,7 @@ function LoginPage(): JSX.Element {
         </form>
       </section>
       <section className="locations locations--login locations--current">
-        <Tab name='Amsterdam' isLi={false} />
+        <Tab name='Amsterdam' />
       </section>
     </div>
   );

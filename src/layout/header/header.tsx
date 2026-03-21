@@ -37,9 +37,9 @@ function Header({isUserSignIn, shouldRenderUser = true}: HeaderProps): JSX.Eleme
                 </li>
                 {isUserSignIn &&
                 <li className="header__nav-item">
-                  <a className="header__nav-link" href="#">
+                  <Link className="header__nav-link" to="">
                     <span className="header__signout">Sign out</span>
-                  </a>
+                  </Link>
                 </li>}
               </ul>
             </nav>}

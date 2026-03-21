@@ -8,24 +8,23 @@ type PlaceCardProps = {
   imgClassName: string;
   imgWidth?: number;
   imgHeight?: number;
-  handleHover?: (offer?: Offer) => void;
+  handleActiveCardChange?: (offer?: Offer) => void;
 }
 
-function PlaceCard({offer, className, imgClassName, imgWidth = 260, imgHeight = 200, handleHover}: PlaceCardProps): JSX.Element {
+function PlaceCard({offer, className, imgClassName, imgWidth = 260, imgHeight = 200, handleActiveCardChange}: PlaceCardProps): JSX.Element {
   const {id, isPremium, previewImage, price, isFavorite, rating, title, type} = offer;
   const starsWidth = getRaitingPercentage(rating);
   const capitalizedType = capitalizeValue(type);
 
-
   const handleMouseOver = () => {
-    if (handleHover) {
-      handleHover(offer);
+    if (handleActiveCardChange) {
+      handleActiveCardChange(offer);
     }
   };
 
   const handleMouseOut = () => {
-    if (handleHover) {
-      handleHover();
+    if (handleActiveCardChange) {
+      handleActiveCardChange();
     }
   };
 

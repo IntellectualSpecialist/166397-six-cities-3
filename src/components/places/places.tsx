@@ -1,4 +1,4 @@
-import { PropsWithChildren, useState } from 'react';
+import { PropsWithChildren, useEffect, useState } from 'react';
 import PlaceCard from '../../ui/place-card/place-card';
 import { Offer } from '../../types/offer-type';
 import { Nullable } from 'vitest';
@@ -14,12 +14,14 @@ type PlacesProps = PropsWithChildren<{
 function Places({ offers, className, listClassName, cardClassName, imgClassName, children}: PlacesProps): JSX.Element {
   const [activeCard, setActiveCard] = useState<Nullable<Offer>>(null);
 
-  function handleHover(offer?: Offer): void {
+  const handleActiveCardChange = (offer?: Offer): void => {
     setActiveCard(offer || null);
-  }
+  };
 
+  useEffect(() => {
   // eslint-disable-next-line no-console
-  console.log(activeCard);
+    console.log(activeCard);
+  }, [activeCard]);
 
 
   return (
@@ -27,7 +29,7 @@ function Places({ offers, className, listClassName, cardClassName, imgClassName,
       {children}
       <div className={`${listClassName} cities__places-list places__list tabs__content`}>
         {offers.map((offer) =>
-          (<PlaceCard key={offer.id} offer={offer} className={cardClassName} imgClassName={imgClassName} handleHover={handleHover} />
+          (<PlaceCard key={offer.id} offer={offer} className={cardClassName} imgClassName={imgClassName} handleActiveCardChange={handleActiveCardChange} />
           ))}
       </div>
     </section>
