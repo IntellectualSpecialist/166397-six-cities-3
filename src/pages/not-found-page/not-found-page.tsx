@@ -1,23 +1,17 @@
 import { Helmet } from 'react-helmet-async';
-import Header from '../../layout/header/header';
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
 
-function NotFoundPage(): JSX.Element {
-  return (
-    <div className="page">
-      <Helmet>
-        <title>6 cities. Страница не найдена</title>
-      </Helmet>
-      <Header />
-
-      <main className="page__main">
-
-        <div className='container'>
-          <h1>404. Page not found</h1>
-          <a href="/">Вернуться на главную</a>
-        </div>
-      </main>
+const NotFoundPage = (): JSX.Element => (
+  <>
+    <Helmet>
+      <title>6 cities. Страница не найдена</title>
+    </Helmet>
+    <div className='container'>
+      <h1>404. Page not found</h1>
+      <Link to={AppRoute.Root}>Вернуться на главную</Link>
     </div>
-  );
-}
+  </>
+);
 
 export default NotFoundPage;

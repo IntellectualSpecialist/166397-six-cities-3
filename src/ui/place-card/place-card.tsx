@@ -1,33 +1,45 @@
+import { Link } from 'react-router-dom';
+import { Offer } from '../../types/offer-type';
 import { getRaitingPercentage, capitalizeValue } from '../../utils/common';
+import { AppRoute } from '../../const';
 
 type PlaceCardProps = {
-  title: string;
-  type: 'apartment' | 'room' | 'house' | 'hotel';
-  rating: number;
-  isFavorite: boolean;
-  price: number;
-  previewImage: string;
-  isPremium: boolean;
+  offer: Offer;
   className: string;
   imgClassName: string;
-  width?: number;
-  height?: number;
+  imgWidth?: number;
+  imgHeight?: number;
+  handleActiveCardChange?: (offer?: Offer) => void;
 }
 
-function PlaceCard({isPremium, previewImage, price, isFavorite, rating, title, type, className, imgClassName, width = 260, height = 200}: PlaceCardProps): JSX.Element {
+const PlaceCard = ({offer, className, imgClassName, imgWidth = 260, imgHeight = 200, handleActiveCardChange}: PlaceCardProps): JSX.Element => {
+  const {id, isPremium, previewImage, price, isFavorite, rating, title, type} = offer;
   const starsWidth = getRaitingPercentage(rating);
   const capitalizedType = capitalizeValue(type);
+  const linkRoute = AppRoute.Offer.replace(':id', id);
+
+  const handleMouseOver = () => {
+    if (handleActiveCardChange) {
+      handleActiveCardChange(offer);
+    }
+  };
+
+  const handleMouseOut = () => {
+    if (handleActiveCardChange) {
+      handleActiveCardChange();
+    }
+  };
 
   return (
-    <article className={`${className} place-card`}>
+    <article className={`${className} place-card`} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
       {isPremium &&
       <div className="place-card__mark">
         <span>Premium</span>
       </div>}
       <div className={`${imgClassName} place-card__image-wrapper`}>
-        <a href="#">
-          <img className="place-card__image" src={previewImage} width={width} height={height} alt="Place image"/>
-        </a>
+        <Link to={linkRoute}>
+          <img className="place-card__image" src={previewImage} width={imgWidth} height={imgHeight} alt="Place image"/>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -49,12 +61,12 @@ function PlaceCard({isPremium, previewImage, price, isFavorite, rating, title, t
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{title}</a>
+          <Link to={linkRoute}>{title}</Link>
         </h2>
         <p className="place-card__type">{capitalizedType}</p>
       </div>
     </article>
   );
-}
+};
 
 export default PlaceCard;

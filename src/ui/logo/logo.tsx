@@ -8,7 +8,7 @@ type LogoProps = {
   imgClassName?: string;
 }
 
-function Logo({ width = 81, height = 41, className, imgClassName }: LogoProps): JSX.Element {
+const Logo = ({ width = 81, height = 41, className, imgClassName }: LogoProps): JSX.Element => {
   const { pathname } = useLocation();
 
   return pathname as AppRoute === AppRoute.Root ? (
@@ -31,6 +31,6 @@ function Logo({ width = 81, height = 41, className, imgClassName }: LogoProps): 
       />
     </Link>
   );
-}
+};
 
 export default Logo;

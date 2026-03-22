@@ -11,7 +11,7 @@ type ReviewProps = {
   rating: number;
 }
 
-function Review({user, rating, comment, date}: ReviewProps): JSX.Element {
+const Review = ({user, rating, comment, date}: ReviewProps): JSX.Element => {
   const {avatarUrl, name} = user;
   const starsWidth = getRaitingPercentage(rating);
 
@@ -45,6 +45,6 @@ function Review({user, rating, comment, date}: ReviewProps): JSX.Element {
       </div>
     </li>
   );
-}
+};
 
 export default Review;
