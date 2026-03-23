@@ -18,20 +18,20 @@ const PlaceCard = ({offer, className, imgClassName, imgWidth = 260, imgHeight = 
   const capitalizedType = capitalizeValue(type);
   const linkRoute = AppRoute.Offer.replace(':id', id);
 
-  const handleMouseOver = () => {
+  const handleCardMouseOver = () => {
     if (handleActiveCardChange) {
       handleActiveCardChange(offer);
     }
   };
 
-  const handleMouseOut = () => {
+  const handleCardMouseOut = () => {
     if (handleActiveCardChange) {
       handleActiveCardChange();
     }
   };
 
   return (
-    <article className={`${className} place-card`} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
+    <article className={`${className} place-card`} onMouseOver={handleCardMouseOver} onMouseOut={handleCardMouseOut}>
       {isPremium &&
       <div className="place-card__mark">
         <span>Premium</span>

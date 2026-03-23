@@ -21,3 +21,5 @@ export type Offer = {
   rating: number;
   previewImage: string;
 }
+
+export type City = Offer['city'];
