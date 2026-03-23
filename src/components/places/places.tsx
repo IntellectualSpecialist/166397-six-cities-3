@@ -8,7 +8,7 @@ type PlacesProps = PropsWithChildren<{
   listClassName: string;
   cardClassName: string;
   imgClassName: string;
-  onActiveCardChange: (offer?: Offer) => void;
+  onActiveCardChange?: (offer?: Offer) => void;
 }>;
 
 const Places = ({ offers, className, listClassName, cardClassName, imgClassName, children, onActiveCardChange}: PlacesProps): JSX.Element => (
