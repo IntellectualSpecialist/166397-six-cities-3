@@ -37,9 +37,9 @@ const Map = ({offers, activeOffer, city, className}: MapProps): JSX.Element => {
       markerLayer.current.addTo(map);
       markerLayer.current.clearLayers();
 
-      map.setView([latitude, longitude], zoom)
+      map.setView([latitude, longitude], zoom);
     }
-  }, [city, map])
+  }, [city, map]);
 
   useEffect(() => {
     if (map) {

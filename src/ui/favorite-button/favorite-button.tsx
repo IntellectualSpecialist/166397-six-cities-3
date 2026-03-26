@@ -2,7 +2,7 @@ type FavoriteButtonProps = {
   isFavorite: boolean;
   className: string;
   activeClassName: string;
-  svgClassName: string
+  svgClassName: string;
   imgWidth?: number;
   imgHeight?: number;
 }
