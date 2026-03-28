@@ -6,6 +6,8 @@ import Map from '../../components/map/map';
 import { useState } from 'react';
 import { Nullable } from 'vitest';
 import { offers } from '../../mocks/offers';
+import { cities } from '../../mocks/cities';
+import { City } from '../../types/offer-type';
 
 type MainPageProps = {
   placesCount: number;
@@ -17,6 +19,8 @@ const MainPage = ({placesCount}: MainPageProps): JSX.Element => {
   const handleActiveCardChange = (offer?: Offer): void => {
     setActiveOffer(offer || null);
   };
+
+  const currentCity = cities.find((city) => city.name === 'Amsterdam');
 
   return (
     <>
@@ -59,7 +63,7 @@ const MainPage = ({placesCount}: MainPageProps): JSX.Element => {
             </form>
           </Places>
           <div className="cities__right-section">
-            <Map className='cities__map' activeOffer={activeOffer} offers={offers} city={offers[0].city} />
+            <Map className='cities__map' activeOffer={activeOffer} offers={offers} city={currentCity as City} />
           </div>
         </div>
       </div>
