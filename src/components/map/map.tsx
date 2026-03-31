@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { Offer } from '../../types/offer-type';
+import { City, Offer } from '../../types/offer-type';
 import useMap from '../../hooks/use-map';
 import { layerGroup, Marker, Icon } from 'leaflet';
 import { Nullable } from 'vitest';
@@ -8,28 +8,41 @@ import 'leaflet/dist/leaflet.css';
 type MapProps = {
   offers: Offer[];
   activeOffer: Nullable<Offer>;
+  city: City;
   className?: string;
 }
 
 const currentCustomIcon = new Icon({
   iconUrl: 'img/pin-active.svg',
   iconSize: [27, 39],
-  iconAnchor: [20, 20]
+  iconAnchor: [14, 39]
 });
 
 const defaultCustomIcon = new Icon({
   iconUrl: 'img/pin.svg',
   iconSize: [27, 39],
-  iconAnchor: [20, 20]
+  iconAnchor: [14, 39]
 });
 
-const Map = ({offers, activeOffer, className}: MapProps): JSX.Element => {
+const Map = ({offers, activeOffer, city, className}: MapProps): JSX.Element => {
   const mapRef = useRef(null);
-  const map = useMap(mapRef, offers[0].city);
+  const map = useMap(mapRef, city);
+  const markerLayer = useRef(layerGroup());
 
   useEffect(() => {
     if (map) {
-      const markerLayer = layerGroup().addTo(map);
+      const {location} = city;
+      const {latitude, longitude, zoom} = location;
+
+      markerLayer.current.addTo(map);
+      markerLayer.current.clearLayers();
+
+      map.setView([latitude, longitude], zoom);
+    }
+  }, [city, map]);
+
+  useEffect(() => {
+    if (map) {
 
       offers.forEach((offer) => {
         const {location} = offer;
@@ -40,18 +53,13 @@ const Map = ({offers, activeOffer, className}: MapProps): JSX.Element => {
           lng: longitude
         });
 
-        marker.setIcon(activeOffer && offer.id === activeOffer.id ? currentCustomIcon : defaultCustomIcon).addTo(markerLayer);
+        marker.setIcon(activeOffer && offer.id === activeOffer.id ? currentCustomIcon : defaultCustomIcon).addTo(markerLayer.current);
       });
-
-      return () => {
-        map.removeLayer(markerLayer);
-      };
     }
   }, [map, offers, activeOffer]);
 
   return (
-    <section className={`${className} map`} ref={mapRef}>
-    </section>
+    <section className={`${className} map`} ref={mapRef} />
   );
 };
 

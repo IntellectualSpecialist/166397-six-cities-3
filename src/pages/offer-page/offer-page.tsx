@@ -3,18 +3,37 @@ import { NewReview } from '../../types/review-type';
 import Reviews from '../../components/reviews/reviews';
 import Places from '../../components/places/places';
 import ReviewForm from '../../components/review-form/review-form';
-import { reviews } from '../../mocks/reviews';
-import { offers } from '../../mocks/offers';
 import { AuthorizationStatus } from '../../const';
 import { getAuthorizationStatus } from '../../authorizationStatus';
+import Map from '../../components/map/map';
+import { useParams } from 'react-router-dom';
+import NotFoundPage from '../not-found-page/not-found-page';
+import { offer as pageOffer } from '../../mocks/offer';
+import { capitalizeValue, getRaitingPercentage } from '../../utils/common';
+import { reviews } from '../../mocks/reviews';
+import { offers } from '../../mocks/offers';
+import FavoriteButton from '../../ui/favorite-button/favorite-button';
 
-type OfferPageProps = {
-  onSubmit: (review: NewReview) => void;
-}
+const MAX_PHOTOS_COUNT = 6;
 
-const OfferPage = ({onSubmit}: OfferPageProps): JSX.Element => {
+const OfferPage = (): JSX.Element => {
+  const {id: offerId} = useParams();
   const authorizationStatus = getAuthorizationStatus();
   const isUserSignIn = authorizationStatus === AuthorizationStatus.Auth;
+  const activeOffer = offers.find((offer) => offer.id === offerId);
+  const starsWidth = getRaitingPercentage(pageOffer.rating);
+
+  const handleFormSubmit = (review: NewReview): void => {
+    // eslint-disable-next-line no-console
+    console.log(review);
+  };
+
+  if (!activeOffer) {
+    return <NotFoundPage />;
+  }
+
+  const nearOffers = offers.filter((offer) => offer.city.name === activeOffer?.city.name && offer.id !== offerId).slice(0, 3);
+  const visibleOffers = [...nearOffers, activeOffer];
 
   return (
     <>
@@ -24,121 +43,75 @@ const OfferPage = ({onSubmit}: OfferPageProps): JSX.Element => {
       <section className="offer">
         <div className="offer__gallery-container container">
           <div className="offer__gallery">
-            <div className="offer__image-wrapper">
-              <img
-                className="offer__image"
-                src="img/room.jpg"
-                alt="Photo studio"
-              />
-            </div>
-            <div className="offer__image-wrapper">
-              <img
-                className="offer__image"
-                src="img/apartment-01.jpg"
-                alt="Photo studio"
-              />
-            </div>
-            <div className="offer__image-wrapper">
-              <img
-                className="offer__image"
-                src="img/apartment-02.jpg"
-                alt="Photo studio"
-              />
-            </div>
-            <div className="offer__image-wrapper">
-              <img
-                className="offer__image"
-                src="img/apartment-03.jpg"
-                alt="Photo studio"
-              />
-            </div>
-            <div className="offer__image-wrapper">
-              <img
-                className="offer__image"
-                src="img/studio-01.jpg"
-                alt="Photo studio"
-              />
-            </div>
-            <div className="offer__image-wrapper">
-              <img
-                className="offer__image"
-                src="img/apartment-01.jpg"
-                alt="Photo studio"
-              />
-            </div>
+            {pageOffer.images.map((image) => (
+              <div key={image} className="offer__image-wrapper">
+                <img
+                  className="offer__image"
+                  src={image}
+                  alt="Photo studio"
+                />
+              </div>
+            )).slice(0, MAX_PHOTOS_COUNT)}
           </div>
         </div>
         <div className="offer__container container">
           <div className="offer__wrapper">
-            <div className="offer__mark">
-              <span>Premium</span>
-            </div>
+            {pageOffer.isPremium &&
+              <div className="offer__mark">
+                <span>Premium</span>
+              </div>}
             <div className="offer__name-wrapper">
               <h1 className="offer__name">
-                  Beautiful &amp; luxurious studio at great location
+                {pageOffer.title}
               </h1>
-              <button className="offer__bookmark-button button" type="button">
-                <svg className="offer__bookmark-icon" width={31} height={33}>
-                  <use xlinkHref="#icon-bookmark" />
-                </svg>
-                <span className="visually-hidden">To bookmarks</span>
-              </button>
+              <FavoriteButton isFavorite={pageOffer.isFavorite} className='offer__bookmark-button' activeClassName='offer__bookmark-button--active' svgClassName='offer__bookmark-icon' />
             </div>
             <div className="offer__rating rating">
               <div className="offer__stars rating__stars">
-                <span style={{ width: '80%' }} />
+                <span style={{ width: starsWidth }} />
                 <span className="visually-hidden">Rating</span>
               </div>
-              <span className="offer__rating-value rating__value">4.8</span>
+              <span className="offer__rating-value rating__value">{pageOffer.rating}</span>
             </div>
             <ul className="offer__features">
-              <li className="offer__feature offer__feature--entire">Apartment</li>
+              <li className="offer__feature offer__feature--entire">{capitalizeValue(pageOffer.type)}</li>
               <li className="offer__feature offer__feature--bedrooms">
-                  3 Bedrooms
+                {pageOffer.bedrooms} Bedrooms
               </li>
               <li className="offer__feature offer__feature--adults">
-                  Max 4 adults
+                  Max {pageOffer.maxAdults} adults
               </li>
             </ul>
             <div className="offer__price">
-              <b className="offer__price-value">€120</b>
+              <b className="offer__price-value">€{pageOffer.price}</b>
               <span className="offer__price-text">&nbsp;night</span>
             </div>
             <div className="offer__inside">
               <h2 className="offer__inside-title">What&rsquo;s inside</h2>
               <ul className="offer__inside-list">
-                <li className="offer__inside-item">Wi-Fi</li>
-                <li className="offer__inside-item">Washing machine</li>
-                <li className="offer__inside-item">Towels</li>
-                <li className="offer__inside-item">Heating</li>
-                <li className="offer__inside-item">Coffee machine</li>
-                <li className="offer__inside-item">Baby seat</li>
-                <li className="offer__inside-item">Kitchen</li>
-                <li className="offer__inside-item">Dishwasher</li>
-                <li className="offer__inside-item">Cabel TV</li>
-                <li className="offer__inside-item">Fridge</li>
+                {pageOffer.goods.map((good) => (
+                  <li key={good} className="offer__inside-item">{good}</li>
+                ))}
               </ul>
             </div>
             <div className="offer__host">
               <h2 className="offer__host-title">Meet the host</h2>
               <div className="offer__host-user user">
-                <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
+                <div className={`offer__avatar-wrapper ${pageOffer.host.isPro && 'offer__avatar-wrapper--pro'} user__avatar-wrapper`}>
                   <img
                     className="offer__avatar user__avatar"
-                    src="img/avatar-angelina.jpg"
+                    src={pageOffer.host.avatarUrl}
                     width={74}
                     height={74}
                     alt="Host avatar"
                   />
                 </div>
-                <span className="offer__user-name">Angelina</span>
-                <span className="offer__user-status">Pro</span>
+                <span className="offer__user-name">{capitalizeValue(pageOffer.host.name)}</span>
+                <span className="offer__user-status">{pageOffer.host.isPro ? 'Pro' : ''}</span>
               </div>
               <div className="offer__description">
                 <p className="offer__text">
-                A quiet cozy and picturesque that hides behind a a river by the
-                unique lightness of Amsterdam. The building is green and from
-                18th century.
+                  {pageOffer.description}
                 </p>
                 <p className="offer__text">
                 An independent House, strategically located between Rembrand
@@ -151,15 +124,15 @@ const OfferPage = ({onSubmit}: OfferPageProps): JSX.Element => {
               <h2 className="reviews__title">
               Reviews · <span className="reviews__amount">{reviews.length}</span>
               </h2>
-              <Reviews reviews={reviews} />
-              {isUserSignIn && <ReviewForm onSubmit={onSubmit} />}
+              {reviews?.length && <Reviews reviews={reviews} />}
+              {isUserSignIn && <ReviewForm onSubmit={handleFormSubmit} />}
             </section>
           </div>
         </div>
-        <section className="offer__map map" />
+        <Map className="offer__map" offers={visibleOffers} activeOffer={activeOffer} city={pageOffer.city} />
       </section>
       <div className="container">
-        <Places className="near-places" imgClassName="near-places__image-wrapper" listClassName="near-places__list" cardClassName="near-places__card" offers={offers.slice(0, 3)}>
+        <Places className="near-places" imgClassName="near-places__image-wrapper" listClassName="near-places__list" cardClassName="near-places__card" offers={nearOffers}>
           <h2 className="near-places__title">
               Other places in the neighbourhood
           </h2>

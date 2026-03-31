@@ -8,8 +8,8 @@ const useMap = (mapRef: MutableRefObject<HTMLElement | null>, city: City): Map |
 
   useEffect(() => {
     if (mapRef.current && !isRenderedRef.current) {
-      const {location} = city;
-      const {latitude, longitude, zoom} = location;
+      const {location} = city || {};
+      const {latitude, longitude, zoom} = location || {};
 
       const instance = new Map(mapRef.current, {
         center: {

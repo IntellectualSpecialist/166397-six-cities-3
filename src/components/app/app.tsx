@@ -2,7 +2,6 @@ import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { getAuthorizationStatus } from '../../authorizationStatus';
-import { Offer } from '../../types/offer-type';
 import MainPage from '../../pages/main-page/main-page';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import OfferPage from '../../pages/offer-page/offer-page';
@@ -13,17 +12,16 @@ import PageWrapper from '../../layout/page-wrapper/page-wrapper';
 
 type AppProps = {
   placesCount: number;
-  offers: Offer[];
 }
 
 const authorizationStatus: AuthorizationStatus = getAuthorizationStatus();
 
-const App = ({placesCount, offers}: AppProps): JSX.Element => (
+const App = ({placesCount}: AppProps): JSX.Element => (
   <HelmetProvider>
     <BrowserRouter>
       <Routes>
         <Route path={AppRoute.Root} element={<PageWrapper />}>
-          <Route index element={<MainPage placesCount={placesCount} offers={offers} />} />
+          <Route index element={<MainPage placesCount={placesCount} />} />
           <Route path={AppRoute.Login} element={
             <PrivateRoute isAvailable={authorizationStatus === AuthorizationStatus.NoAuth} route={AppRoute.Root}>
               <LoginPage />
@@ -32,16 +30,12 @@ const App = ({placesCount, offers}: AppProps): JSX.Element => (
           />
 
           <Route path={AppRoute.Offer} element={
-            <OfferPage onSubmit={
-              // eslint-disable-next-line no-console
-              (review) => console.log(review)
-            }
-            />
+            <OfferPage />
           }
           />
           <Route path={AppRoute.Favorites} element={
             <PrivateRoute isAvailable={authorizationStatus === AuthorizationStatus.Auth} route={AppRoute.Login}>
-              <FavoritesPage offers={offers} />
+              <FavoritesPage />
             </PrivateRoute>
           }
           />

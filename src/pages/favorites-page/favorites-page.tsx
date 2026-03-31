@@ -1,13 +1,9 @@
 import { Helmet } from 'react-helmet-async';
-import { Offer } from '../../types/offer-type';
 import Tab from '../../ui/tab/tab';
 import PlaceCard from '../../ui/place-card/place-card';
+import { offers } from '../../mocks/offers';
 
-type FavoritesPageProps = {
-  offers: Offer[];
-}
-
-const FavoritesPage = ({offers}: FavoritesPageProps): JSX.Element => (
+const FavoritesPage = (): JSX.Element => (
   <>
     <Helmet>
       <title>6 cities. Избранное</title>

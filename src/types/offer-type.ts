@@ -4,7 +4,7 @@ export type Offer = {
   type: 'apartment' | 'room' | 'house' | 'hotel';
   price: number;
   city: {
-    name: string;
+    name: 'Amsterdam' | 'Paris' | 'Cologne' | 'Brussels' | 'Hamburg' | 'Dusseldorf';
     location: {
       latitude: number;
       longitude: number;
