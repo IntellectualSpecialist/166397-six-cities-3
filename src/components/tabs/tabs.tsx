@@ -1,8 +1,6 @@
 import Tab from '../../ui/tab/tab';
 
-type Cities = 'Paris' | 'Cologne' | 'Brussels' | 'Amsterdam' | 'Hamburg' | 'Dusseldorf';
-
-const TabsNames: Cities[] = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
+const TabsNames = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'] as const;
 
 const currentTab = 'Amsterdam';
 
