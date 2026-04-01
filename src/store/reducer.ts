@@ -1,11 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { changeCity, fillOffers } from './action';
-import { Offer } from '../types/offer-type';
-
-type State = {
-  city: 'Amsterdam' | 'Paris' | 'Cologne' | 'Brussels' | 'Hamburg' | 'Dusseldorf';
-  offers: Offer[] | [];
-}
+import { State } from '../types/state-type';
 
 const initialState: State = {
   city: 'Paris',

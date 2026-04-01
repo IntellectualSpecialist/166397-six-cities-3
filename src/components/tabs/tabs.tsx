@@ -1,6 +1,6 @@
-import Tab from '../../ui/tab/tab';
+import { CityName } from '../../const';
 
-const TabsNames = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'] as const;
+import Tab from '../../ui/tab/tab';
 
 const currentTab = 'Amsterdam';
 
@@ -8,7 +8,7 @@ const Tabs = (): JSX.Element => (
   <div className="tabs">
     <section className="locations container">
       <ul className="locations__list tabs__list">
-        {TabsNames.map((name) => <Tab name={name} key={name} className={currentTab === name ? 'tabs__item--active' : ''} tag="li" />)}
+        {CityName.map((name) => <Tab name={name} key={name} className={currentTab === name ? 'tabs__item--active' : ''} tag="li" />)}
       </ul>
     </section>
   </div>

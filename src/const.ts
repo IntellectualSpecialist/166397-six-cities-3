@@ -2,7 +2,6 @@ export const Settings = {
   PlacesCount: 312,
 } as const;
 
-
 export enum AppRoute {
   Root = '/',
   Login = '/login',
@@ -20,3 +19,5 @@ export const ReviewLength = {
   Min: 50,
   Max: 300
 } as const;
+
+export const CityName = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'] as const;
