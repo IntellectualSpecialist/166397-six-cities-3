@@ -10,18 +10,14 @@ import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 import PageWrapper from '../../layout/page-wrapper/page-wrapper';
 
-type AppProps = {
-  placesCount: number;
-}
-
 const authorizationStatus: AuthorizationStatus = getAuthorizationStatus();
 
-const App = ({placesCount}: AppProps): JSX.Element => (
+const App = (): JSX.Element => (
   <HelmetProvider>
     <BrowserRouter>
       <Routes>
         <Route path={AppRoute.Root} element={<PageWrapper />}>
-          <Route index element={<MainPage placesCount={placesCount} />} />
+          <Route index element={<MainPage />} />
           <Route path={AppRoute.Login} element={
             <PrivateRoute isAvailable={authorizationStatus === AuthorizationStatus.NoAuth} route={AppRoute.Root}>
               <LoginPage />
