@@ -2,4 +2,6 @@ const getRaitingPercentage = (raiting: number): string => `${Math.round(raiting)
 
 const capitalizeValue = (value: string): string => value[0].toUpperCase() + value.slice(1, value.length);
 
-export {getRaitingPercentage, capitalizeValue};
+const isEscKey = (evt: KeyboardEvent) => evt.key === 'Escape' || evt.key === 'Esc';
+
+export {getRaitingPercentage, capitalizeValue, isEscKey};

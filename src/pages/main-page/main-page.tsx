@@ -3,7 +3,7 @@ import { Offer } from '../../types/offer-type';
 import Tabs from '../../components/tabs/tabs';
 import Places from '../../components/places/places';
 import Map from '../../components/map/map';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Nullable } from 'vitest';
 import { CITIES } from '../../const';
 import { City } from '../../types/offer-type';
@@ -12,6 +12,7 @@ import Sorting from '../../components/sorting/sorting';
 import { SortingOption } from '../../const';
 import { sortOffers } from '../../utils/sorting';
 import { SortingOptionType } from '../../types/sorting-option-type';
+import { isEscKey } from '../../utils/common';
 
 const MainPage = (): JSX.Element => {
   const [activeOffer, setActiveOffer] = useState<Nullable<Offer>>(null);
@@ -40,6 +41,23 @@ const MainPage = (): JSX.Element => {
   const placesCount = currentOffers.length;
 
   const sortedCurrentOffers = sortOffers(currentSorting, currentOffers);
+
+  useEffect(() => {
+    if (isSortingOpen) {
+      const onDocumentKeydown = (evt: KeyboardEvent) => {
+        if (isEscKey(evt)) {
+          evt.preventDefault();
+          setIsSortingOpen(false);
+        }
+      };
+
+      document.addEventListener('keydown', onDocumentKeydown);
+
+      return () => {
+        document.removeEventListener('keydown', onDocumentKeydown);
+      };
+    }
+  }, [isSortingOpen]);
 
   return (
     <>
