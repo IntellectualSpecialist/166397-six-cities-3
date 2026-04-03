@@ -5,7 +5,7 @@ import Places from '../../components/places/places';
 import Map from '../../components/map/map';
 import { useState } from 'react';
 import { Nullable } from 'vitest';
-import { cities } from '../../mocks/cities';
+import { CITIES } from '../../const';
 import { City } from '../../types/offer-type';
 import { useAppSelector } from '../../hooks';
 import Sorting from '../../components/sorting/sorting';
@@ -33,7 +33,7 @@ const MainPage = (): JSX.Element => {
     setIsSortingOpen(false);
   };
 
-  const currentCity = cities.find((city) => city.name === currentCityName);
+  const currentCity = CITIES.find((city) => city.name === currentCityName);
 
   const currentOffers = offers.filter((offer) => offer.city.name === currentCityName);
 
@@ -53,7 +53,7 @@ const MainPage = (): JSX.Element => {
         <div className="cities__places-container container">
           <Places offers={sortedCurrentOffers} className='cities__places' listClassName='cities__places-list tabs__content' cardClassName='cities__card' imgClassName='cities__image-wrapper' onActiveCardChange={handleActiveCardChange}>
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{placesCount} places to stay in Amsterdam</b>
+            <b className="places__found">{placesCount} place{placesCount > 1 ? 's' : ''} to stay in Amsterdam</b>
             <Sorting currentOption={currentSorting} isOpen={isSortingOpen} onSortingClick={handleSortingClick} onSortingOptionClick={handleSortingOptionClick} />
           </Places>
           <div className="cities__right-section">
