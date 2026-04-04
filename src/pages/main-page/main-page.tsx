@@ -12,12 +12,13 @@ import Sorting from '../../components/sorting/sorting';
 import { SortingOption } from '../../const';
 import { sortOffers } from '../../utils/sorting';
 import { SortingOptionType } from '../../types/sorting-option-type';
+import { selectOffers, selectCity } from '../../store/selectors';
 
 const MainPage = (): JSX.Element => {
   const [activeOffer, setActiveOffer] = useState<Nullable<Offer>>(null);
   const [currentSorting, setCurrentSorting] = useState<SortingOptionType>(SortingOption[0]);
-  const currentCityName = useAppSelector((state) => state.city);
-  const offers = useAppSelector((state) => state.offers);
+  const currentCityName = useAppSelector(selectCity);
+  const offers = useAppSelector(selectOffers);
 
   const handleActiveCardChange = (offer?: Offer): void => {
     setActiveOffer(offer || null);
