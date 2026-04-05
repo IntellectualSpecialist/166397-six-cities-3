@@ -6,6 +6,8 @@ type location = {
   zoom: number;
 }
 
+type Housing = 'apartment' | 'room' | 'house' | 'hotel'
+
 export type CityNameType = typeof CityName[number];
 
 export type City = {
@@ -16,7 +18,7 @@ export type City = {
 export type Offer = {
   id: string;
   title: string;
-  type: 'apartment' | 'room' | 'house' | 'hotel';
+  type: Housing;
   price: number;
   city: City;
   location: location;
