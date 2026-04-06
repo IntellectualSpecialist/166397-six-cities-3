@@ -7,3 +7,5 @@ export const changeCity = createAction<CityNameType>('offers/changeCity');
 export const loadOffers = createAction<Offer[]>('data/loadOffers');
 
 export const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuthorization');
+
+export const setError = createAction<string | null>('offers/setError');

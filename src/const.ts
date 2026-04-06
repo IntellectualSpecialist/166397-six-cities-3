@@ -1,5 +1,7 @@
 import { City } from './types/offer-type';
 
+export const TIMEOUT_SHOW_ERROR = 2000;
+
 export enum AppRoute {
   Root = '/',
   Login = '/login',
