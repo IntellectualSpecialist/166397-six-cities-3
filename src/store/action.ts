@@ -6,6 +6,8 @@ export const changeCity = createAction<CityNameType>('offers/changeCity');
 
 export const loadOffers = createAction<Offer[]>('data/loadOffers');
 
+export const setOffersDataLoadingStatus = createAction<boolean>('load/setOffersDataLoadingStatus');
+
 export const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuthorization');
 
 export const setError = createAction<string | null>('offers/setError');
