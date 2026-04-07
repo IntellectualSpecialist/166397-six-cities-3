@@ -4,7 +4,6 @@ import Reviews from '../../components/reviews/reviews';
 import Places from '../../components/places/places';
 import ReviewForm from '../../components/review-form/review-form';
 import { AuthorizationStatus } from '../../const';
-import { getAuthorizationStatus } from '../../authorizationStatus';
 import Map from '../../components/map/map';
 import { useParams } from 'react-router-dom';
 import NotFoundPage from '../not-found-page/not-found-page';
@@ -12,9 +11,10 @@ import { offer as pageOffer } from '../../mocks/offer';
 import { capitalizeValue, getRaitingPercentage } from '../../utils/common';
 import { reviews } from '../../mocks/reviews';
 import { useAppSelector } from '../../hooks';
-import { selectOffers } from '../../store/selectors';
+import { selectAuthorizationStatus, selectOffers } from '../../store/selectors';
 
 import FavoriteButton from '../../ui/favorite-button/favorite-button';
+import { useSelector } from 'react-redux';
 
 const MAX_PHOTOS_COUNT = 6;
 
@@ -22,7 +22,7 @@ const OfferPage = (): JSX.Element => {
   const {id: offerId} = useParams();
   const offers = useAppSelector(selectOffers);
   const {type, title, price, goods, images, rating, description, host, bedrooms, maxAdults, isPremium, isFavorite } = pageOffer;
-  const authorizationStatus = getAuthorizationStatus();
+  const authorizationStatus = useSelector(selectAuthorizationStatus);
   const isUserSignIn = authorizationStatus === AuthorizationStatus.Auth;
   const activeOffer = offers.find((offer) => offer.id === offerId);
   const starsWidth = getRaitingPercentage(rating);

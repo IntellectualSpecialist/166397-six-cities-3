@@ -1,13 +1,16 @@
 import { Outlet, useLocation } from 'react-router-dom';
-import { getAuthorizationStatus } from '../../authorizationStatus';
 import { AuthorizationStatus } from '../../const';
 import Header from '../header/header';
 import Footer from '../footer/footer';
 import { AppRoute } from '../../const';
+import { useSelector } from 'react-redux';
+import { selectAuthorizationStatus } from '../../store/selectors';
 
-const authorizationStatus: AuthorizationStatus = getAuthorizationStatus();
+// const authorizationStatus: AuthorizationStatus = getAuthorizationStatus();
 
 const PageWrapper = (): JSX.Element => {
+  const authorizationStatus = useSelector(selectAuthorizationStatus);
+
   const {pathname} = useLocation();
   let pageClassName = '';
   let mainClassName = '';
