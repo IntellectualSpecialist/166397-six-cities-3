@@ -1,7 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { AppRoute, AuthorizationStatus } from '../../const';
-// import { getAuthorizationStatus } from '../../authorizationStatus';
 import MainPage from '../../pages/main-page/main-page';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import OfferPage from '../../pages/offer-page/offer-page';
@@ -32,7 +31,7 @@ const App = (): JSX.Element => {
           <Route path={AppRoute.Root} element={<PageWrapper />}>
             <Route index element={<MainPage />} />
             <Route path={AppRoute.Login} element={
-              <PrivateRoute isAvailable={authorizationStatus === AuthorizationStatus.NoAuth} route={AppRoute.Root}>
+              <PrivateRoute isAvailable={authorizationStatus !== AuthorizationStatus.Auth} route={AppRoute.Root}>
                 <LoginPage />
               </PrivateRoute>
             }
