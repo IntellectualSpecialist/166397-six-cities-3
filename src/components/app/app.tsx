@@ -12,6 +12,8 @@ import PageWrapper from '../../layout/page-wrapper/page-wrapper';
 import { useSelector } from 'react-redux';
 import { selectAuthorizationStatus, selectIsOffersDataLoading } from '../../store/selectors';
 import LoadingPage from '../../pages/loading-page/loading-page';
+import HistoryRouter from '../history-router/history-router';
+import browserHistory from '../../browser-history';
 
 const App = (): JSX.Element => {
   const authorizationStatus = useSelector(selectAuthorizationStatus);
@@ -25,7 +27,7 @@ const App = (): JSX.Element => {
 
   return (
     <HelmetProvider>
-      <BrowserRouter>
+      <HistoryRouter history={browserHistory}>
         <Routes>
           <Route path={AppRoute.Root} element={<PageWrapper />}>
             <Route index element={<MainPage />} />
@@ -49,7 +51,7 @@ const App = (): JSX.Element => {
             <Route path='*' element={<NotFoundPage />} />
           </Route>
         </Routes>
-      </BrowserRouter>
+      </His>
     </HelmetProvider>
   );
 };
