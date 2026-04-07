@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import Logo from '../../ui/logo/logo';
+import { useAppDispatch } from '../../hooks';
+import { logoutAction } from '../../store/api-actions';
 
 
 type HeaderProps = {
@@ -8,14 +10,17 @@ type HeaderProps = {
   isUserSignIn: boolean;
 }
 
-const Header = ({isUserSignIn, shouldRenderUser = true}: HeaderProps): JSX.Element => (
-  <header className="header">
-    <div className="container">
-      <div className="header__wrapper">
-        <div className="header__left">
-          <Logo className="header__logo-link header__logo-link--active" imgClassName="header__logo" />
-        </div>
-        {shouldRenderUser &&
+const Header = ({isUserSignIn, shouldRenderUser = true}: HeaderProps): JSX.Element => {
+  const dispatch = useAppDispatch();
+
+  return (
+    <header className="header">
+      <div className="container">
+        <div className="header__wrapper">
+          <div className="header__left">
+            <Logo className="header__logo-link header__logo-link--active" imgClassName="header__logo" />
+          </div>
+          {shouldRenderUser &&
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
@@ -36,15 +41,20 @@ const Header = ({isUserSignIn, shouldRenderUser = true}: HeaderProps): JSX.Eleme
                 </li>
                 {isUserSignIn &&
                 <li className="header__nav-item">
-                  <Link className="header__nav-link" to="">
+                  <Link className="header__nav-link" to="/" onClick={(evt) => {
+                    evt.preventDefault();
+                    dispatch(logoutAction());
+                  }}
+                  >
                     <span className="header__signout">Sign out</span>
                   </Link>
                 </li>}
               </ul>
             </nav>}
+        </div>
       </div>
-    </div>
-  </header>
-);
+    </header>
+  );
+};
 
 export default Header;
