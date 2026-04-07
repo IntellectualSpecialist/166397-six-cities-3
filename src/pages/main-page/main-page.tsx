@@ -3,7 +3,7 @@ import { Offer } from '../../types/offer-type';
 import Tabs from '../../components/tabs/tabs';
 import Places from '../../components/places/places';
 import Map from '../../components/map/map';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Nullable } from 'vitest';
 import { CITIES } from '../../const';
 import { City } from '../../types/offer-type';
@@ -12,26 +12,20 @@ import Sorting from '../../components/sorting/sorting';
 import { SortingOption } from '../../const';
 import { sortOffers } from '../../utils/sorting';
 import { SortingOptionType } from '../../types/sorting-option-type';
-import { isEscKey } from '../../utils/common';
+import { selectOffers, selectCity } from '../../store/selectors';
 
 const MainPage = (): JSX.Element => {
   const [activeOffer, setActiveOffer] = useState<Nullable<Offer>>(null);
   const [currentSorting, setCurrentSorting] = useState<SortingOptionType>(SortingOption[0]);
-  const [isSortingOpen, setIsSortingOpen] = useState(false);
-  const currentCityName = useAppSelector((state) => state.city);
-  const offers = useAppSelector((state) => state.offers);
+  const currentCityName = useAppSelector(selectCity);
+  const offers = useAppSelector(selectOffers);
 
   const handleActiveCardChange = (offer?: Offer): void => {
     setActiveOffer(offer || null);
   };
 
-  const handleSortingClick = (): void => {
-    setIsSortingOpen((prev) => !prev);
-  };
-
   const handleSortingOptionClick = (option: SortingOptionType): void => {
     setCurrentSorting(option);
-    setIsSortingOpen(false);
   };
 
   const currentCity = CITIES.find((city) => city.name === currentCityName);
@@ -41,23 +35,6 @@ const MainPage = (): JSX.Element => {
   const placesCount = currentOffers.length;
 
   const sortedCurrentOffers = sortOffers(currentSorting, currentOffers);
-
-  useEffect(() => {
-    if (isSortingOpen) {
-      const onDocumentKeydown = (evt: KeyboardEvent) => {
-        if (isEscKey(evt)) {
-          evt.preventDefault();
-          setIsSortingOpen(false);
-        }
-      };
-
-      document.addEventListener('keydown', onDocumentKeydown);
-
-      return () => {
-        document.removeEventListener('keydown', onDocumentKeydown);
-      };
-    }
-  }, [isSortingOpen]);
 
   return (
     <>
@@ -71,8 +48,8 @@ const MainPage = (): JSX.Element => {
         <div className="cities__places-container container">
           <Places offers={sortedCurrentOffers} className='cities__places' listClassName='cities__places-list tabs__content' cardClassName='cities__card' imgClassName='cities__image-wrapper' onActiveCardChange={handleActiveCardChange}>
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{placesCount} place{placesCount > 1 ? 's' : ''} to stay in Amsterdam</b>
-            <Sorting currentOption={currentSorting} isOpen={isSortingOpen} onSortingClick={handleSortingClick} onSortingOptionClick={handleSortingOptionClick} />
+            <b className="places__found">{placesCount} place{placesCount === 1 ? '' : 's'} to stay in Amsterdam</b>
+            <Sorting currentOption={currentSorting} onSortingOptionClick={handleSortingOptionClick} />
           </Places>
           <div className="cities__right-section">
             <Map className='cities__map' activeOffer={activeOffer} offers={currentOffers} city={currentCity as City} />

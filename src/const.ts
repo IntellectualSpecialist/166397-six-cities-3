@@ -1,5 +1,7 @@
 import { City } from './types/offer-type';
 
+export const TIMEOUT_SHOW_ERROR = 2000;
+
 export enum AppRoute {
   Root = '/',
   Login = '/login',
@@ -11,6 +13,15 @@ export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
+}
+
+export enum APIRoute {
+  Offers = '/offers',
+  Nearby = '/nearby',
+  Favorite = '/favorite',
+  Comments = '/comments',
+  Login = '/login',
+  Logout = '/logout',
 }
 
 export const ReviewLength = {
