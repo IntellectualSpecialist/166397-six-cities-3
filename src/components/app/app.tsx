@@ -51,7 +51,7 @@ const App = (): JSX.Element => {
             <Route path='*' element={<NotFoundPage />} />
           </Route>
         </Routes>
-      </His>
+      </HistoryRouter>
     </HelmetProvider>
   );
 };
