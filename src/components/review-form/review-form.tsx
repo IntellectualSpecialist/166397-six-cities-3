@@ -1,11 +1,12 @@
 import { Fragment, ReactEventHandler, FormEventHandler, useState } from 'react';
 import { ReviewLength } from '../../const';
-import { NewReview } from '../../types/review-type';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { sendReviewAction } from '../../store/api-actions';
+import { selectIsReviewSend } from '../../store/selectors';
 
 type ReviewFormProps = {
-  onSubmit: (review: NewReview) => void;
+  id: string;
 }
-
 type ChangeHandler = ReactEventHandler<HTMLInputElement | HTMLTextAreaElement>
 type SubmitHandler = FormEventHandler<HTMLFormElement>
 
@@ -32,13 +33,18 @@ const raitingValues = [
   }
 ];
 
-const ReviewForm = ({onSubmit}: ReviewFormProps): JSX.Element => {
+const ReviewForm = ({id}: ReviewFormProps): JSX.Element => {
   const [formData, setFormData] = useState({rating: 0, review: ''});
+  const dispatch = useAppDispatch();
+  const isReviewSend = useAppSelector(selectIsReviewSend);
 
   const handleFormSubmit: SubmitHandler = (evt) => {
     evt.preventDefault();
-    onSubmit(formData);
-    setFormData({rating: 0, review: ''});
+    dispatch(sendReviewAction({id, formData}));
+
+    if (isReviewSend) {
+      setFormData({rating: 0, review: ''});
+    }
   };
 
   const handleFormDataChange: ChangeHandler = (evt) => {

@@ -14,6 +14,8 @@ type ReviewProps = {
 const Review = ({user, rating, comment, date}: ReviewProps): JSX.Element => {
   const {avatarUrl, name} = user;
   const starsWidth = getRaitingPercentage(rating);
+  const formattedDate = new Date(date);
+  const finallyFormatedDate = formattedDate.toLocaleString('en-US', {month: 'long', year: 'numeric'});
 
   return (
     <li className="reviews__item">
@@ -39,8 +41,8 @@ const Review = ({user, rating, comment, date}: ReviewProps): JSX.Element => {
         <p className="reviews__text">
           {comment}
         </p>
-        <time className="reviews__time" dateTime="2019-04-24">
-          {date}
+        <time className="reviews__time" dateTime={date}>
+          {finallyFormatedDate}
         </time>
       </div>
     </li>

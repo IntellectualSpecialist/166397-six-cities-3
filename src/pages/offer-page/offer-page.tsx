@@ -1,5 +1,4 @@
 import { Helmet } from 'react-helmet-async';
-import { NewReview } from '../../types/review-type';
 import Reviews from '../../components/reviews/reviews';
 import Places from '../../components/places/places';
 import ReviewForm from '../../components/review-form/review-form';
@@ -7,36 +6,49 @@ import { AuthorizationStatus } from '../../const';
 import Map from '../../components/map/map';
 import { useParams } from 'react-router-dom';
 import NotFoundPage from '../not-found-page/not-found-page';
-import { offer as pageOffer } from '../../mocks/offer';
 import { capitalizeValue, getRaitingPercentage } from '../../utils/common';
-import { reviews } from '../../mocks/reviews';
 import { useAppSelector } from '../../hooks';
-import { selectAuthorizationStatus, selectOffers } from '../../store/selectors';
-
+import { selectAuthorizationStatus, selectNearby, selectOffer, selectOffers, selectReviews } from '../../store/selectors';
 import FavoriteButton from '../../ui/favorite-button/favorite-button';
 import { useSelector } from 'react-redux';
+import { store } from '../../store';
+import { fetchNearbyAction, fetchOfferAction, fetchReviewsAction } from '../../store/api-actions';
+import { useEffect } from 'react';
+import LoadingPage from '../loading-page/loading-page';
 
 const MAX_PHOTOS_COUNT = 6;
+const MAX_NEARBY_COUNT = 3;
 
 const OfferPage = (): JSX.Element => {
   const {id: offerId} = useParams();
+
+  useEffect(() => {
+    store.dispatch(fetchOfferAction(offerId as string));
+    store.dispatch(fetchNearbyAction(offerId as string));
+    store.dispatch(fetchReviewsAction(offerId as string));
+  }, [offerId]);
+
   const offers = useAppSelector(selectOffers);
-  const {type, title, price, goods, images, rating, description, host, bedrooms, maxAdults, isPremium, isFavorite } = pageOffer;
+  const pageOffer = useAppSelector(selectOffer);
   const authorizationStatus = useSelector(selectAuthorizationStatus);
+  const nearOffers = useAppSelector(selectNearby).slice(0, MAX_NEARBY_COUNT);
+  const reviews = useAppSelector(selectReviews);
+
+  if (!pageOffer) {
+    return <LoadingPage/>;
+  }
+
+  const {type, title, price, goods, images, rating, description, host, bedrooms, maxAdults, isPremium, isFavorite } = pageOffer;
+
   const isUserSignIn = authorizationStatus === AuthorizationStatus.Auth;
   const activeOffer = offers.find((offer) => offer.id === offerId);
   const starsWidth = getRaitingPercentage(rating);
 
-  const handleFormSubmit = (review: NewReview): void => {
-    // eslint-disable-next-line no-console
-    console.log(review);
-  };
-
-  if (!activeOffer) {
+  if (!offerId || !activeOffer) {
     return <NotFoundPage />;
   }
 
-  const nearOffers = offers.filter((offer) => offer.city.name === activeOffer?.city.name && offer.id !== offerId).slice(0, 3);
+
   const visibleOffers = [...nearOffers, activeOffer];
 
   return (
@@ -129,7 +141,7 @@ const OfferPage = (): JSX.Element => {
               Reviews · <span className="reviews__amount">{reviews.length}</span>
               </h2>
               {reviews?.length && <Reviews reviews={reviews} />}
-              {isUserSignIn && <ReviewForm onSubmit={handleFormSubmit} />}
+              {isUserSignIn && <ReviewForm id={offerId} />}
             </section>
           </div>
         </div>
