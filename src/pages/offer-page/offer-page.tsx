@@ -48,7 +48,6 @@ const OfferPage = (): JSX.Element => {
     return <NotFoundPage />;
   }
 
-
   const visibleOffers = [...nearOffers, activeOffer];
 
   return (
@@ -140,7 +139,7 @@ const OfferPage = (): JSX.Element => {
               <h2 className="reviews__title">
               Reviews · <span className="reviews__amount">{reviews.length}</span>
               </h2>
-              {reviews?.length && <Reviews reviews={reviews} />}
+              {reviews?.length ? <Reviews reviews={reviews} /> : false}
               {isUserSignIn && <ReviewForm id={offerId} />}
             </section>
           </div>
