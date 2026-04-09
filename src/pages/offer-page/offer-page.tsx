@@ -14,6 +14,7 @@ import { useSelector } from 'react-redux';
 import { fetchNearbyAction, fetchOfferAction, fetchReviewsAction } from '../../store/api-actions';
 import { useEffect } from 'react';
 import LoadingPage from '../loading-page/loading-page';
+import { Offer } from '../../types/offer-type';
 
 const MAX_PHOTOS_COUNT = 6;
 const MAX_NEARBY_COUNT = 3;
@@ -146,7 +147,7 @@ const OfferPage = (): JSX.Element => {
             </section>
           </div>
         </div>
-        <Map className="offer__map" offers={visibleOffers} activeOffer={activeOffer} city={pageOffer.city} />
+        <Map className="offer__map" offers={visibleOffers as Offer[]} activeOffer={activeOffer} city={pageOffer.city} />
       </section>
       <div className="container">
         <Places className="near-places" imgClassName="near-places__image-wrapper" listClassName="near-places__list" cardClassName="near-places__card" offers={nearOffers}>
