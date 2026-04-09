@@ -1,6 +1,6 @@
 import { CityName } from '../const';
 
-type location = {
+type Location = {
   latitude: number;
   longitude: number;
   zoom: number;
@@ -12,7 +12,7 @@ export type CityNameType = typeof CityName[number];
 
 export type City = {
     name: CityNameType;
-    location: location;
+    location: Location;
   };
 
 export type Offer = {
@@ -21,7 +21,7 @@ export type Offer = {
   type: Housing;
   price: number;
   city: City;
-  location: location;
+  location: Location;
   isFavorite: boolean;
   isPremium: boolean;
   rating: number;
