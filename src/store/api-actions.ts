@@ -101,6 +101,7 @@ export const sendReviewAction = createAsyncThunk<void, {
   'user/sendReview',
   async ({id, formData: {review: comment, rating}}, {dispatch, extra: api}) => {
     try {
+
       dispatch(setReviewSendStatus(false));
       await api.post<NewReview>(`${APIRoute.Comments}/${id}`, {comment, rating});
       dispatch(setReviewSendStatus(true));

@@ -3,6 +3,7 @@ import { ReviewLength } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { sendReviewAction } from '../../store/api-actions';
 import { selectIsReviewSend } from '../../store/selectors';
+import { NewReview } from '../../types/review-type';
 
 type ReviewFormProps = {
   id: string;
@@ -34,7 +35,7 @@ const raitingValues = [
 ];
 
 const ReviewForm = ({id}: ReviewFormProps): JSX.Element => {
-  const [formData, setFormData] = useState({rating: 0, review: ''});
+  const [formData, setFormData] = useState<NewReview>({rating: 0, review: ''});
   const dispatch = useAppDispatch();
   const isReviewSend = useAppSelector(selectIsReviewSend);
 
@@ -48,9 +49,11 @@ const ReviewForm = ({id}: ReviewFormProps): JSX.Element => {
   };
 
   const handleFormDataChange: ChangeHandler = (evt) => {
+    const {name, value} = evt.currentTarget;
+
     setFormData({
       ...formData,
-      [evt.currentTarget.name]: evt.currentTarget.value
+      [name]: name === 'rating' ? Number(value) : value
     });
   };
 
