@@ -13,7 +13,7 @@ type initialState = {
   reviews: ReviewType[];
   authorizationStatus: AuthorizationStatus;
   isOffersDataLoading: boolean;
-  isReviewSend: boolean;
+  isReviewSending: boolean;
   error: string | null;
 }
 
@@ -25,7 +25,7 @@ const initialState: initialState = {
   reviews: [],
   authorizationStatus: AuthorizationStatus.Unknown,
   isOffersDataLoading: false,
-  isReviewSend: false,
+  isReviewSending: false,
   error: null,
 };
 
@@ -53,7 +53,7 @@ const reducer = createReducer(initialState, (builder) => {
       state.isOffersDataLoading = action.payload;
     })
     .addCase(setReviewSendStatus, (state, action) => {
-      state.isReviewSend = action.payload;
+      state.isReviewSending = action.payload;
     });
 });
 

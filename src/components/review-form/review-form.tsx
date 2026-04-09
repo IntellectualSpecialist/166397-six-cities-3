@@ -1,15 +1,13 @@
-import { Fragment, ReactEventHandler, FormEventHandler, useState } from 'react';
+import { Fragment, ReactEventHandler, useState } from 'react';
 import { ReviewLength } from '../../const';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppDispatch } from '../../hooks';
 import { sendReviewAction } from '../../store/api-actions';
-import { selectIsReviewSend } from '../../store/selectors';
 import { NewReview } from '../../types/review-type';
 
 type ReviewFormProps = {
   id: string;
 }
 type ChangeHandler = ReactEventHandler<HTMLInputElement | HTMLTextAreaElement>
-type SubmitHandler = FormEventHandler<HTMLFormElement>
 
 const raitingValues = [
   {
@@ -37,15 +35,14 @@ const raitingValues = [
 const ReviewForm = ({id}: ReviewFormProps): JSX.Element => {
   const [formData, setFormData] = useState<NewReview>({rating: 0, review: ''});
   const dispatch = useAppDispatch();
-  const isReviewSend = useAppSelector(selectIsReviewSend);
 
-  const handleFormSubmit: SubmitHandler = (evt) => {
+  const handleFormSubmit = async (evt: React.FormEvent<HTMLFormElement>): Promise<void> => {
     evt.preventDefault();
-    dispatch(sendReviewAction({id, formData}));
 
-    if (isReviewSend) {
+    await dispatch(sendReviewAction({id, formData})).unwrap().then(() => {
       setFormData({rating: 0, review: ''});
     }
+    );
   };
 
   const handleFormDataChange: ChangeHandler = (evt) => {
@@ -58,7 +55,10 @@ const ReviewForm = ({id}: ReviewFormProps): JSX.Element => {
   };
 
   return (
-    <form className="reviews__form form" action="#" method="post" onSubmit={handleFormSubmit}>
+    <form className="reviews__form form" action="#" method="post" onSubmit={(evt) => {
+      handleFormSubmit(evt);
+    }}
+    >
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>
