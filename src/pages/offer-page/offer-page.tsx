@@ -43,7 +43,7 @@ const OfferPage = (): JSX.Element => {
     return <LoadingPage/>;
   }
 
-  if (!pageOffer || !status) {
+  if (!pageOffer) {
     return <NotFoundPage />;
   }
 

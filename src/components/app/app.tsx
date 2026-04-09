@@ -13,10 +13,19 @@ import { selectAuthorizationStatus, selectIsOffersDataLoading } from '../../stor
 import LoadingPage from '../../pages/loading-page/loading-page';
 import HistoryRouter from '../history-router/history-router';
 import browserHistory from '../../browser-history';
+import { useAppDispatch } from '../../hooks';
+import { checkAuthAction, fetchOffersAction } from '../../store/api-actions';
+import { useEffect } from 'react';
 
 const App = (): JSX.Element => {
   const authorizationStatus = useSelector(selectAuthorizationStatus);
   const isOffersDataLoading = useSelector(selectIsOffersDataLoading);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchOffersAction());
+    dispatch(checkAuthAction());
+  }, [dispatch]);
 
   if (authorizationStatus === AuthorizationStatus.Unknown || isOffersDataLoading) {
     return (
