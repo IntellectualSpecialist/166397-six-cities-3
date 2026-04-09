@@ -16,8 +16,8 @@ export const loadReviews = createAction<ReviewType[]>('data/loadReviews');
 
 export const setOffersDataLoadingStatus = createAction<boolean>('load/setOffersDataLoadingStatus');
 
-export const setReviewSendStatus = createAction<boolean>('load/setReviewSendStatus');
-
 export const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuthorization');
 
 export const redirectToRoute = createAction<AppRoute>('offers/redirectToRoute');
+
+export const setOfferLoadingStatus = createAction<boolean>('load/setOfferLoadingStatus');

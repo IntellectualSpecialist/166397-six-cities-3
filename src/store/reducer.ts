@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeCity, loadOffers, loadOffer, requireAuthorization, setOffersDataLoadingStatus, loadNearby, loadReviews, setReviewSendStatus } from './action';
+import { changeCity, loadOffers, loadOffer, requireAuthorization, setOffersDataLoadingStatus, loadNearby, loadReviews, setOfferLoadingStatus } from './action';
 import { CityNameType, Offer } from '../types/offer-type';
 import { AuthorizationStatus, CityName } from '../const';
 import { ExtraOffer } from '../types/extra-offer';
@@ -13,7 +13,7 @@ type initialState = {
   reviews: ReviewType[];
   authorizationStatus: AuthorizationStatus;
   isOffersDataLoading: boolean;
-  isReviewSending: boolean;
+  isOfferLoading: boolean;
   error: string | null;
 }
 
@@ -25,7 +25,7 @@ const initialState: initialState = {
   reviews: [],
   authorizationStatus: AuthorizationStatus.Unknown,
   isOffersDataLoading: false,
-  isReviewSending: false,
+  isOfferLoading: false,
   error: null,
 };
 
@@ -52,8 +52,8 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(setOffersDataLoadingStatus, (state, action) => {
       state.isOffersDataLoading = action.payload;
     })
-    .addCase(setReviewSendStatus, (state, action) => {
-      state.isReviewSending = action.payload;
+    .addCase(setOfferLoadingStatus, (state, action) => {
+      state.isOfferLoading = action.payload;
     });
 });
 

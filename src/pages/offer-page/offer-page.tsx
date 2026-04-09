@@ -7,11 +7,10 @@ import Map from '../../components/map/map';
 import { useParams } from 'react-router-dom';
 import NotFoundPage from '../not-found-page/not-found-page';
 import { capitalizeValue, getRaitingPercentage } from '../../utils/common';
-import { useAppSelector } from '../../hooks';
-import { selectAuthorizationStatus, selectNearby, selectOffer, selectOffers, selectReviews } from '../../store/selectors';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { selectAuthorizationStatus, selectIsOfferLoading, selectNearby, selectOffer, selectOffers, selectReviews } from '../../store/selectors';
 import FavoriteButton from '../../ui/favorite-button/favorite-button';
 import { useSelector } from 'react-redux';
-import { store } from '../../store';
 import { fetchNearbyAction, fetchOfferAction, fetchReviewsAction } from '../../store/api-actions';
 import { useEffect } from 'react';
 import LoadingPage from '../loading-page/loading-page';
@@ -21,34 +20,37 @@ const MAX_NEARBY_COUNT = 3;
 
 const OfferPage = (): JSX.Element => {
   const {id: offerId} = useParams();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    store.dispatch(fetchOfferAction(offerId as string));
-    store.dispatch(fetchNearbyAction(offerId as string));
-    store.dispatch(fetchReviewsAction(offerId as string));
-  }, [offerId]);
+    dispatch(fetchOfferAction(offerId as string));
+    dispatch(fetchNearbyAction(offerId as string));
+    dispatch(fetchReviewsAction(offerId as string));
+  }, [offerId, dispatch]);
 
   const offers = useAppSelector(selectOffers);
   const pageOffer = useAppSelector(selectOffer);
   const authorizationStatus = useSelector(selectAuthorizationStatus);
   const nearOffers = useAppSelector(selectNearby).slice(0, MAX_NEARBY_COUNT);
   const reviews = useAppSelector(selectReviews);
+  const status = useAppSelector(selectIsOfferLoading);
 
-  if (!pageOffer) {
+  const activeOffer = offers.find((offer) => offer.id === offerId);
+  const visibleOffers = [...nearOffers, activeOffer];
+
+  if (status) {
     return <LoadingPage/>;
+  }
+
+  if (!pageOffer || !status) {
+    return <NotFoundPage />;
   }
 
   const {type, title, price, goods, images, rating, description, host, bedrooms, maxAdults, isPremium, isFavorite } = pageOffer;
 
   const isUserSignIn = authorizationStatus === AuthorizationStatus.Auth;
-  const activeOffer = offers.find((offer) => offer.id === offerId);
   const starsWidth = getRaitingPercentage(rating);
 
-  if (!offerId || !activeOffer) {
-    return <NotFoundPage />;
-  }
-
-  const visibleOffers = [...nearOffers, activeOffer];
 
   return (
     <>
@@ -140,11 +142,11 @@ const OfferPage = (): JSX.Element => {
               Reviews · <span className="reviews__amount">{reviews.length}</span>
               </h2>
               {reviews?.length ? <Reviews reviews={reviews} /> : false}
-              {isUserSignIn && <ReviewForm id={offerId} />}
+              {isUserSignIn && <ReviewForm id={pageOffer.id} />}
             </section>
           </div>
         </div>
-        <Map className="offer__map" offers={visibleOffers} activeOffer={activeOffer} city={activeOffer.city} />
+        <Map className="offer__map" offers={visibleOffers} activeOffer={activeOffer} city={pageOffer.city} />
       </section>
       <div className="container">
         <Places className="near-places" imgClassName="near-places__image-wrapper" listClassName="near-places__list" cardClassName="near-places__card" offers={nearOffers}>

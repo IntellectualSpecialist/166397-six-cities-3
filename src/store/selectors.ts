@@ -8,6 +8,6 @@ const selectCity = (state: State) => state.city;
 const selectError = (state: State) => state.error;
 const selectAuthorizationStatus = (state: State) => state.authorizationStatus;
 const selectIsOffersDataLoading = (state: State) => state.isOffersDataLoading;
-const selectIsReviewSending = (state: State) => state.isReviewSending;
+const selectIsOfferLoading = (state: State) => state.isOfferLoading;
 
-export {selectOffers, selectOffer, selectNearby, selectReviews, selectCity, selectError, selectAuthorizationStatus, selectIsOffersDataLoading, selectIsReviewSending};
+export {selectOffers, selectOffer, selectNearby, selectReviews, selectCity, selectError, selectAuthorizationStatus, selectIsOffersDataLoading, selectIsOfferLoading};

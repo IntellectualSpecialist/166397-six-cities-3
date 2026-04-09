@@ -3,7 +3,7 @@ import { AppDispatch, State } from '../types/state-type';
 import { AxiosInstance } from 'axios';
 import { Offer } from '../types/offer-type';
 import { APIRoute, AppRoute, AuthorizationStatus } from '../const';
-import { loadNearby, loadOffer, loadOffers, loadReviews, redirectToRoute, requireAuthorization, setOffersDataLoadingStatus, setReviewSendStatus } from './action';
+import { loadNearby, loadOffer, loadOffers, loadReviews, redirectToRoute, requireAuthorization, setOffersDataLoadingStatus } from './action';
 import { AuthData } from '../types/auth-data-type';
 import { UserData } from '../types/user-data-type';
 import { removeToken, saveToken } from '../services/token';
@@ -99,15 +99,9 @@ export const sendReviewAction = createAsyncThunk<void, {
   extra: AxiosInstance;
 }>(
   'user/sendReview',
-  async ({id, formData: {review: comment, rating}}, {dispatch, extra: api}) => {
-    try {
+  async ({id, formData: {review: comment, rating}}, { extra: api}) => {
+    await api.post<NewReview>(`${APIRoute.Comments}/${id}`, {comment, rating});
 
-      dispatch(setReviewSendStatus(false));
-      await api.post<NewReview>(`${APIRoute.Comments}/${id}`, {comment, rating});
-      dispatch(setReviewSendStatus(true));
-    } catch {
-      dispatch(setReviewSendStatus(false));
-    }
   }
 );
 
