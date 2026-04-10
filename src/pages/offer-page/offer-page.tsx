@@ -34,12 +34,12 @@ const OfferPage = (): JSX.Element => {
   const authorizationStatus = useSelector(selectAuthorizationStatus);
   const nearOffers = useAppSelector(selectNearby).slice(0, MAX_NEARBY_COUNT);
   const reviews = useAppSelector(selectReviews);
-  const status = useAppSelector(selectIsOfferLoading);
+  const isLoading = useAppSelector(selectIsOfferLoading);
 
   const activeOffer = offers.find((offer) => offer.id === offerId);
   const visibleOffers = [...nearOffers, activeOffer];
 
-  if (status) {
+  if (isLoading) {
     return <LoadingPage/>;
   }
 
