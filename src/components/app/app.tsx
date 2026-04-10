@@ -1,7 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { AppRoute, AuthorizationStatus } from '../../const';
-// import { getAuthorizationStatus } from '../../authorizationStatus';
 import MainPage from '../../pages/main-page/main-page';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import OfferPage from '../../pages/offer-page/offer-page';
@@ -14,10 +13,19 @@ import { selectAuthorizationStatus, selectIsOffersDataLoading } from '../../stor
 import LoadingPage from '../../pages/loading-page/loading-page';
 import HistoryRouter from '../history-router/history-router';
 import browserHistory from '../../browser-history';
+import { useAppDispatch } from '../../hooks';
+import { checkAuthAction, fetchOffersAction } from '../../store/api-actions';
+import { useEffect } from 'react';
 
 const App = (): JSX.Element => {
   const authorizationStatus = useSelector(selectAuthorizationStatus);
   const isOffersDataLoading = useSelector(selectIsOffersDataLoading);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchOffersAction());
+    dispatch(checkAuthAction());
+  }, [dispatch]);
 
   if (authorizationStatus === AuthorizationStatus.Unknown || isOffersDataLoading) {
     return (
@@ -32,7 +40,7 @@ const App = (): JSX.Element => {
           <Route path={AppRoute.Root} element={<PageWrapper />}>
             <Route index element={<MainPage />} />
             <Route path={AppRoute.Login} element={
-              <PrivateRoute isAvailable={authorizationStatus === AuthorizationStatus.NoAuth} route={AppRoute.Root}>
+              <PrivateRoute isAvailable={authorizationStatus !== AuthorizationStatus.Auth} route={AppRoute.Root}>
                 <LoginPage />
               </PrivateRoute>
             }

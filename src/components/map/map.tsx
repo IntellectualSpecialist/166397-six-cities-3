@@ -6,7 +6,7 @@ import { Nullable } from 'vitest';
 import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
-  offers: Offer[];
+  offers?: Offer[];
   activeOffer: Nullable<Offer>;
   city: City;
   className?: string;
@@ -24,7 +24,7 @@ const defaultCustomIcon = new Icon({
   iconAnchor: [14, 39]
 });
 
-const Map = ({offers, activeOffer, city, className}: MapProps): JSX.Element => {
+const Map = ({offers = [], activeOffer, city, className}: MapProps): JSX.Element => {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
   const markerLayer = useRef(layerGroup());
