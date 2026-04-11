@@ -4,17 +4,16 @@ import Places from '../../components/places/places';
 import ReviewForm from '../../components/review-form/review-form';
 import { AuthorizationStatus } from '../../const';
 import Map from '../../components/map/map';
-import { useParams } from 'react-router-dom';
-import NotFoundPage from '../not-found-page/not-found-page';
+import { Navigate, useParams } from 'react-router-dom';
 import { capitalizeValue, getRaitingPercentage } from '../../utils/common';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { selectAuthorizationStatus, selectIsOfferLoading, selectNearby, selectOffer, selectOffers, selectReviews } from '../../store/selectors';
+import { selectAuthorizationStatus, selectIsOfferLoading, selectNearby, selectOffer, selectReviews } from '../../store/selectors';
 import FavoriteButton from '../../ui/favorite-button/favorite-button';
 import { useSelector } from 'react-redux';
 import { fetchNearbyAction, fetchOfferAction, fetchReviewsAction } from '../../store/api-actions';
 import { useEffect } from 'react';
 import LoadingPage from '../loading-page/loading-page';
-import { Offer } from '../../types/offer-type';
+import { AllOffersType } from '../../types/all-offer-type';
 
 const MAX_PHOTOS_COUNT = 6;
 const MAX_NEARBY_COUNT = 3;
@@ -22,6 +21,13 @@ const MAX_NEARBY_COUNT = 3;
 const OfferPage = (): JSX.Element => {
   const {id: offerId} = useParams();
   const dispatch = useAppDispatch();
+  const pageOffer = useAppSelector(selectOffer);
+  const authorizationStatus = useSelector(selectAuthorizationStatus);
+  const nearOffers = useAppSelector(selectNearby).slice(0, MAX_NEARBY_COUNT);
+  const reviews = useAppSelector(selectReviews);
+  const isLoading = useAppSelector(selectIsOfferLoading);
+
+  const visibleOffers = [...nearOffers, pageOffer];
 
   useEffect(() => {
     dispatch(fetchOfferAction(offerId as string));
@@ -29,29 +35,18 @@ const OfferPage = (): JSX.Element => {
     dispatch(fetchReviewsAction(offerId as string));
   }, [offerId, dispatch]);
 
-  const offers = useAppSelector(selectOffers);
-  const pageOffer = useAppSelector(selectOffer);
-  const authorizationStatus = useSelector(selectAuthorizationStatus);
-  const nearOffers = useAppSelector(selectNearby).slice(0, MAX_NEARBY_COUNT);
-  const reviews = useAppSelector(selectReviews);
-  const isLoading = useAppSelector(selectIsOfferLoading);
-
-  const activeOffer = offers.find((offer) => offer.id === offerId);
-  const visibleOffers = [...nearOffers, activeOffer];
-
   if (isLoading) {
     return <LoadingPage/>;
   }
 
   if (!pageOffer) {
-    return <NotFoundPage />;
+    return <Navigate to="/404" />;
   }
 
-  const {type, title, price, goods, images, rating, description, host, bedrooms, maxAdults, isPremium, isFavorite } = pageOffer;
+  const {type, title, price, goods, images, rating, description, host: {isPro, name, avatarUrl}, bedrooms, maxAdults, isPremium, isFavorite } = pageOffer;
 
   const isUserSignIn = authorizationStatus === AuthorizationStatus.Auth;
   const starsWidth = getRaitingPercentage(rating);
-
 
   return (
     <>
@@ -61,7 +56,7 @@ const OfferPage = (): JSX.Element => {
       <section className="offer">
         <div className="offer__gallery-container container">
           <div className="offer__gallery">
-            {images.map((image) => (
+            {!!images?.length && images.map((image) => (
               <div key={image} className="offer__image-wrapper">
                 <img
                   className="offer__image"
@@ -107,7 +102,7 @@ const OfferPage = (): JSX.Element => {
             <div className="offer__inside">
               <h2 className="offer__inside-title">What&rsquo;s inside</h2>
               <ul className="offer__inside-list">
-                {goods.map((good) => (
+                {!!goods?.length && goods.map((good) => (
                   <li key={good} className="offer__inside-item">{good}</li>
                 ))}
               </ul>
@@ -115,26 +110,21 @@ const OfferPage = (): JSX.Element => {
             <div className="offer__host">
               <h2 className="offer__host-title">Meet the host</h2>
               <div className="offer__host-user user">
-                <div className={`offer__avatar-wrapper ${host.isPro && 'offer__avatar-wrapper--pro'} user__avatar-wrapper`}>
+                <div className={`offer__avatar-wrapper ${isPro && 'offer__avatar-wrapper--pro'} user__avatar-wrapper`}>
                   <img
                     className="offer__avatar user__avatar"
-                    src={host.avatarUrl}
+                    src={avatarUrl}
                     width={74}
                     height={74}
                     alt="Host avatar"
                   />
                 </div>
-                <span className="offer__user-name">{capitalizeValue(host.name)}</span>
-                <span className="offer__user-status">{host.isPro ? 'Pro' : ''}</span>
+                <span className="offer__user-name">{capitalizeValue(name)}</span>
+                {isPro && <span className="offer__user-status">Pro</span>}
               </div>
               <div className="offer__description">
                 <p className="offer__text">
                   {description}
-                </p>
-                <p className="offer__text">
-                An independent House, strategically located between Rembrand
-                Square and National Opera, but where the bustle of the city
-                comes to rest in this alley flowery and colorful.
                 </p>
               </div>
             </div>
@@ -142,12 +132,12 @@ const OfferPage = (): JSX.Element => {
               <h2 className="reviews__title">
               Reviews · <span className="reviews__amount">{reviews.length}</span>
               </h2>
-              {reviews?.length ? <Reviews reviews={reviews} /> : false}
+              {!!reviews?.length && <Reviews reviews={reviews} /> }
               {isUserSignIn && <ReviewForm id={pageOffer.id} />}
             </section>
           </div>
         </div>
-        <Map className="offer__map" offers={visibleOffers as Offer[]} activeOffer={activeOffer} city={pageOffer.city} />
+        <Map className="offer__map" offers={visibleOffers as AllOffersType} activeOffer={pageOffer} city={pageOffer.city} />
       </section>
       <div className="container">
         <Places className="near-places" imgClassName="near-places__image-wrapper" listClassName="near-places__list" cardClassName="near-places__card" offers={nearOffers}>
