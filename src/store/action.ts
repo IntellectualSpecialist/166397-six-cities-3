@@ -3,10 +3,13 @@ import { Offer, CityNameType } from '../types/offer-type';
 import { AppRoute, AuthorizationStatus } from '../const';
 import { ExtraOffer } from '../types/extra-offer';
 import { ReviewType } from '../types/review-type';
+import { UserData } from '../types/user-data-type';
 
 export const changeCity = createAction<CityNameType>('offers/changeCity');
 
 export const loadOffers = createAction<Offer[]>('data/loadOffers');
+
+export const setUser = createAction<UserData | null>('data/setUser');
 
 export const loadOffer = createAction<ExtraOffer>('data/loadOffer');
 

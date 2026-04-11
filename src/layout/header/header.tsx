@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import Logo from '../../ui/logo/logo';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logoutAction } from '../../store/api-actions';
-
+import { selectUser } from '../../store/selectors';
 
 type HeaderProps = {
   shouldRenderUser?: boolean;
@@ -12,6 +12,7 @@ type HeaderProps = {
 
 const Header = ({isUserSignIn, shouldRenderUser = true}: HeaderProps): JSX.Element => {
   const dispatch = useAppDispatch();
+  const email = useAppSelector(selectUser)?.email;
 
   return (
     <header className="header">
@@ -32,7 +33,7 @@ const Header = ({isUserSignIn, shouldRenderUser = true}: HeaderProps): JSX.Eleme
                     {isUserSignIn ? (
                       <>
                         <span className="header__user-name user__name">
-                          Oliver.conner@gmail.com
+                          {email}
                         </span>
                         <span className="header__favorite-count">3</span>
                       </>
@@ -41,7 +42,7 @@ const Header = ({isUserSignIn, shouldRenderUser = true}: HeaderProps): JSX.Eleme
                 </li>
                 {isUserSignIn &&
                 <li className="header__nav-item">
-                  <Link className="header__nav-link" to="/" onClick={(evt) => {
+                  <Link className="header__nav-link" to="#" onClick={(evt) => {
                     evt.preventDefault();
                     dispatch(logoutAction());
                   }}
