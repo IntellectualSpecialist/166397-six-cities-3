@@ -7,13 +7,15 @@ import Map from '../../components/map/map';
 import { Navigate, useParams } from 'react-router-dom';
 import { capitalizeValue, getRaitingPercentage } from '../../utils/common';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { selectAuthorizationStatus, selectIsOfferLoading, selectNearby, selectOffer, selectReviews } from '../../store/selectors';
 import FavoriteButton from '../../ui/favorite-button/favorite-button';
 import { useSelector } from 'react-redux';
 import { fetchNearbyAction, fetchOfferAction, fetchReviewsAction } from '../../store/api-actions';
 import { useEffect } from 'react';
 import LoadingPage from '../loading-page/loading-page';
 import { AllOffersType } from '../../types/all-offer-type';
+import { selectIsOfferLoading, selectNearby, selectOffer } from '../../store/offer/selectors';
+import { selectAuthorizationStatus } from '../../store/user-process/selectors';
+import { selectReviews } from '../../store/reviews/selectors';
 
 const MAX_PHOTOS_COUNT = 6;
 const MAX_NEARBY_COUNT = 3;

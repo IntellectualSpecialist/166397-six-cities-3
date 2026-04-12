@@ -9,17 +9,18 @@ import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 import PageWrapper from '../../layout/page-wrapper/page-wrapper';
 import { useSelector } from 'react-redux';
-import { selectAuthorizationStatus, selectIsOffersDataLoading } from '../../store/selectors';
 import LoadingPage from '../../pages/loading-page/loading-page';
 import HistoryRouter from '../history-router/history-router';
 import browserHistory from '../../browser-history';
 import { useAppDispatch } from '../../hooks';
 import { checkAuthAction, fetchOffersAction } from '../../store/api-actions';
 import { useEffect } from 'react';
+import { selectAuthorizationStatus } from '../../store/user-process/selectors';
+import { selectIsOffersLoading } from '../../store/offers/selectors';
 
 const App = (): JSX.Element => {
   const authorizationStatus = useSelector(selectAuthorizationStatus);
-  const isOffersDataLoading = useSelector(selectIsOffersDataLoading);
+  const isOffersDataLoading = useSelector(selectIsOffersLoading);
   const dispatch = useAppDispatch();
 
   useEffect(() => {

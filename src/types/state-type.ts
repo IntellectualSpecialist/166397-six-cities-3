@@ -1,4 +1,34 @@
+import { AuthorizationStatus, RequestStatus } from '../const';
 import { store } from '../store';
+import { ExtraOffer } from './extra-offer';
+import { CityNameType, Offer } from './offer-type';
+import { ReviewType } from './review-type';
+import { UserData } from './user-data-type';
+
+export type UserProcess = {
+  user: null | UserData;
+  authorizationStatus: AuthorizationStatus;
+  requestStatus: RequestStatus;
+}
+
+export type OffersData = {
+  offers: Offer[];
+  isOffersDataLoading: boolean;
+  city: CityNameType;
+  status: RequestStatus;
+}
+
+export type OfferData = {
+  offer: null | ExtraOffer;
+  nearby: Offer[];
+  isOfferLoading: boolean;
+  status: RequestStatus;
+}
+
+export type ReviewsData = {
+  reviews: ReviewType[];
+  status: RequestStatus;
+}
 
 export type State = ReturnType<typeof store.getState>
 

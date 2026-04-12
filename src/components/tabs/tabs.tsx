@@ -1,8 +1,8 @@
 import { CityName } from '../../const';
 import { useAppSelector, useAppDispatch } from '../../hooks';
-import { changeCity } from '../../store/action';
+import { changeCity } from '../../store/offers/offers';
+import { selectCity } from '../../store/offers/selectors';
 import { CityNameType } from '../../types/offer-type';
-import { selectCity } from '../../store/selectors';
 
 import Tab from '../../ui/tab/tab';
 

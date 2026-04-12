@@ -3,7 +3,7 @@ import { AppRoute } from '../../const';
 import Logo from '../../ui/logo/logo';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logoutAction } from '../../store/api-actions';
-import { selectUser } from '../../store/selectors';
+import { selectUser } from '../../store/user-process/selectors';
 
 type HeaderProps = {
   shouldRenderUser?: boolean;

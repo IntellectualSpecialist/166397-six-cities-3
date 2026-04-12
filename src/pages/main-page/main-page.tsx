@@ -12,7 +12,7 @@ import Sorting from '../../components/sorting/sorting';
 import { SortingOption } from '../../const';
 import { sortOffers } from '../../utils/sorting';
 import { SortingOptionType } from '../../types/sorting-option-type';
-import { selectOffers, selectCity } from '../../store/selectors';
+import { selectCity, selectOffers } from '../../store/offers/selectors';
 
 const MainPage = (): JSX.Element => {
   const [activeOffer, setActiveOffer] = useState<Nullable<Offer>>(null);
