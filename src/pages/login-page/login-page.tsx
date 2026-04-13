@@ -24,7 +24,7 @@ const LoginPage = (): JSX.Element => {
 
   const dispatch = useAppDispatch();
 
-  const handleSubmit: SubmitHandler = (evt) => {
+  const handleFormSubmit: SubmitHandler = (evt) => {
     evt.preventDefault();
 
     dispatch(loginAction(formData));
@@ -39,7 +39,7 @@ const LoginPage = (): JSX.Element => {
       <div className="page__login-container container">
         <section className="login">
           <h1 className="login__title">Sign in</h1>
-          <form className="login__form form" action="#" method="post" onSubmit={handleSubmit}>
+          <form className="login__form form" action="#" method="post" onSubmit={handleFormSubmit}>
             <div className="login__input-wrapper form__input-wrapper">
               <label className="visually-hidden" htmlFor="email">E-mail</label>
               <input onChange={handleFormDataChange} value={formData.login} className="login__input form__input" id="email" type="email" name="login" placeholder="Email" required />

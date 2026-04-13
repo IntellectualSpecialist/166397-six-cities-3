@@ -13,7 +13,6 @@ export type UserProcess = {
 
 export type OffersData = {
   offers: Offer[];
-  isOffersDataLoading: boolean;
   city: CityNameType;
   status: RequestStatus;
 }
@@ -21,13 +20,13 @@ export type OffersData = {
 export type OfferData = {
   offer: null | ExtraOffer;
   nearby: Offer[];
-  isOfferLoading: boolean;
   status: RequestStatus;
 }
 
 export type ReviewsData = {
   reviews: ReviewType[];
-  status: RequestStatus;
+  reviewsStatus: RequestStatus;
+  reviewStatus: RequestStatus;
 }
 
 export type State = ReturnType<typeof store.getState>

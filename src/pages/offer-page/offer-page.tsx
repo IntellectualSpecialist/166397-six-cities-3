@@ -2,7 +2,7 @@ import { Helmet } from 'react-helmet-async';
 import Reviews from '../../components/reviews/reviews';
 import Places from '../../components/places/places';
 import ReviewForm from '../../components/review-form/review-form';
-import { AuthorizationStatus } from '../../const';
+import { AuthorizationStatus, RequestStatus } from '../../const';
 import Map from '../../components/map/map';
 import { Navigate, useParams } from 'react-router-dom';
 import { capitalizeValue, getRaitingPercentage } from '../../utils/common';
@@ -13,9 +13,10 @@ import { fetchNearbyAction, fetchOfferAction, fetchReviewsAction } from '../../s
 import { useEffect } from 'react';
 import LoadingPage from '../loading-page/loading-page';
 import { AllOffersType } from '../../types/all-offer-type';
-import { selectIsOfferLoading, selectNearby, selectOffer } from '../../store/offer/selectors';
+import { selectNearby, selectOffer, selectOfferStatus } from '../../store/offer/selectors';
 import { selectAuthorizationStatus } from '../../store/user-process/selectors';
 import { selectReviews } from '../../store/reviews/selectors';
+// import NotFoundPage from '../not-found-page/not-found-page';
 
 const MAX_PHOTOS_COUNT = 6;
 const MAX_NEARBY_COUNT = 3;
@@ -27,7 +28,7 @@ const OfferPage = (): JSX.Element => {
   const authorizationStatus = useSelector(selectAuthorizationStatus);
   const nearOffers = useAppSelector(selectNearby).slice(0, MAX_NEARBY_COUNT);
   const reviews = useAppSelector(selectReviews);
-  const isLoading = useAppSelector(selectIsOfferLoading);
+  const status = useAppSelector(selectOfferStatus);
 
   const visibleOffers = [...nearOffers, pageOffer];
 
@@ -37,11 +38,12 @@ const OfferPage = (): JSX.Element => {
     dispatch(fetchReviewsAction(offerId as string));
   }, [offerId, dispatch]);
 
-  if (isLoading) {
+  if (status === RequestStatus.Loading) {
     return <LoadingPage/>;
   }
 
-  if (!pageOffer) {
+  if (status === RequestStatus.Failed || !pageOffer) {
+    // return <NotFoundPage/>;
     return <Navigate to="/404" />;
   }
 
