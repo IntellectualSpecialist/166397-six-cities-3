@@ -40,7 +40,6 @@ const ReviewForm = ({id}: ReviewFormProps): JSX.Element => {
 
   const handleFormSubmit = async (evt: React.FormEvent<HTMLFormElement>): Promise<void> => {
     evt.preventDefault();
-    await dispatch(sendReviewAction({id, formData}));
 
     try {
       await dispatch(sendReviewAction({ id, formData })).unwrap();

@@ -12,7 +12,7 @@ import LoadingPage from '../../pages/loading-page/loading-page';
 import HistoryRouter from '../history-router/history-router';
 import browserHistory from '../../browser-history';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { checkAuthAction } from '../../store/api-actions';
+import { checkAuthAction, fetchFavoritesAction } from '../../store/api-actions';
 import { useEffect } from 'react';
 import { selectAuthorizationStatus } from '../../store/user-process/selectors';
 
@@ -22,6 +22,7 @@ const App = (): JSX.Element => {
 
   useEffect(() => {
     dispatch(checkAuthAction());
+    dispatch(fetchFavoritesAction());
   }, [dispatch]);
 
   if (authorizationStatus === AuthorizationStatus.Unknown) {

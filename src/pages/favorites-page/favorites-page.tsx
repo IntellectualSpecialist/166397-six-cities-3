@@ -2,10 +2,11 @@ import { Helmet } from 'react-helmet-async';
 import Tab from '../../ui/tab/tab';
 import PlaceCard from '../../ui/place-card/place-card';
 import { useAppSelector } from '../../hooks';
-import { selectOffers } from '../../store/offers/selectors';
+import { selectFavorites } from '../../store/favorite/selectors';
 
 const FavoritesPage = (): JSX.Element => {
-  const offers = useAppSelector(selectOffers);
+  const favorites = useAppSelector(selectFavorites);
+  const cities = Array.from(new Set(favorites.map((offer) => offer.city.name)));
 
   return (
     <>
@@ -17,7 +18,26 @@ const FavoritesPage = (): JSX.Element => {
         <section className="favorites">
           <h1 className="favorites__title">Saved listing</h1>
           <ul className="favorites__list">
-            <li className="favorites__locations-items">
+            {cities.map((city) => (
+              <li key={city} className="favorites__locations-items">
+                <div className="favorites__locations locations locations--current">
+                  <Tab name={city} />
+                </div>
+                <div className="favorites__places">
+                  {favorites.filter((favorite) => favorite.city.name === city).map((favorite) => (
+                    <PlaceCard
+                      key={favorite.id}
+                      offer={favorite}
+                      className="favorites__card"
+                      imgClassName="favorites__image-wrapper"
+                      imgWidth={150}
+                      imgHeight={110}
+                    />
+                  ))}
+                </div>
+              </li>
+            ))}
+            {/* <li className="favorites__locations-items">
               <div className="favorites__locations locations locations--current">
                 <Tab name="Amsterdam" />
               </div>
@@ -32,7 +52,7 @@ const FavoritesPage = (): JSX.Element => {
               <div className="favorites__places">
                 {offers.slice(0, 1).map((offer) => <PlaceCard key={offer.id} offer={offer} className="favorites__card" imgClassName="favorites__image-wrapper" imgWidth={150} imgHeight={110} />)}
               </div>
-            </li>
+            </li> */}
           </ul>
         </section>
       </div>

@@ -26,7 +26,8 @@ export enum NameSpace {
   Offers = 'OFFERS',
   Offer = 'OFFER',
   Reviews = 'REVIEWS',
-  User = 'USER'
+  User = 'USER',
+  Favorite = 'FAVORITE'
 }
 
 export enum RequestStatus {

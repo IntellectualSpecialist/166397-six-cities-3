@@ -1,6 +1,6 @@
 import { Offer } from './offer-type';
 
-export type ExtraOffer = Omit<Offer, 'previewImage'> & {
+export type FavoriteOffer = Offer & {
   description: string;
   images: string[];
   goods: string[];
@@ -13,3 +13,6 @@ export type ExtraOffer = Omit<Offer, 'previewImage'> & {
   maxAdults: number;
 }
 
+export type OfferAndFavorite = Offer | FavoriteOffer
+
+export type OffersAndFavorites = OfferAndFavorite[];

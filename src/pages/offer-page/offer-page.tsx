@@ -47,7 +47,7 @@ const OfferPage = (): JSX.Element => {
     return <Navigate to="/404" />;
   }
 
-  const {type, title, price, goods, images, rating, description, host: {isPro, name, avatarUrl}, bedrooms, maxAdults, isPremium, isFavorite } = pageOffer;
+  const {id, type, title, price, goods, images, rating, description, host: {isPro, name, avatarUrl}, bedrooms, maxAdults, isPremium, isFavorite } = pageOffer;
 
   const isUserSignIn = authorizationStatus === AuthorizationStatus.Auth;
   const starsWidth = getRaitingPercentage(rating);
@@ -81,7 +81,7 @@ const OfferPage = (): JSX.Element => {
               <h1 className="offer__name">
                 {title}
               </h1>
-              <FavoriteButton isFavorite={isFavorite} className='offer__bookmark-button' activeClassName='offer__bookmark-button--active' svgClassName='offer__bookmark-icon' />
+              <FavoriteButton id={id} isFavorite={isFavorite} className='offer__bookmark-button' activeClassName='offer__bookmark-button--active' svgClassName='offer__bookmark-icon' />
             </div>
             <div className="offer__rating rating">
               <div className="offer__stars rating__stars">
