@@ -27,7 +27,7 @@ const OfferPage = (): JSX.Element => {
   const pageOffer = useAppSelector(selectOffer);
   const authorizationStatus = useSelector(selectAuthorizationStatus);
   const nearOffers = useAppSelector(selectNearby).slice(0, MAX_NEARBY_COUNT);
-  const reviews = useAppSelector(selectReviews);
+  const reviews = useAppSelector(selectReviews).toSorted((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
   const status = useAppSelector(selectOfferStatus);
 
   const visibleOffers = [...nearOffers, pageOffer];
