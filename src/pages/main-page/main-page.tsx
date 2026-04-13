@@ -1,48 +1,20 @@
 import {Helmet} from 'react-helmet-async';
-import { Offer } from '../../types/offer-type';
 import Tabs from '../../components/tabs/tabs';
-import Places from '../../components/places/places';
-import Map from '../../components/map/map';
-import { useEffect, useState } from 'react';
-import { Nullable } from 'vitest';
-import { CITIES, RequestStatus } from '../../const';
-import { City } from '../../types/offer-type';
+import { useEffect } from 'react';
+import { RequestStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import Sorting from '../../components/sorting/sorting';
-import { SortingOption } from '../../const';
-import { sortOffers } from '../../utils/sorting';
-import { SortingOptionType } from '../../types/sorting-option-type';
-import { selectCity, selectOffers, selectOffersStatus } from '../../store/offers/selectors';
+import { selectOffersStatus } from '../../store/offers/selectors';
 import { fetchOffersAction } from '../../store/api-actions';
 import LoadingPage from '../loading-page/loading-page';
+import Cities from '../../components/cities/cities';
 
 const MainPage = (): JSX.Element => {
-  const [activeOffer, setActiveOffer] = useState<Nullable<Offer>>(null);
-  const [currentSorting, setCurrentSorting] = useState<SortingOptionType>(SortingOption[0]);
   const dispatch = useAppDispatch();
-  const currentCityName = useAppSelector(selectCity);
-  const offers = useAppSelector(selectOffers);
   const offersStatus = useAppSelector(selectOffersStatus);
 
   useEffect(() => {
     dispatch(fetchOffersAction());
   }, [dispatch]);
-
-  const handleActiveCardChange = (offer?: Offer): void => {
-    setActiveOffer(offer || null);
-  };
-
-  const handleSortingOptionClick = (option: SortingOptionType): void => {
-    setCurrentSorting(option);
-  };
-
-  const currentCity = CITIES.find((city) => city.name === currentCityName);
-
-  const currentOffers = offers.filter((offer) => offer.city.name === currentCityName);
-
-  const placesCount = currentOffers.length;
-
-  const sortedCurrentOffers = sortOffers(currentSorting, currentOffers);
 
   if (offersStatus === RequestStatus.Loading) {
     return (
@@ -58,18 +30,7 @@ const MainPage = (): JSX.Element => {
 
       <h1 className="visually-hidden">Cities</h1>
       <Tabs />
-      <div className="cities">
-        <div className="cities__places-container container">
-          <Places offers={sortedCurrentOffers} className='cities__places' listClassName='cities__places-list tabs__content' cardClassName='cities__card' imgClassName='cities__image-wrapper' onActiveCardChange={handleActiveCardChange}>
-            <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{placesCount} place{placesCount === 1 ? '' : 's'} to stay in Amsterdam</b>
-            <Sorting currentOption={currentSorting} onSortingOptionClick={handleSortingOptionClick} />
-          </Places>
-          <div className="cities__right-section">
-            <Map className='cities__map' activeOffer={activeOffer} offers={currentOffers} city={currentCity as City} />
-          </div>
-        </div>
-      </div>
+      <Cities />
     </>
   );
 };

@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { CityName } from '../../const';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { changeCity } from '../../store/offers/offers';
@@ -10,9 +11,9 @@ const Tabs = (): JSX.Element => {
   const currentTab = useAppSelector(selectCity);
   const dispatch = useAppDispatch();
 
-  const handleTabClick = (name: CityNameType): void => {
+  const handleTabClick = useCallback((name: CityNameType): void => {
     dispatch(changeCity(name));
-  };
+  }, [dispatch]);
 
   return (
     <div className="tabs">
