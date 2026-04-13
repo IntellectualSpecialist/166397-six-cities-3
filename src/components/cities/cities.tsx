@@ -33,23 +33,21 @@ const Cities = (): JSX.Element => {
   const sortedCurrentOffers = useMemo(() => sortOffers(currentSorting, currentOffers), [currentSorting, currentOffers]);
 
   return (
-    <div className="cities">
-      <div className="cities__places-container container">
-        <Places
-          offers={sortedCurrentOffers}
-          className='cities__places'
-          listClassName='cities__places-list tabs__content'
-          cardClassName='cities__card'
-          imgClassName='cities__image-wrapper'
-          onActiveCardChange={handleActiveCardChange}
-        >
-          <h2 className="visually-hidden">Places</h2>
-          <b className="places__found">{placesCount} place{placesCount === 1 ? '' : 's'} to stay in Amsterdam</b>
-          <Sorting currentOption={currentSorting} onSortingOptionClick={handleSortingOptionClick} />
-        </Places>
-        <div className="cities__right-section">
-          <Map className='cities__map' activeOffer={activeOffer} offers={currentOffers} city={currentCity as City} />
-        </div>
+    <div className="cities__places-container container">
+      <Places
+        offers={sortedCurrentOffers}
+        className='cities__places'
+        listClassName='cities__places-list tabs__content'
+        cardClassName='cities__card'
+        imgClassName='cities__image-wrapper'
+        onActiveCardChange={handleActiveCardChange}
+      >
+        <h2 className="visually-hidden">Places</h2>
+        <b className="places__found">{placesCount} place{placesCount === 1 ? '' : 's'} to stay in Amsterdam</b>
+        <Sorting currentOption={currentSorting} onSortingOptionClick={handleSortingOptionClick} />
+      </Places>
+      <div className="cities__right-section">
+        <Map className='cities__map' activeOffer={activeOffer} offers={currentOffers} city={currentCity as City} />
       </div>
     </div>
   );

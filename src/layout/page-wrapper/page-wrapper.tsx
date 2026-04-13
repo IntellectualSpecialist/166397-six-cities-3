@@ -3,11 +3,13 @@ import { AuthorizationStatus } from '../../const';
 import Header from '../header/header';
 import Footer from '../footer/footer';
 import { AppRoute } from '../../const';
-import { useSelector } from 'react-redux';
 import { selectAuthorizationStatus } from '../../store/user-process/selectors';
+import { useAppSelector } from '../../hooks';
+import { selectOffers } from '../../store/offers/selectors';
 
 const PageWrapper = (): JSX.Element => {
-  const authorizationStatus = useSelector(selectAuthorizationStatus);
+  const authorizationStatus = useAppSelector(selectAuthorizationStatus);
+  const offers = useAppSelector(selectOffers);
 
   const {pathname} = useLocation();
   let pageClassName = '';
@@ -18,7 +20,7 @@ const PageWrapper = (): JSX.Element => {
   switch (pathname as AppRoute) {
     case AppRoute.Root:
       pageClassName = 'page--gray page--main';
-      mainClassName = 'page__main--index';
+      mainClassName = `page__main--index ${offers?.length ? '' : 'page__main--index-empty'}`;
 
       break;
 
