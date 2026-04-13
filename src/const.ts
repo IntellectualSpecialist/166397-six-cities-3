@@ -22,6 +22,20 @@ export enum APIRoute {
   Logout = '/logout',
 }
 
+export enum NameSpace {
+  Offers = 'OFFERS',
+  Offer = 'OFFER',
+  Reviews = 'REVIEWS',
+  User = 'USER'
+}
+
+export enum RequestStatus {
+  Idle = 'IDLE',
+  Loading = 'LOADING',
+  Success = 'SUCCESS',
+  Failed = 'FAILED'
+}
+
 export const ReviewLength = {
   Min: 50,
   Max: 300

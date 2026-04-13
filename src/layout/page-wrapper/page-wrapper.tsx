@@ -4,9 +4,7 @@ import Header from '../header/header';
 import Footer from '../footer/footer';
 import { AppRoute } from '../../const';
 import { useSelector } from 'react-redux';
-import { selectAuthorizationStatus } from '../../store/selectors';
-
-// const authorizationStatus: AuthorizationStatus = getAuthorizationStatus();
+import { selectAuthorizationStatus } from '../../store/user-process/selectors';
 
 const PageWrapper = (): JSX.Element => {
   const authorizationStatus = useSelector(selectAuthorizationStatus);

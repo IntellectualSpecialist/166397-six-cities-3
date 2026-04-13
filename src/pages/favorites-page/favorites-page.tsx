@@ -2,7 +2,7 @@ import { Helmet } from 'react-helmet-async';
 import Tab from '../../ui/tab/tab';
 import PlaceCard from '../../ui/place-card/place-card';
 import { useAppSelector } from '../../hooks';
-import { selectOffers } from '../../store/selectors';
+import { selectOffers } from '../../store/offers/selectors';
 
 const FavoritesPage = (): JSX.Element => {
   const offers = useAppSelector(selectOffers);

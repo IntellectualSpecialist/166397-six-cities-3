@@ -4,10 +4,12 @@ import useMap from '../../hooks/use-map';
 import { layerGroup, Marker, Icon } from 'leaflet';
 import { Nullable } from 'vitest';
 import 'leaflet/dist/leaflet.css';
+import { AllOffersType } from '../../types/all-offer-type';
+import { ExtraOffer } from '../../types/extra-offer';
 
 type MapProps = {
-  offers?: Offer[];
-  activeOffer: Nullable<Offer>;
+  offers?: AllOffersType;
+  activeOffer: Nullable<Offer | ExtraOffer>;
   city: City;
   className?: string;
 }
