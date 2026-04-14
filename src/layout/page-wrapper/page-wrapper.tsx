@@ -6,10 +6,12 @@ import { AppRoute } from '../../const';
 import { selectAuthorizationStatus } from '../../store/user-process/selectors';
 import { useAppSelector } from '../../hooks';
 import { selectOffers } from '../../store/offers/selectors';
+import { selectFavorites } from '../../store/favorite/selectors';
 
 const PageWrapper = (): JSX.Element => {
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);
   const offers = useAppSelector(selectOffers);
+  const favorites = useAppSelector(selectFavorites);
 
   const {pathname} = useLocation();
   let pageClassName = '';
@@ -32,7 +34,8 @@ const PageWrapper = (): JSX.Element => {
       break;
 
     case AppRoute.Favorites:
-      mainClassName = 'page__main--favorites';
+      mainClassName = `page__main--favorites ${favorites?.length ? '' : 'page__main--favorites-empty'}`;
+      pageClassName = `${favorites?.length ? '' : 'page--favorites-empty'}`;
       hasFooter = true;
       break;
 

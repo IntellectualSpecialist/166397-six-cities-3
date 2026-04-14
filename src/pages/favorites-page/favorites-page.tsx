@@ -15,7 +15,7 @@ const FavoritesPage = (): JSX.Element => {
       </Helmet>
 
       <div className="page__favorites-container container">
-        <section className="favorites">
+        {favorites?.length ? (<section className="favorites">
           <h1 className="favorites__title">Saved listing</h1>
           <ul className="favorites__list">
             {cities.map((city) => (
@@ -37,24 +37,14 @@ const FavoritesPage = (): JSX.Element => {
                 </div>
               </li>
             ))}
-            {/* <li className="favorites__locations-items">
-              <div className="favorites__locations locations locations--current">
-                <Tab name="Amsterdam" />
-              </div>
-              <div className="favorites__places">
-                {offers.slice(0, 2).map((offer) => <PlaceCard key={offer.id} offer={offer} className="favorites__card" imgClassName="favorites__image-wrapper" imgWidth={150} imgHeight={110} />)}
-              </div>
-            </li>
-            <li className="favorites__locations-items">
-              <div className="favorites__locations locations locations--current">
-                <Tab name="Cologne" />
-              </div>
-              <div className="favorites__places">
-                {offers.slice(0, 1).map((offer) => <PlaceCard key={offer.id} offer={offer} className="favorites__card" imgClassName="favorites__image-wrapper" imgWidth={150} imgHeight={110} />)}
-              </div>
-            </li> */}
           </ul>
-        </section>
+        </section>) : (<section className="favorites favorites--empty">
+          <h1 className="visually-hidden">Favorites (empty)</h1>
+          <div className="favorites__status-wrapper">
+            <b className="favorites__status">Nothing yet saved.</b>
+            <p className="favorites__status-description">Save properties to narrow down search or plan your future trips.</p>
+          </div>
+                                             </section>)}
       </div>
     </>
   );
