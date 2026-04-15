@@ -12,9 +12,10 @@ import LoadingPage from '../../pages/loading-page/loading-page';
 import HistoryRouter from '../history-router/history-router';
 import browserHistory from '../../browser-history';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { checkAuthAction } from '../../store/api-actions';
+import { checkAuthAction, fetchFavoritesAction } from '../../store/api-actions';
 import { useEffect } from 'react';
 import { selectAuthorizationStatus } from '../../store/user-process/selectors';
+import { isAuth } from '../../utils/common';
 
 const App = (): JSX.Element => {
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);
@@ -22,6 +23,7 @@ const App = (): JSX.Element => {
 
   useEffect(() => {
     dispatch(checkAuthAction());
+    dispatch(fetchFavoritesAction());
   }, [dispatch]);
 
   if (authorizationStatus === AuthorizationStatus.Unknown) {
@@ -37,7 +39,7 @@ const App = (): JSX.Element => {
           <Route path={AppRoute.Root} element={<PageWrapper />}>
             <Route index element={<MainPage />} />
             <Route path={AppRoute.Login} element={
-              <PrivateRoute isAvailable={authorizationStatus !== AuthorizationStatus.Auth} route={AppRoute.Root}>
+              <PrivateRoute isAvailable={!isAuth(authorizationStatus)} route={AppRoute.Root}>
                 <LoginPage />
               </PrivateRoute>
             }
@@ -48,7 +50,7 @@ const App = (): JSX.Element => {
             }
             />
             <Route path={AppRoute.Favorites} element={
-              <PrivateRoute isAvailable={authorizationStatus === AuthorizationStatus.Auth} route={AppRoute.Login}>
+              <PrivateRoute isAvailable={isAuth(authorizationStatus)} route={AppRoute.Login}>
                 <FavoritesPage />
               </PrivateRoute>
             }

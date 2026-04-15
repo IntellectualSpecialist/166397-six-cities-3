@@ -4,6 +4,7 @@ import Logo from '../../ui/logo/logo';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logoutAction } from '../../store/api-actions';
 import { selectUser } from '../../store/user-process/selectors';
+import { selectFavorites } from '../../store/favorite/selectors';
 
 type HeaderProps = {
   shouldRenderUser?: boolean;
@@ -13,6 +14,7 @@ type HeaderProps = {
 const Header = ({isUserSignIn, shouldRenderUser = true}: HeaderProps): JSX.Element => {
   const dispatch = useAppDispatch();
   const email = useAppSelector(selectUser)?.email;
+  const favoriteCount = useAppSelector(selectFavorites).length;
 
   return (
     <header className="header">
@@ -35,7 +37,7 @@ const Header = ({isUserSignIn, shouldRenderUser = true}: HeaderProps): JSX.Eleme
                         <span className="header__user-name user__name">
                           {email}
                         </span>
-                        <span className="header__favorite-count">3</span>
+                        <span className="header__favorite-count">{favoriteCount}</span>
                       </>
                     ) : <span className="header__login">Sign In</span>}
                   </Link>

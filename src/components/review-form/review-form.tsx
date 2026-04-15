@@ -9,7 +9,7 @@ type ReviewFormProps = {
 }
 type ChangeHandler = ReactEventHandler<HTMLInputElement | HTMLTextAreaElement>
 
-const raitingValues = [
+const RaitingValues = [
   {
     value: 5,
     description: 'perfect'
@@ -40,7 +40,6 @@ const ReviewForm = ({id}: ReviewFormProps): JSX.Element => {
 
   const handleFormSubmit = async (evt: React.FormEvent<HTMLFormElement>): Promise<void> => {
     evt.preventDefault();
-    await dispatch(sendReviewAction({id, formData}));
 
     try {
       await dispatch(sendReviewAction({ id, formData })).unwrap();
@@ -68,7 +67,7 @@ const ReviewForm = ({id}: ReviewFormProps): JSX.Element => {
         Your review
       </label>
       <div className="reviews__rating-form form__rating">
-        {raitingValues.map(({value, description}) => (
+        {RaitingValues.map(({value, description}) => (
           <Fragment key={value}>
             <input
               className="form__rating-input visually-hidden"

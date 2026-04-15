@@ -2,10 +2,11 @@ import { Link } from 'react-router-dom';
 import { Offer } from '../../types/offer-type';
 import { getRaitingPercentage, capitalizeValue } from '../../utils/common';
 import { AppRoute } from '../../const';
-import FavoriteButton from '../favorite-button/favorite-button';
+import FavoriteButton from '../../components/favorite-button/favorite-button';
+import { OfferAndFavorite } from '../../types/favorite-offer';
 
 type PlaceCardProps = {
-  offer: Offer;
+  offer: OfferAndFavorite;
   className: string;
   imgClassName: string;
   imgWidth?: number;
@@ -48,7 +49,7 @@ const PlaceCard = ({offer, className, imgClassName, imgWidth = 260, imgHeight = 
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <FavoriteButton isFavorite={isFavorite} className='place-card__bookmark-button' activeClassName='place-card__bookmark-button--active' svgClassName='place-card__bookmark-icon' imgWidth={18} imgHeight={19} />
+          <FavoriteButton id={id} isFavorite={isFavorite} className='place-card__bookmark-button' activeClassName='place-card__bookmark-button--active' svgClassName='place-card__bookmark-icon' imgWidth={18} imgHeight={19} />
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">

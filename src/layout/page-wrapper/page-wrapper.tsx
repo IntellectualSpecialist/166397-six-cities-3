@@ -1,13 +1,17 @@
 import { Outlet, useLocation } from 'react-router-dom';
-import { AuthorizationStatus } from '../../const';
 import Header from '../header/header';
 import Footer from '../footer/footer';
 import { AppRoute } from '../../const';
-import { useSelector } from 'react-redux';
 import { selectAuthorizationStatus } from '../../store/user-process/selectors';
+import { useAppSelector } from '../../hooks';
+import { selectOffers } from '../../store/offers/selectors';
+import { selectFavorites } from '../../store/favorite/selectors';
+import { isAuth } from '../../utils/common';
 
 const PageWrapper = (): JSX.Element => {
-  const authorizationStatus = useSelector(selectAuthorizationStatus);
+  const authorizationStatus = useAppSelector(selectAuthorizationStatus);
+  const offers = useAppSelector(selectOffers);
+  const favorites = useAppSelector(selectFavorites);
 
   const {pathname} = useLocation();
   let pageClassName = '';
@@ -18,7 +22,7 @@ const PageWrapper = (): JSX.Element => {
   switch (pathname as AppRoute) {
     case AppRoute.Root:
       pageClassName = 'page--gray page--main';
-      mainClassName = 'page__main--index';
+      mainClassName = `page__main--index ${offers?.length ? '' : 'page__main--index-empty'}`;
 
       break;
 
@@ -30,7 +34,8 @@ const PageWrapper = (): JSX.Element => {
       break;
 
     case AppRoute.Favorites:
-      mainClassName = 'page__main--favorites';
+      mainClassName = `page__main--favorites ${favorites?.length ? '' : 'page__main--favorites-empty'}`;
+      pageClassName = `${favorites?.length ? '' : 'page--favorites-empty'}`;
       hasFooter = true;
       break;
 
@@ -42,7 +47,7 @@ const PageWrapper = (): JSX.Element => {
 
   return (
     <div className={`page ${pageClassName}`}>
-      <Header isUserSignIn={authorizationStatus === AuthorizationStatus.Auth} shouldRenderUser={shouldRenderUser} />
+      <Header isUserSignIn={isAuth(authorizationStatus)} shouldRenderUser={shouldRenderUser} />
 
       <main className={`page__main ${mainClassName}`}>
         <Outlet />
