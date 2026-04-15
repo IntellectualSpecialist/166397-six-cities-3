@@ -2,8 +2,9 @@ import { MouseEvent, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { changeFavoriteStatusAction } from '../../store/api-actions';
 import { selectAuthorizationStatus } from '../../store/user-process/selectors';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute } from '../../const';
 import { useNavigate } from 'react-router-dom';
+import { isAuth } from '../../utils/common';
 
 type FavoriteButtonProps = {
   id: string;
@@ -26,7 +27,7 @@ const FavoriteButton = ({id, isFavorite, className, activeClassName, svgClassNam
   const handleButtonClick = async (evt: MouseEvent<HTMLButtonElement>): Promise<void> => {
     evt.preventDefault();
 
-    if (authorizationStatus !== AuthorizationStatus.Auth) {
+    if (!isAuth(authorizationStatus)) {
       navigate(AppRoute.Login);
       return;
     }

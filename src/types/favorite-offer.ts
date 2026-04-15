@@ -15,4 +15,3 @@ export type FavoriteOffer = Offer & {
 
 export type OfferAndFavorite = Offer | FavoriteOffer
 
-export type OffersAndFavorites = OfferAndFavorite[];

@@ -2,21 +2,20 @@ import { Helmet } from 'react-helmet-async';
 import Reviews from '../../components/reviews/reviews';
 import Places from '../../components/places/places';
 import ReviewForm from '../../components/review-form/review-form';
-import { AuthorizationStatus, RequestStatus } from '../../const';
+import { RequestStatus } from '../../const';
 import Map from '../../components/map/map';
 import { Navigate, useParams } from 'react-router-dom';
-import { capitalizeValue, getRaitingPercentage } from '../../utils/common';
+import { capitalizeValue, getRaitingPercentage, isAuth } from '../../utils/common';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import FavoriteButton from '../../ui/favorite-button/favorite-button';
+import FavoriteButton from '../../components/favorite-button/favorite-button';
 import { useSelector } from 'react-redux';
 import { fetchNearbyAction, fetchOfferAction, fetchReviewsAction } from '../../store/api-actions';
 import { useEffect } from 'react';
 import LoadingPage from '../loading-page/loading-page';
-import { AllOffersType } from '../../types/all-offer-type';
+import { AllOfferType } from '../../types/all-offer-type';
 import { selectNearby, selectOffer, selectOfferStatus } from '../../store/offer/selectors';
 import { selectAuthorizationStatus } from '../../store/user-process/selectors';
 import { selectReviews } from '../../store/reviews/selectors';
-// import NotFoundPage from '../not-found-page/not-found-page';
 
 const MAX_PHOTOS_COUNT = 6;
 const MAX_NEARBY_COUNT = 3;
@@ -27,7 +26,7 @@ const OfferPage = (): JSX.Element => {
   const pageOffer = useAppSelector(selectOffer);
   const authorizationStatus = useSelector(selectAuthorizationStatus);
   const nearOffers = useAppSelector(selectNearby).slice(0, MAX_NEARBY_COUNT);
-  const reviews = useAppSelector(selectReviews).toSorted((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+  const reviews = useAppSelector(selectReviews);
   const status = useAppSelector(selectOfferStatus);
 
   const visibleOffers = [...nearOffers, pageOffer];
@@ -38,18 +37,17 @@ const OfferPage = (): JSX.Element => {
     dispatch(fetchReviewsAction(offerId as string));
   }, [offerId, dispatch]);
 
-  if (status === RequestStatus.Loading) {
-    return <LoadingPage/>;
+  if (status === RequestStatus.Failed) {
+    return <Navigate to="/404" />;
   }
 
-  if (status === RequestStatus.Failed || !pageOffer) {
-    // return <NotFoundPage/>;
-    return <Navigate to="/404" />;
+  if (status === RequestStatus.Loading || !pageOffer) {
+    return <LoadingPage/>;
   }
 
   const {id, type, title, price, goods, images, rating, description, host: {isPro, name, avatarUrl}, bedrooms, maxAdults, isPremium, isFavorite } = pageOffer;
 
-  const isUserSignIn = authorizationStatus === AuthorizationStatus.Auth;
+  const isUserSignIn = isAuth(authorizationStatus);
   const starsWidth = getRaitingPercentage(rating);
 
   return (
@@ -81,7 +79,13 @@ const OfferPage = (): JSX.Element => {
               <h1 className="offer__name">
                 {title}
               </h1>
-              <FavoriteButton id={id} isFavorite={isFavorite} className='offer__bookmark-button' activeClassName='offer__bookmark-button--active' svgClassName='offer__bookmark-icon' />
+              <FavoriteButton
+                id={id}
+                isFavorite={isFavorite}
+                className='offer__bookmark-button'
+                activeClassName='offer__bookmark-button--active'
+                svgClassName='offer__bookmark-icon'
+              />
             </div>
             <div className="offer__rating rating">
               <div className="offer__stars rating__stars">
@@ -141,7 +145,7 @@ const OfferPage = (): JSX.Element => {
             </section>
           </div>
         </div>
-        <Map className="offer__map" offers={visibleOffers as AllOffersType} activeOffer={pageOffer} city={pageOffer.city} />
+        <Map className="offer__map" offers={visibleOffers as AllOfferType[]} activeOffer={pageOffer} city={pageOffer.city} />
       </section>
       <div className="container">
         <Places className="near-places" imgClassName="near-places__image-wrapper" listClassName="near-places__list" cardClassName="near-places__card" offers={nearOffers}>

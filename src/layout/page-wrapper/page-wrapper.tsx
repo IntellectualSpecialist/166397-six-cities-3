@@ -1,5 +1,4 @@
 import { Outlet, useLocation } from 'react-router-dom';
-import { AuthorizationStatus } from '../../const';
 import Header from '../header/header';
 import Footer from '../footer/footer';
 import { AppRoute } from '../../const';
@@ -7,6 +6,7 @@ import { selectAuthorizationStatus } from '../../store/user-process/selectors';
 import { useAppSelector } from '../../hooks';
 import { selectOffers } from '../../store/offers/selectors';
 import { selectFavorites } from '../../store/favorite/selectors';
+import { isAuth } from '../../utils/common';
 
 const PageWrapper = (): JSX.Element => {
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);
@@ -47,7 +47,7 @@ const PageWrapper = (): JSX.Element => {
 
   return (
     <div className={`page ${pageClassName}`}>
-      <Header isUserSignIn={authorizationStatus === AuthorizationStatus.Auth} shouldRenderUser={shouldRenderUser} />
+      <Header isUserSignIn={isAuth(authorizationStatus)} shouldRenderUser={shouldRenderUser} />
 
       <main className={`page__main ${mainClassName}`}>
         <Outlet />

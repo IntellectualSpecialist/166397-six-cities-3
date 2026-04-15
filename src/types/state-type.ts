@@ -1,7 +1,7 @@
 import { AuthorizationStatus, RequestStatus } from '../const';
 import { store } from '../store';
 import { ExtraOffer } from './extra-offer';
-import { OffersAndFavorites } from './favorite-offer';
+import { OfferAndFavorite } from './favorite-offer';
 import { CityNameType, Offer } from './offer-type';
 import { ReviewType } from './review-type';
 import { UserData } from './user-data-type';
@@ -31,7 +31,7 @@ export type ReviewsData = {
 }
 
 export type FavoriteData = {
-  favorites: OffersAndFavorites;
+  favorites: OfferAndFavorite[];
   favoritesStatus: RequestStatus;
   favoriteStatus: RequestStatus;
 }
