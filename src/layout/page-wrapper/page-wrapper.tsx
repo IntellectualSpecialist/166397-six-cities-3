@@ -4,14 +4,18 @@ import Footer from '../footer/footer';
 import { AppRoute } from '../../const';
 import { selectAuthorizationStatus } from '../../store/user-process/selectors';
 import { useAppSelector } from '../../hooks';
-import { selectOffers } from '../../store/offers/selectors';
+import { selectCity, selectOffers } from '../../store/offers/selectors';
 import { selectFavorites } from '../../store/favorite/selectors';
-import { isAuth } from '../../utils/common';
+import { filterOffersByCity, isAuth } from '../../utils/common';
+import { useMemo } from 'react';
 
 const PageWrapper = (): JSX.Element => {
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);
   const offers = useAppSelector(selectOffers);
   const favorites = useAppSelector(selectFavorites);
+  const currentCityName = useAppSelector(selectCity);
+
+  const currentOffers = useMemo(() => filterOffersByCity(offers, currentCityName), [offers, currentCityName]);
 
   const {pathname} = useLocation();
   let pageClassName = '';
@@ -22,7 +26,7 @@ const PageWrapper = (): JSX.Element => {
   switch (pathname as AppRoute) {
     case AppRoute.Root:
       pageClassName = 'page--gray page--main';
-      mainClassName = `page__main--index ${offers?.length ? '' : 'page__main--index-empty'}`;
+      mainClassName = `page__main--index ${currentOffers?.length ? '' : 'page__main--index-empty'}`;
 
       break;
 
