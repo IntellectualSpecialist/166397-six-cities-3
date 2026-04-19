@@ -1,0 +1,83 @@
+import {name, internet} from 'faker';
+import { Offer } from '../types/offer-type';
+import { CityName, Housing } from '../const';
+import { ExtraOffer } from '../types/extra-offer';
+import { ReviewType } from '../types/review-type';
+import { UserData } from '../types/user-data-type';
+
+export const makeFakeOffer = (): Offer => ({
+  id: name.title(),
+  title: name.title(),
+  type: Housing.Apartment,
+  price: 104,
+  previewImage: internet.url(),
+  city: {
+    name: CityName[0],
+    location: {
+      latitude: 48.85661,
+      longitude: 2.351499,
+      zoom: 13
+    }
+  },
+  location: {
+    latitude: 48.858610000000006,
+    longitude: 2.330499,
+    zoom: 16
+  },
+  isFavorite: true,
+  isPremium: false,
+  rating: 4.9
+});
+
+export const makeFakeExtraOffer = (): ExtraOffer => ({
+  id: name.title(),
+  title: name.title(),
+  type: Housing.Apartment,
+  price: 136,
+  city: {
+    name: 'Paris',
+    location: {
+      latitude: 48.85661,
+      longitude: 2.351499,
+      zoom: 13
+    }
+  },
+  location: {
+    latitude: 48.85761,
+    longitude: 2.358499,
+    zoom: 16
+  },
+  isFavorite: false,
+  isPremium: false,
+  rating: 4.6,
+  bedrooms: 5,
+  maxAdults: 4,
+  description: 'A new spacious villa, one floor. All commodities, jacuzzi and beautiful scenery. Ideal for families or friends.',
+  goods: new Array(3).fill(null).map(() => name.title()),
+  host: {
+    name: 'Angelina',
+    isPro: true,
+    avatarUrl: internet.url()
+  },
+  images: new Array(3).fill(null).map(() => internet.url()),
+});
+
+export const makeFakeReview = (): ReviewType => ({
+  id: name.title(),
+  date: new Date().toISOString(),
+  user: {
+    name: name.firstName(),
+    isPro: true,
+    avatarUrl: internet.avatar(),
+  },
+  rating: 4.6,
+  comment: 'A new spacious villa, one floor. All commodities, jacuzzi and beautiful scenery. Ideal for families or friends.'
+});
+
+export const makeFakeUser = (): UserData => ({
+  name: name.firstName(),
+  email: internet.email(),
+  avatarUrl: internet.avatar(),
+  token: internet.password(),
+  isPro: true
+});
