@@ -25,7 +25,7 @@ describe('Offer selectors', () => {
     expect(result).toEqual(nearby);
   });
 
-  it('should return offer data loading status', () => {
+  it('should return offer data loading status from state', () => {
     const { status } = state[NameSpace.Offer];
     const result = selectOfferStatus(state);
     expect(result).toEqual(status);

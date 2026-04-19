@@ -18,7 +18,7 @@ describe('Favorite selectors', () => {
     expect(result).toEqual(favorites);
   });
 
-  it('should return favorites data loading status', () => {
+  it('should return favorites data loading status from state', () => {
     const { favoritesStatus } = state[NameSpace.Favorite];
     const result = selectFavoritesStatus(state);
     expect(result).toEqual(favoritesStatus);

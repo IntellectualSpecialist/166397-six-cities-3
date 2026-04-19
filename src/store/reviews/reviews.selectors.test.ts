@@ -18,13 +18,13 @@ describe('Offer selectors', () => {
     expect(result).toEqual(reviews);
   });
 
-  it('should return city offers from state', () => {
+  it('should return reviews status from state', () => {
     const { reviewsStatus } = state[NameSpace.Reviews];
     const result = selectReviewsStatus(state);
     expect(result).toEqual(reviewsStatus);
   });
 
-  it('should return offer data loading status', () => {
+  it('should return review loading status from state', () => {
     const { reviewStatus } = state[NameSpace.Reviews];
     const result = selectReviewStatus(state);
     expect(result).toEqual(reviewStatus);

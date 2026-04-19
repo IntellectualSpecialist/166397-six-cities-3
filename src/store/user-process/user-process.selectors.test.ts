@@ -1,5 +1,4 @@
 import { AuthorizationStatus, NameSpace, RequestStatus } from '../../const';
-import { UserProcess } from '../../types/state-type';
 import { makeFakeUser } from '../../utils/mocks';
 import { selectAuthorizationStatus, selectRequestStatus, selectUser } from './selectors';
 
@@ -27,18 +26,30 @@ describe('User selectors', () => {
 
   it('should return "true" because auth status is "Auth"', () => {
     const authorizationStatus = AuthorizationStatus.Auth;
-    const state: UserProcess = { authorizationStatus };
+    const newState = {
+      [NameSpace.User]: {
+        user: mockUser,
+        authorizationStatus,
+        requestStatus: RequestStatus.Idle,
+      }
+    };
 
-    const result = selectAuthorizationStatus({ [NameSpace.User]: state });
+    const result = selectAuthorizationStatus(newState);
 
     expect(result).toBe(true);
   });
 
   it('should return "false" because auth status is "Unknown"', () => {
     const authorizationStatus = AuthorizationStatus.Unknown;
-    const state: UserProcess = { authorizationStatus };
+    const newState = {
+      [NameSpace.User]: {
+        user: mockUser,
+        authorizationStatus,
+        requestStatus: RequestStatus.Idle,
+      }
+    };
 
-    const result = selectAuthorizationStatus({ [NameSpace.User]: state });
+    const result = selectAuthorizationStatus(newState);
 
     expect(result).toBe(false);
   });
