@@ -1,6 +1,6 @@
 import { NameSpace } from '../../const';
 import { State } from '../../types/state-type';
 
-export const selectFavorites = (state: State) => state[NameSpace.Favorite].favorites;
-export const selectFavoritesStatus = (state: State) => state[NameSpace.Favorite].favoritesStatus;
-export const selectFavoriteStatus = (state: State) => state[NameSpace.Favorite].favoriteStatus;
+export const selectFavorites = (state: Pick<State, NameSpace.Favorite>) => state[NameSpace.Favorite].favorites;
+export const selectFavoritesStatus = (state: Pick<State, NameSpace.Favorite>) => state[NameSpace.Favorite].favoritesStatus;
+export const selectFavoriteStatus = (state: Pick<State, NameSpace.Favorite>) => state[NameSpace.Favorite].favoriteStatus;

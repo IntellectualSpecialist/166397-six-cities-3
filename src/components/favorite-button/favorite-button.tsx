@@ -19,6 +19,7 @@ type FavoriteButtonProps = {
 const FavoriteButton = ({id, isFavorite, className, activeClassName, svgClassName, imgWidth, imgHeight}: FavoriteButtonProps): JSX.Element => {
   const dispatch = useAppDispatch();
   const [favStatus, setFavStatus] = useState(isFavorite);
+  const [isDisabled, setIsDisabled] = useState(false);
   const navigate = useNavigate();
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);
 
@@ -33,10 +34,13 @@ const FavoriteButton = ({id, isFavorite, className, activeClassName, svgClassNam
     }
 
     try {
+      setIsDisabled(true);
       await dispatch(changeFavoriteStatusAction({ id, status })).unwrap();
       setFavStatus((prev) => !prev);
     } catch (error) {
       throw new Error('Ошибка сохранения/удаления избранного');
+    } finally {
+      setIsDisabled(false);
     }
   };
 
@@ -47,6 +51,7 @@ const FavoriteButton = ({id, isFavorite, className, activeClassName, svgClassNam
       }}
       className={`${className} ${favStatus ? activeClassName : ''} button`}
       type="button"
+      disabled={isDisabled}
     >
       <svg className={svgClassName} width={imgWidth || 31} height={imgHeight || 33}>
         <use xlinkHref="#icon-bookmark" />

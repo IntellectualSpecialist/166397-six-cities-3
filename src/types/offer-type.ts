@@ -1,12 +1,10 @@
-import { CityName } from '../const';
+import { CityName, Housing } from '../const';
 
 type Location = {
   latitude: number;
   longitude: number;
   zoom: number;
 }
-
-type Housing = 'apartment' | 'room' | 'house' | 'hotel'
 
 export type CityNameType = typeof CityName[number];
 

@@ -9,6 +9,8 @@ import { selectCity, selectOffers } from '../../store/offers/selectors';
 import Places from '../places/places';
 import Sorting from '../sorting/sorting';
 import Map from '../map/map';
+import CitiesEmpty from '../cities-empty/cities-empty';
+import { filterOffersByCity } from '../../utils/common';
 
 const Cities = (): JSX.Element => {
   const [activeOffer, setActiveOffer] = useState <Nullable<Offer>>(null);
@@ -26,11 +28,15 @@ const Cities = (): JSX.Element => {
 
   const currentCity = CITIES.find((city) => city.name === currentCityName);
 
-  const currentOffers = useMemo(() => offers.filter((offer) => offer.city.name === currentCityName), [offers, currentCityName]);
+  const currentOffers = useMemo(() => filterOffersByCity(offers, currentCityName), [offers, currentCityName]);
 
   const placesCount = currentOffers.length;
 
   const sortedCurrentOffers = useMemo(() => sortOffers(currentSorting, currentOffers), [currentSorting, currentOffers]);
+
+  if (!currentOffers.length) {
+    return <CitiesEmpty city={currentCityName} />;
+  }
 
   return (
     <div className="cities__places-container container">

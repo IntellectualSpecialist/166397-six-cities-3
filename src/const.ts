@@ -37,6 +37,13 @@ export enum RequestStatus {
   Failed = 'FAILED'
 }
 
+export enum Housing {
+  Apartment = 'apartment',
+  Room = 'room',
+  House = 'house',
+  Hotel = 'hotel'
+}
+
 export const ReviewLength = {
   Min: 50,
   Max: 300
