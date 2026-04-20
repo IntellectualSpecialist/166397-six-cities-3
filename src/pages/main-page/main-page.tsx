@@ -31,7 +31,7 @@ const MainPage = (): JSX.Element => {
       <h1 className="visually-hidden">Cities</h1>
       <Tabs />
 
-      <div className="cities">
+      <div className="cities" data-testid="cities">
         <Cities />
       </div>
     </>

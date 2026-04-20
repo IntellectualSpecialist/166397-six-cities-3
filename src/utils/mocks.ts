@@ -1,6 +1,6 @@
 import {name, internet} from 'faker';
 import { Offer } from '../types/offer-type';
-import { CityName, Housing } from '../const';
+import { AuthorizationStatus, CityName, Housing, RequestStatus } from '../const';
 import { ExtraOffer } from '../types/extra-offer';
 import { ReviewType } from '../types/review-type';
 import { UserData } from '../types/user-data-type';
@@ -123,3 +123,32 @@ export const makeFakeUser = (): UserData => ({
 });
 
 export const extractActionsTypes = (actions: Action<string>[]) => actions.map(({type}) => type);
+
+export const makeFakeStore = (initialState?: Partial<State>): State => ({
+  USER: {
+    authorizationStatus: AuthorizationStatus.NoAuth,
+    user: null,
+    requestStatus: RequestStatus.Idle
+  },
+  OFFERS: {
+    offers: new Array(3).fill(null).map(() => makeFakeOffer()),
+    city: CityName[0],
+    status: RequestStatus.Idle
+  },
+  OFFER: {
+    offer: null,
+    nearby: new Array(3).fill(null).map(() => makeFakeOffer()),
+    status: RequestStatus.Idle
+  },
+  REVIEWS: {
+    reviews: new Array(3).fill(null).map(() => makeFakeReview()),
+    reviewsStatus: RequestStatus.Idle,
+    reviewStatus: RequestStatus.Idle
+  },
+  FAVORITE: {
+    favorites: new Array(3).fill(null).map(() => makeFakeFavoriteOffer()),
+    favoritesStatus: RequestStatus.Idle,
+    favoriteStatus: RequestStatus.Idle
+  },
+  ...initialState ?? {},
+});
