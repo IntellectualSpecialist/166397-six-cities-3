@@ -9,6 +9,8 @@ import { Action, ThunkDispatch } from '@reduxjs/toolkit';
 import { createAPI } from '../services/api';
 import { State } from '../types/state-type';
 
+export type AppThunkDispatch = ThunkDispatch<State, ReturnType<typeof createAPI>, Action>;
+
 export const makeFakeOffer = (): Offer => ({
   id: name.title(),
   title: name.title(),
@@ -119,7 +121,5 @@ export const makeFakeUser = (): UserData => ({
   token: internet.password(),
   isPro: true
 });
-
-export type AppThunkDispatch = ThunkDispatch<State, ReturnType<typeof createAPI>, Action>;
 
 export const extractActionsTypes = (actions: Action<string>[]) => actions.map(({type}) => type);

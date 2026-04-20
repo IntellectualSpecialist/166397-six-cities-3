@@ -5,7 +5,7 @@ import { createAPI } from '../services/api';
 import { AppThunkDispatch, extractActionsTypes, makeFakeExtraOffer, makeFakeOffer, makeFakeReview, makeFakeUser } from '../utils/mocks';
 import { State } from '../types/state-type';
 import { Action } from '@reduxjs/toolkit';
-import { APIRoute } from '../const';
+import { APIRoute, AuthorizationStatus } from '../const';
 import { changeFavoriteStatusAction, checkAuthAction, fetchFavoritesAction, fetchNearbyAction, fetchOfferAction, fetchOffersAction, fetchReviewsAction, loginAction, logoutAction, sendReviewAction } from './api-actions';
 
 describe('Async actions', () => {
@@ -16,7 +16,26 @@ describe('Async actions', () => {
   let store: ReturnType<typeof mockStoreCreator>;
 
   beforeEach(() => {
-    store = mockStoreCreator({OFFERS: { offers: []}});
+    store = mockStoreCreator(
+      {
+        OFFERS: {
+          offers: [],
+        },
+        OFFER: {
+          offer: null,
+          nearby: []
+        },
+        REVIEWS: {
+          reviews: []
+        },
+        FAVORITE: {
+          favorites: []
+        },
+        USER: {
+          user: null,
+          authorizationStatus: AuthorizationStatus.Unknown
+        }
+      });
   });
 
   describe('fetchOffersAction', () => {
