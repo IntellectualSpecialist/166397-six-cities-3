@@ -21,4 +21,5 @@ module.exports = {
       rules: { '@typescript-eslint/unbound-method': 'off' }
     },
   ],
+  ignorePatterns: ["vitest.setup.ts", "vitest.config.ts"]
 }

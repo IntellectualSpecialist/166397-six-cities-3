@@ -71,7 +71,7 @@ describe('Async actions', () => {
   describe('fetchOfferAction', () => {
     it('should dispatch "fetchOfferAction.pending" and "fetchOfferAction.fulfilled" when server response 200', async () => {
       const mockOffer = makeFakeExtraOffer();
-      mockAxiosAdapter.onGet(`APIRoute.Offers/${mockOffer.id}`).reply(200, mockOffer);
+      mockAxiosAdapter.onGet(`${APIRoute.Offers}/${mockOffer.id}`).reply(200, mockOffer);
 
       await store.dispatch(fetchOfferAction(mockOffer.id));
 
