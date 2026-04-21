@@ -146,6 +146,8 @@ describe('Favorite Slice', () => {
 
   it('should remove offer from "favorites" when "changeFavoriteStatusAction.fulfilled" with status 0', () => {
     const mockOffer = makeFakeFavoriteOffer();
+    mockOffer.isFavorite = false;
+
     const initialState = {
       favorites: [mockOffer],
       favoriteStatus: RequestStatus.Idle,

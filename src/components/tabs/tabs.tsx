@@ -18,7 +18,7 @@ const Tabs = (): JSX.Element => {
   return (
     <div className="tabs">
       <section className="locations container">
-        <ul className="locations__list tabs__list">
+        <ul className="locations__list tabs__list" data-testid="tabs-list">
           {CityName.map((name) => <Tab name={name} key={name} className={currentTab === name ? 'tabs__item--active' : ''} onTabClick={handleTabClick} tag="li" />)}
         </ul>
       </section>

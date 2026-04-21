@@ -35,7 +35,7 @@ const Cities = (): JSX.Element => {
   const sortedCurrentOffers = useMemo(() => sortOffers(currentSorting, currentOffers), [currentSorting, currentOffers]);
 
   if (!currentOffers.length) {
-    return <CitiesEmpty city={currentCityName} />;
+    return <CitiesEmpty city={currentCityName} data-testid="cities-empty" />;
   }
 
   return (
@@ -47,13 +47,14 @@ const Cities = (): JSX.Element => {
         cardClassName='cities__card'
         imgClassName='cities__image-wrapper'
         onActiveCardChange={handleActiveCardChange}
+        data-testid="places"
       >
         <h2 className="visually-hidden">Places</h2>
         <b className="places__found">{placesCount} place{placesCount === 1 ? '' : 's'} to stay in Amsterdam</b>
         <Sorting currentOption={currentSorting} onSortingOptionClick={handleSortingOptionClick} />
       </Places>
       <div className="cities__right-section">
-        <Map className='cities__map' activeOffer={activeOffer} offers={currentOffers} city={currentCity as City} />
+        <Map className='cities__map' activeOffer={activeOffer} offers={currentOffers} city={currentCity as City} data-testid="map" />
       </div>
     </div>
   );

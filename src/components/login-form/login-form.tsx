@@ -32,11 +32,29 @@ const LoginForm = (): JSX.Element => {
     <form className="login__form form" action="#" method="post" onSubmit={handleFormSubmit}>
       <div className="login__input-wrapper form__input-wrapper">
         <label className="visually-hidden" htmlFor="email">E-mail</label>
-        <input onChange={handleFormDataChange} value={formData.login} className="login__input form__input" id="email" type="email" name="login" placeholder="Email" required />
+        <input
+          onChange={handleFormDataChange}
+          value={formData.login} className="login__input form__input"
+          id="email"
+          type="email"
+          name="login"
+          placeholder="Email"
+          required
+          data-testid="loginElement"
+        />
       </div>
       <div className="login__input-wrapper form__input-wrapper">
         <label className="visually-hidden" htmlFor="password">Password</label>
-        <input onChange={handleFormDataChange} value={formData.password} className="login__input form__input" id="password" type="password" name="password" placeholder="Password" required />
+        <input
+          onChange={handleFormDataChange}
+          value={formData.password}
+          className="login__input form__input"
+          id="password" type="password"
+          name="password"
+          placeholder="Password"
+          required
+          data-testid="passwordElement"
+        />
       </div>
       <button className="login__submit form__submit button" type="submit">Sign in</button>
     </form>

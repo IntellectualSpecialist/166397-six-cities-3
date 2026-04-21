@@ -48,7 +48,7 @@ describe('Application Routing', () => {
           requestStatus: RequestStatus.Idle
         }
       }));
-    mockHistory.push(AppRoute.Root);
+    mockHistory.push(AppRoute.Login);
     const expectedText = 'Sign in';
 
     render(withStoreComponent);

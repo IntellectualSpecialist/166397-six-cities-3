@@ -12,7 +12,7 @@ type PlacesProps = PropsWithChildren<{
 }>;
 
 const Places = ({ offers, className, listClassName, cardClassName, imgClassName, children, onActiveCardChange}: PlacesProps): JSX.Element => (
-  <section className={`${className} places`}>
+  <section className={`${className} places`} data-testid="places">
     {children}
     <div className={`${listClassName} cities__places-list places__list tabs__content`}>
       {offers.map((offer) =>

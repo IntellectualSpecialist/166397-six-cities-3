@@ -34,18 +34,21 @@ const RaitingValues = [
 
 const ReviewForm = ({id}: ReviewFormProps): JSX.Element => {
   const [formData, setFormData] = useState<NewReview>({rating: 0, review: ''});
-  const dispatch = useAppDispatch();
-
   const isButtonDisabled = formData.review.length < ReviewLength.Min || formData.review.length >= ReviewLength.Max || formData.rating === 0;
+  const [isDisabled, setIsDisabled] = useState<boolean>(isButtonDisabled);
+  const dispatch = useAppDispatch();
 
   const handleFormSubmit = async (evt: React.FormEvent<HTMLFormElement>): Promise<void> => {
     evt.preventDefault();
 
     try {
+      setIsDisabled(true);
       await dispatch(sendReviewAction({ id, formData })).unwrap();
       setFormData({ rating: 0, review: '' });
     } catch (error) {
       throw new Error('Ошибка отправки отзыва');
+    } finally {
+      setIsDisabled(isButtonDisabled);
     }
   };
 
@@ -56,6 +59,8 @@ const ReviewForm = ({id}: ReviewFormProps): JSX.Element => {
       ...formData,
       [name]: name === 'rating' ? Number(value) : value
     });
+
+    setIsDisabled(isButtonDisabled);
   };
 
   return (
@@ -108,7 +113,7 @@ const ReviewForm = ({id}: ReviewFormProps): JSX.Element => {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={isButtonDisabled}
+          disabled={isDisabled}
         >
           Submit
         </button>
