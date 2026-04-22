@@ -53,7 +53,7 @@ const PageWrapper = (): JSX.Element => {
     <div className={`page ${pageClassName}`}>
       <Header isUserSignIn={isAuth(authorizationStatus)} shouldRenderUser={shouldRenderUser} />
 
-      <main className={`page__main ${mainClassName}`}>
+      <main className={`page__main ${mainClassName}`} data-testid="main">
         <Outlet />
       </main>
 

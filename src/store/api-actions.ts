@@ -143,7 +143,7 @@ export const logoutAction = createAsyncThunk<void, undefined, {
 }>(
   'user/logout',
   async (_args, { extra: api}) => {
-    await api.delete(APIRoute.Login);
+    await api.delete(APIRoute.Logout);
     removeToken();
   }
 );

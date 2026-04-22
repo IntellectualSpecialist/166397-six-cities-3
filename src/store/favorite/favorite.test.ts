@@ -1,4 +1,5 @@
 import { RequestStatus } from '../../const';
+import { FavoriteData } from '../../types/state-type';
 import { makeFakeFavoriteOffer, makeFakeOffer } from '../../utils/mocks';
 import { changeFavoriteStatusAction, fetchFavoritesAction } from '../api-actions';
 import { favorite } from './favorite';
@@ -128,12 +129,12 @@ describe('Favorite Slice', () => {
 
   it('should add offer to "favorites" when "changeFavoriteStatusAction.fulfilled" with status 1', () => {
     const mockOffer = makeFakeFavoriteOffer();
-    const initialState = {
+    const initialState: FavoriteData = {
       favorites: [],
       favoriteStatus: RequestStatus.Idle,
       favoritesStatus: RequestStatus.Idle,
     };
-    const expectedState = {
+    const expectedState: FavoriteData = {
       favorites: [mockOffer],
       favoriteStatus: RequestStatus.Success,
       favoritesStatus: RequestStatus.Idle,
@@ -146,6 +147,8 @@ describe('Favorite Slice', () => {
 
   it('should remove offer from "favorites" when "changeFavoriteStatusAction.fulfilled" with status 0', () => {
     const mockOffer = makeFakeFavoriteOffer();
+    mockOffer.isFavorite = false;
+
     const initialState = {
       favorites: [mockOffer],
       favoriteStatus: RequestStatus.Idle,

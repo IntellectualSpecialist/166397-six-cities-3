@@ -48,12 +48,12 @@ describe('Application Routing', () => {
           requestStatus: RequestStatus.Idle
         }
       }));
-    mockHistory.push(AppRoute.Root);
-    const expectedText = 'Sign in';
+    mockHistory.push(AppRoute.Login);
+    const expectedText = 'sign-in';
 
     render(withStoreComponent);
 
-    expect(screen.getByText(expectedText)).toBeInTheDocument();
+    expect(screen.getByTestId(expectedText)).toBeInTheDocument();
     expect(screen.getByLabelText('E-mail')).toBeInTheDocument();
     expect(screen.getByLabelText('Password')).toBeInTheDocument();
   });
@@ -82,7 +82,7 @@ describe('Application Routing', () => {
     const state = mockStore.getState();
     const offerId = (state.OFFERS as { offers: { id: string }[] }).offers[0].id;
 
-    mockHistory.push(`${AppRoute.Offer}/${offerId}`);
+    mockHistory.push(AppRoute.Offer.replace(':id', offerId));
     const expectedText = 'Other places in the neighbourhood';
 
     render(withStoreComponent);

@@ -61,7 +61,7 @@ const Map = ({offers = [], activeOffer, city, className}: MapProps): JSX.Element
   }, [map, offers, activeOffer]);
 
   return (
-    <section className={`${className} map`} ref={mapRef} />
+    <section className={`${className} map`} ref={mapRef} data-testid="map" />
   );
 };
 

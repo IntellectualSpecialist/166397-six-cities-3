@@ -34,18 +34,27 @@ const RaitingValues = [
 
 const ReviewForm = ({id}: ReviewFormProps): JSX.Element => {
   const [formData, setFormData] = useState<NewReview>({rating: 0, review: ''});
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const dispatch = useAppDispatch();
 
-  const isButtonDisabled = formData.review.length < ReviewLength.Min || formData.review.length >= ReviewLength.Max || formData.rating === 0;
+  const shouldButtonDisabled =
+    formData.review.length < ReviewLength.Min ||
+    formData.review.length >= ReviewLength.Max ||
+    formData.rating === 0;
+
+  const isButtonDisabled = isSubmitting || shouldButtonDisabled;
 
   const handleFormSubmit = async (evt: React.FormEvent<HTMLFormElement>): Promise<void> => {
     evt.preventDefault();
 
     try {
+      setIsSubmitting(true);
       await dispatch(sendReviewAction({ id, formData })).unwrap();
       setFormData({ rating: 0, review: '' });
     } catch (error) {
       throw new Error('Ошибка отправки отзыва');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -77,6 +86,7 @@ const ReviewForm = ({id}: ReviewFormProps): JSX.Element => {
               type="radio"
               onChange={handleFormDataChange}
               checked={value === Number(formData.rating)}
+              data-testid={description}
             />
             <label
               htmlFor={`${value}-stars`}
@@ -97,6 +107,7 @@ const ReviewForm = ({id}: ReviewFormProps): JSX.Element => {
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={formData.review}
         onChange={handleFormDataChange}
+        data-testid="review-textarea"
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
@@ -109,6 +120,7 @@ const ReviewForm = ({id}: ReviewFormProps): JSX.Element => {
           className="reviews__submit form__submit button"
           type="submit"
           disabled={isButtonDisabled}
+          data-testid="submit-button"
         >
           Submit
         </button>

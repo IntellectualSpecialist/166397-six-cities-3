@@ -87,7 +87,7 @@ export const makeFakeFavoriteOffer = (): FavoriteOffer => ({
     longitude: 2.358499,
     zoom: 16
   },
-  isFavorite: false,
+  isFavorite: true,
   isPremium: false,
   rating: 4.6,
   bedrooms: 5,
@@ -136,7 +136,7 @@ export const makeFakeStore = (initialState?: Partial<State>): State => ({
     status: RequestStatus.Idle
   },
   OFFER: {
-    offer: null,
+    offer: makeFakeExtraOffer(),
     nearby: new Array(3).fill(null).map(() => makeFakeOffer()),
     status: RequestStatus.Idle
   },
