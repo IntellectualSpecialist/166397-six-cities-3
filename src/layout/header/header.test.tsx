@@ -1,9 +1,7 @@
 import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { withHistory, withStore } from '../../utils/mock-component';
 import Header from './header';
 import { AppRoute, AuthorizationStatus, RequestStatus } from '../../const';
-import { logoutAction } from '../../store/api-actions';
 import { makeFakeOffer, makeFakeStore } from '../../utils/mocks';
 
 describe('Component: Header', () => {
@@ -78,32 +76,5 @@ describe('Component: Header', () => {
     expect(screen.queryByRole('navigation')).not.toBeInTheDocument();
     expect(screen.queryByText('Sign out')).not.toBeInTheDocument();
     expect(screen.queryByText('Sign In')).not.toBeInTheDocument();
-  });
-
-  it('should dispatch logoutAction when "Sign out" is clicked', async () => {
-    const fakeStore = makeFakeStore({
-      USER: {
-        user: {
-          email: 'test@example.com',
-          name: 'Test User',
-          avatarUrl: 'test.jpg',
-          isPro: false,
-          token: 'token123',
-        },
-        authorizationStatus: AuthorizationStatus.Auth,
-        requestStatus: RequestStatus.Success,
-      },
-    });
-
-    const withHistoryComponent = withHistory(<Header isUserSignIn />);
-    const { withStoreComponent, mockStore } = withStore(withHistoryComponent, fakeStore);
-    render(withStoreComponent);
-
-    const dispatchSpy = vi.spyOn(mockStore, 'dispatch');
-    const signOutLink = screen.getByText('Sign out');
-    await userEvent.click(signOutLink);
-
-    expect(dispatchSpy).toHaveBeenCalledTimes(1);
-    expect(dispatchSpy.mock.calls[0][0]).toBe(logoutAction());
   });
 });

@@ -27,6 +27,7 @@ const Tab = ({name, className, onTabClick, tag}: TabProp): JSX.Element => {
         className={`locations__item-link tabs__item ${className || ''}`}
         to={AppRoute.Root}
         onClick={onTabClick ? (evt) => handleTabClick(evt) : undefined}
+        data-testid="tab-link"
       >
         <span>{name}</span>
       </Link>

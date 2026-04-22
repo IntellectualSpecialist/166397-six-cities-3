@@ -49,7 +49,9 @@ const Header = ({isUserSignIn, shouldRenderUser = true}: HeaderProps): JSX.Eleme
                     dispatch(logoutAction());
                   }}
                   >
-                    <span className="header__signout">Sign out</span>
+                    <span className="header__signout" data-testid="sign-out">
+                      Sign out
+                    </span>
                   </Link>
                 </li>}
               </ul>

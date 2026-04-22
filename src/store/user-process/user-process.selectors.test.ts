@@ -36,7 +36,7 @@ describe('User selectors', () => {
 
     const result = selectAuthorizationStatus(newState);
 
-    expect(result).toBe(true);
+    expect(result).toBe(authorizationStatus);
   });
 
   it('should return "false" because auth status is "Unknown"', () => {
@@ -51,6 +51,6 @@ describe('User selectors', () => {
 
     const result = selectAuthorizationStatus(newState);
 
-    expect(result).toBe(false);
+    expect(result).toBe(authorizationStatus);
   });
 });

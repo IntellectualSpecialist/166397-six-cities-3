@@ -36,19 +36,20 @@ const Sorting = ({ currentOption, onSortingOptionClick }: SortingProps): JSX.Ele
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by{' '}</span>
-      <span className="places__sorting-type" tabIndex={0} onClick={() => setIsSortingOpen((prev) => !prev)}>
+      <span className="places__sorting-type" tabIndex={0} onClick={() => setIsSortingOpen((prev) => !prev)} data-testid="sorting-type">
         {currentOption}
         <svg className="places__sorting-arrow" width={7} height={4}>
           <use xlinkHref="#icon-arrow-select" />
         </svg>
       </span>
-      <ul className={`places__options places__options--custom ${isSortingOpen && 'places__options--opened'}`}>
+      <ul className={`places__options places__options--custom ${isSortingOpen ? 'places__options--opened' : ''}`} data-testid="list">
         {SortingOption?.length && SortingOption.map((option) => (
           <li
             key={option}
             className={`places__option ${option === currentOption ? 'places__option--active' : ''}`}
             tabIndex={0}
             onClick = {() => handleSortingOptionClick(option)}
+            data-testid={option}
           >
             {option}
           </li>

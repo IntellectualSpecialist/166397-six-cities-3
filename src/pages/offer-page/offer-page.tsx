@@ -149,7 +149,7 @@ const OfferPage = (): JSX.Element => {
       </section>
       <div className="container">
         <Places className="near-places" imgClassName="near-places__image-wrapper" listClassName="near-places__list" cardClassName="near-places__card" offers={nearOffers}>
-          <h2 className="near-places__title">
+          <h2 className="near-places__title" data-testid="nearby-title">
               Other places in the neighbourhood
           </h2>
         </Places>

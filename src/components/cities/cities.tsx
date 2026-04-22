@@ -28,13 +28,13 @@ const Cities = (): JSX.Element => {
 
   const currentCity = CITIES.find((city) => city.name === currentCityName);
 
-  const currentOffers = useMemo(() => filterOffersByCity(offers, currentCityName), [offers, currentCityName]);
+  const currentOffers = useMemo(() => filterOffersByCity(offers ?? [], currentCityName ?? ''), [offers, currentCityName]);
 
-  const placesCount = currentOffers.length;
+  const placesCount = currentOffers?.length ?? 0;
 
   const sortedCurrentOffers = useMemo(() => sortOffers(currentSorting, currentOffers), [currentSorting, currentOffers]);
 
-  if (!currentOffers.length) {
+  if (!currentOffers?.length) {
     return <CitiesEmpty city={currentCityName} data-testid="cities-empty" />;
   }
 

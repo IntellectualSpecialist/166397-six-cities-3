@@ -1,5 +1,5 @@
 import { createMemoryHistory, MemoryHistory } from 'history';
-import { AppRoute, AuthorizationStatus, RequestStatus } from '../../const';
+import { AppRoute } from '../../const';
 import { withHistory, withStore } from '../../utils/mock-component';
 import { makeFakeStore } from '../../utils/mocks';
 import FavoritesPage from './favorites-page';
@@ -12,21 +12,14 @@ describe('Component: FavoritesPage', () => {
     mockHistory = createMemoryHistory();
   });
 
-  it('should render correctly when user is authorized', () => {
+  it('should render correctly ', () => {
     const withHistoryComponent = withHistory(<FavoritesPage/>, mockHistory);
-    const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore(
-      {
-        USER:
-        {
-          authorizationStatus: AuthorizationStatus.Auth,
-          user: null,
-          requestStatus: RequestStatus.Idle
-        }
-      }));
+    const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore());
     mockHistory.push(AppRoute.Favorites);
 
     render(withStoreComponent);
 
     expect(screen.getByTestId('favorites')).toBeInTheDocument();
   });
+
 });

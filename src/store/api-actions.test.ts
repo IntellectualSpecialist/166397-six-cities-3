@@ -281,7 +281,7 @@ describe('Async actions', () => {
       await store.dispatch(loginAction({ login: fakeUser.email, password: 'password' }));
       const emittedActions = store.getActions();
       const extractedActionsTypes = extractActionsTypes(emittedActions);
-      const loginActionFulfilled = emittedActions.at(1) as ReturnType<typeof loginAction.fulfilled>;
+      const loginActionFulfilled = emittedActions.at(2) as ReturnType<typeof loginAction.fulfilled>;
 
       expect(extractedActionsTypes).toEqual([loginAction.pending.type, redirectToRoute.type, loginAction.fulfilled.type]);
       expect(loginActionFulfilled.payload).toEqual(fakeUser);

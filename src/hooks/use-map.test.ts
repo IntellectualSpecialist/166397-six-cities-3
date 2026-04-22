@@ -1,7 +1,23 @@
 import { renderHook } from '@testing-library/react';
-import { CityName } from '../const';
-import useMap from './use-map';
+
 import { Map } from 'leaflet';
+import { vi } from 'vitest';
+import { CITIES } from '../const';
+import useMap from './use-map';
+
+vi.mock('leaflet', async () => {
+  const actual = await vi.importActual<typeof import('leaflet')>('leaflet');
+  return {
+    ...actual,
+    map: vi.fn().mockReturnValue({
+      setView: vi.fn().mockReturnThis(),
+      remove: vi.fn(),
+    }),
+    tileLayer: vi.fn().mockReturnValue({
+      addTo: vi.fn(),
+    }),
+  };
+});
 
 describe('Hook: useMap', () => {
   let mapRef: { current: HTMLDivElement | null };
@@ -11,11 +27,12 @@ describe('Hook: useMap', () => {
   });
 
   it('should return map instance', () => {
-    const result = renderHook(() => useMap(mapRef, {
-      name: CityName[0],
-      location: { latitude: 0, longitude: 0, zoom: 13 },
-    }));
+    const city = {
+      ...CITIES[0]
+    };
 
-    expect(result).toBeInstanceOf(Map);
+    const { result } = renderHook(() => useMap(mapRef, city));
+
+    expect(result.current).toBeInstanceOf(Map);
   });
 });

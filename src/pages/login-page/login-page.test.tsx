@@ -24,12 +24,12 @@ describe('Component: LoginPage', () => {
         }
       }));
     mockHistory.push(AppRoute.Login);
-    const expectedText = 'Sign in';
+    const expectedText = 'sign-in';
 
     render(withStoreComponent);
 
-    expect(screen.getByText(expectedText)).toBeInTheDocument();
-    expect(screen.getByLabelText('E-mail')).toBeInTheDocument();
-    expect(screen.getByLabelText('Password')).toBeInTheDocument();
+    expect(screen.getByTestId(expectedText)).toBeInTheDocument();
+    expect(screen.getByTestId('loginElement')).toBeInTheDocument();
+    expect(screen.getByTestId('passwordElement')).toBeInTheDocument();
   });
 });
