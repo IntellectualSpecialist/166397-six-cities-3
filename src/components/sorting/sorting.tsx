@@ -8,6 +8,8 @@ type SortingProps = {
   onSortingOptionClick?: (option: SortingOptionType) => void;
 }
 
+type ReactClickHandler = React.MouseEventHandler<HTMLSpanElement | HTMLLIElement>;
+
 const Sorting = ({ currentOption, onSortingOptionClick }: SortingProps): JSX.Element => {
   const [isSortingOpen, setIsSortingOpen] = useState<boolean>(false);
 
@@ -16,19 +18,23 @@ const Sorting = ({ currentOption, onSortingOptionClick }: SortingProps): JSX.Ele
     setIsSortingOpen(false);
   };
 
+  const handleSortingToggleClick: ReactClickHandler = () => {
+    setIsSortingOpen((prev) => !prev);
+  };
+
   useEffect(() => {
     if (isSortingOpen) {
-      const onDocumentKeydown = (evt: KeyboardEvent) => {
+      const handleDocumentKeydown = (evt: KeyboardEvent) => {
         if (isEscKey(evt)) {
           evt.preventDefault();
           setIsSortingOpen(false);
         }
       };
 
-      document.addEventListener('keydown', onDocumentKeydown);
+      document.addEventListener('keydown', handleDocumentKeydown);
 
       return () => {
-        document.removeEventListener('keydown', onDocumentKeydown);
+        document.removeEventListener('keydown', handleDocumentKeydown);
       };
     }
   }, [isSortingOpen]);
@@ -36,7 +42,7 @@ const Sorting = ({ currentOption, onSortingOptionClick }: SortingProps): JSX.Ele
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by{' '}</span>
-      <span className="places__sorting-type" tabIndex={0} onClick={() => setIsSortingOpen((prev) => !prev)} data-testid="sorting-type">
+      <span className="places__sorting-type" tabIndex={0} onClick={handleSortingToggleClick} data-testid="sorting-type">
         {currentOption}
         <svg className="places__sorting-arrow" width={7} height={4}>
           <use xlinkHref="#icon-arrow-select" />

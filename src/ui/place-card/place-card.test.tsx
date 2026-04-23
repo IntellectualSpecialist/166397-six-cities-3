@@ -3,19 +3,32 @@ import { withHistory, withStore } from '../../utils/mock-component';
 import PlaceCard from './place-card';
 import { makeFakeOffer, makeFakeStore } from '../../utils/mocks';
 import userEvent from '@testing-library/user-event';
+import { capitalizeValue, getRatingPercentage } from '../../utils/common';
+import { AuthorizationStatus, RequestStatus } from '../../const';
 
 describe('Component: PlaceCard', () => {
   it('should render correctly', () => {
     const expectedAltText = 'Place image';
     const expectedText = 'Rating';
 
-    const mockOffer = makeFakeOffer();
+    const mockOffer = makeFakeOffer({ isFavorite: true });
+    const fakeStore = makeFakeStore({
+      USER: {
+        authorizationStatus: AuthorizationStatus.Auth,
+        user: null,
+        requestStatus: RequestStatus.Idle,
+      },
+      FAVORITE: {
+        favorites: [{ ...mockOffer }],
+        favoritesStatus: RequestStatus.Idle,
+      },
+    });
     const { withStoreComponent } = withStore(
       <PlaceCard
         offer={mockOffer}
         className="test-class"
         imgClassName="test-img-class"
-      />, makeFakeStore()
+      />, fakeStore
     );
     const preparedComponent = withHistory(
       withStoreComponent
@@ -28,6 +41,12 @@ describe('Component: PlaceCard', () => {
     expect(screen.getByRole('article')).toBeInTheDocument();
     expect(screen.getByRole('button')).toBeInTheDocument();
     expect(screen.getByRole('img')).toBeInTheDocument();
+    expect(screen.getByText(mockOffer.title)).toBeInTheDocument();
+    expect(screen.getByText(`€${mockOffer.price}`)).toBeInTheDocument();
+    expect(screen.getByText(capitalizeValue(mockOffer.type))).toBeInTheDocument();
+    expect(screen.getByTestId('rating-stars')).toHaveStyle(`width: ${getRatingPercentage(mockOffer.rating)}`);
+    expect(screen.getByTestId('image')).toHaveAttribute('src', mockOffer.previewImage);
+    expect(screen.getByRole('button')).toHaveClass('place-card__bookmark-button--active');
   });
 
   it('should call handleActiveCardChange when hovered', async () => {
@@ -38,7 +57,7 @@ describe('Component: PlaceCard', () => {
         offer={mockOffer}
         className="test-class"
         imgClassName="test-img-class"
-        handleActiveCardChange={mockHandleActiveCardChange}
+        onActiveCardChange={mockHandleActiveCardChange}
       />, makeFakeStore()
     );
     const preparedComponent = withHistory(
@@ -62,7 +81,7 @@ describe('Component: PlaceCard', () => {
         offer={mockOffer}
         className="test-class"
         imgClassName="test-img-class"
-        handleActiveCardChange={mockHandleActiveCardChange}
+        onActiveCardChange={mockHandleActiveCardChange}
       />, makeFakeStore()
     );
     const preparedComponent = withHistory(
@@ -117,14 +136,24 @@ describe('Component: PlaceCard', () => {
   });
 
   it('should render bookmark button with active class when offer is favorite', () => {
-    const mockOffer = makeFakeOffer();
-    mockOffer.isFavorite = true;
+    const mockOffer = makeFakeOffer({ isFavorite: true });
+    const fakeStore = makeFakeStore({
+      USER: {
+        authorizationStatus: AuthorizationStatus.Auth,
+        user: null,
+        requestStatus: RequestStatus.Idle,
+      },
+      FAVORITE: {
+        favorites: [{ ...mockOffer }],
+        favoritesStatus: RequestStatus.Idle,
+      },
+    });
     const { withStoreComponent } = withStore(
       <PlaceCard
         offer={mockOffer}
         className="test-class"
         imgClassName="test-img-class"
-      />, makeFakeStore()
+      />, fakeStore
     );
     const preparedComponent = withHistory(
       withStoreComponent

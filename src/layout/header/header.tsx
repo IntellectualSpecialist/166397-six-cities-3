@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute, RequestStatus } from '../../const';
 import Logo from '../../ui/logo/logo';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logoutAction } from '../../store/api-actions';
-import { selectUser } from '../../store/user-process/selectors';
+import { selectRequestStatus, selectUser } from '../../store/user-process/selectors';
 import { selectFavorites } from '../../store/favorite/selectors';
 
 type HeaderProps = {
@@ -11,10 +11,22 @@ type HeaderProps = {
   isUserSignIn: boolean;
 }
 
+type ReactEventHandler= React.MouseEventHandler<HTMLAnchorElement>
+
 const Header = ({isUserSignIn, shouldRenderUser = true}: HeaderProps): JSX.Element => {
   const dispatch = useAppDispatch();
   const email = useAppSelector(selectUser)?.email;
   const favoriteCount = useAppSelector(selectFavorites).length;
+  const requestStatus = useAppSelector(selectRequestStatus);
+  const isUserRequestLoading = requestStatus === RequestStatus.Loading;
+
+  const handleLogoutClick: ReactEventHandler = (evt) => {
+    evt.preventDefault();
+    if (isUserRequestLoading) {
+      return;
+    }
+    dispatch(logoutAction());
+  };
 
   return (
     <header className="header">
@@ -44,11 +56,7 @@ const Header = ({isUserSignIn, shouldRenderUser = true}: HeaderProps): JSX.Eleme
                 </li>
                 {isUserSignIn &&
                 <li className="header__nav-item">
-                  <Link className="header__nav-link" to="#" onClick={(evt) => {
-                    evt.preventDefault();
-                    dispatch(logoutAction());
-                  }}
-                  >
+                  <Link className="header__nav-link" to="#" onClick={handleLogoutClick} aria-disabled={isUserRequestLoading}>
                     <span className="header__signout" data-testid="sign-out">
                       Sign out
                     </span>

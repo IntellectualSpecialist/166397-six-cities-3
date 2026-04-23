@@ -1,4 +1,4 @@
-import { getRaitingPercentage } from '../../utils/common';
+import { getRatingPercentage } from '../../utils/common';
 
 type ReviewProps = {
   date: string;
@@ -13,7 +13,7 @@ type ReviewProps = {
 
 const Review = ({user, rating, comment, date}: ReviewProps): JSX.Element => {
   const {avatarUrl, name} = user;
-  const starsWidth = getRaitingPercentage(rating);
+  const starsWidth = getRatingPercentage(rating);
   const formattedDate = new Date(date);
   const finallyFormatedDate = formattedDate.toLocaleString('en-US', {month: 'long', year: 'numeric'});
 

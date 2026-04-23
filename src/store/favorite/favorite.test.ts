@@ -9,12 +9,10 @@ describe('Favorite Slice', () => {
     const emptyAction = { type: '' };
     const initialState = {
       favorites: [],
-      favoriteStatus: RequestStatus.Idle,
       favoritesStatus: RequestStatus.Idle,
     };
     const expectedState = {
       favorites: [],
-      favoriteStatus: RequestStatus.Idle,
       favoritesStatus: RequestStatus.Idle,
     };
 
@@ -27,7 +25,6 @@ describe('Favorite Slice', () => {
     const emptyAction = { type: '' };
     const expectedState = {
       favorites: [],
-      favoriteStatus: RequestStatus.Idle,
       favoritesStatus: RequestStatus.Idle,
     };
 
@@ -40,13 +37,11 @@ describe('Favorite Slice', () => {
     const mockOffer = makeFakeOffer();
     const initialState = {
       favorites: [],
-      favoriteStatus: RequestStatus.Idle,
       favoritesStatus: RequestStatus.Idle,
     };
 
     const expectedState = {
       favorites: [mockOffer],
-      favoriteStatus: RequestStatus.Idle,
       favoritesStatus: RequestStatus.Success,
     };
 
@@ -58,13 +53,11 @@ describe('Favorite Slice', () => {
   it('should set "favoritesStatus" to "Loading" when "fetchFavoritesAction.pending"', () => {
     const initialState = {
       favorites: [],
-      favoriteStatus: RequestStatus.Idle,
       favoritesStatus: RequestStatus.Idle,
     };
 
     const expectedState = {
       favorites: [],
-      favoriteStatus: RequestStatus.Idle,
       favoritesStatus: RequestStatus.Loading,
     };
 
@@ -76,13 +69,11 @@ describe('Favorite Slice', () => {
   it('should set "favoritesStatus" to "Failed" when "fetchFavoritesAction.rejected"', () => {
     const initialState = {
       favorites: [],
-      favoriteStatus: RequestStatus.Idle,
       favoritesStatus: RequestStatus.Idle,
     };
 
     const expectedState = {
       favorites: [],
-      favoriteStatus: RequestStatus.Idle,
       favoritesStatus: RequestStatus.Failed,
     };
 
@@ -91,16 +82,14 @@ describe('Favorite Slice', () => {
     expect(result).toEqual(expectedState);
   });
 
-  it('should set "favoriteStatus" to "Loading" when "changeFavoriteStatusAction.pending"', () => {
+  it('should keep state when "changeFavoriteStatusAction.pending"', () => {
     const initialState = {
       favorites: [],
-      favoriteStatus: RequestStatus.Idle,
       favoritesStatus: RequestStatus.Idle,
     };
 
     const expectedState = {
       favorites: [],
-      favoriteStatus: RequestStatus.Loading,
       favoritesStatus: RequestStatus.Idle,
     };
 
@@ -109,16 +98,14 @@ describe('Favorite Slice', () => {
     expect(result).toEqual(expectedState);
   });
 
-  it('should set "favoriteStatus" to "Failed" when "changeFavoriteStatusAction.rejected"', () => {
+  it('should keep state when "changeFavoriteStatusAction.rejected"', () => {
     const initialState = {
       favorites: [],
-      favoriteStatus: RequestStatus.Idle,
       favoritesStatus: RequestStatus.Idle,
     };
 
     const expectedState = {
       favorites: [],
-      favoriteStatus: RequestStatus.Failed,
       favoritesStatus: RequestStatus.Idle,
     };
 
@@ -131,12 +118,10 @@ describe('Favorite Slice', () => {
     const mockOffer = makeFakeFavoriteOffer();
     const initialState: FavoriteData = {
       favorites: [],
-      favoriteStatus: RequestStatus.Idle,
       favoritesStatus: RequestStatus.Idle,
     };
     const expectedState: FavoriteData = {
       favorites: [mockOffer],
-      favoriteStatus: RequestStatus.Success,
       favoritesStatus: RequestStatus.Idle,
     };
 
@@ -151,12 +136,10 @@ describe('Favorite Slice', () => {
 
     const initialState = {
       favorites: [mockOffer],
-      favoriteStatus: RequestStatus.Idle,
       favoritesStatus: RequestStatus.Idle,
     };
     const expectedState = {
       favorites: [],
-      favoriteStatus: RequestStatus.Success,
       favoritesStatus: RequestStatus.Idle,
     };
 

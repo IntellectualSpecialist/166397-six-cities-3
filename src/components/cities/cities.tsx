@@ -50,7 +50,7 @@ const Cities = (): JSX.Element => {
         data-testid="places"
       >
         <h2 className="visually-hidden">Places</h2>
-        <b className="places__found">{placesCount} place{placesCount === 1 ? '' : 's'} to stay in Amsterdam</b>
+        <b className="places__found">{placesCount} place{placesCount === 1 ? '' : 's'} to stay in {currentCityName}</b>
         <Sorting currentOption={currentSorting} onSortingOptionClick={handleSortingOptionClick} />
       </Places>
       <div className="cities__right-section">

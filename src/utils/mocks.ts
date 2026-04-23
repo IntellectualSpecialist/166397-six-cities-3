@@ -1,4 +1,4 @@
-import {name, internet} from 'faker';
+import {name, internet, lorem} from 'faker';
 import { Offer } from '../types/offer-type';
 import { AuthorizationStatus, CityName, Housing, RequestStatus } from '../const';
 import { ExtraOffer } from '../types/extra-offer';
@@ -11,7 +11,7 @@ import { State } from '../types/state-type';
 
 export type AppThunkDispatch = ThunkDispatch<State, ReturnType<typeof createAPI>, Action>;
 
-export const makeFakeOffer = (): Offer => ({
+export const makeFakeOffer = (offersOptions?: Partial<Offer>): Offer => ({
   id: name.title(),
   title: name.title(),
   type: Housing.Apartment,
@@ -32,7 +32,8 @@ export const makeFakeOffer = (): Offer => ({
   },
   isFavorite: true,
   isPremium: false,
-  rating: 4.9
+  rating: 4.9,
+  ...offersOptions
 });
 
 export const makeFakeExtraOffer = (): ExtraOffer => ({
@@ -102,7 +103,7 @@ export const makeFakeFavoriteOffer = (): FavoriteOffer => ({
   images: new Array(3).fill(null).map(() => internet.url()),
 });
 
-export const makeFakeReview = (): ReviewType => ({
+export const makeFakeReview = (options?: Partial<ReviewType>): ReviewType => ({
   id: name.title(),
   date: new Date().toISOString(),
   user: {
@@ -111,7 +112,8 @@ export const makeFakeReview = (): ReviewType => ({
     avatarUrl: internet.avatar(),
   },
   rating: 4.6,
-  comment: 'A new spacious villa, one floor. All commodities, jacuzzi and beautiful scenery. Ideal for families or friends.'
+  comment: lorem.sentence(),
+  ...options
 });
 
 export const makeFakeUser = (): UserData => ({
@@ -147,8 +149,7 @@ export const makeFakeStore = (initialState?: Partial<State>): State => ({
   },
   FAVORITE: {
     favorites: new Array(3).fill(null).map(() => makeFakeFavoriteOffer()),
-    favoritesStatus: RequestStatus.Idle,
-    favoriteStatus: RequestStatus.Idle
+    favoritesStatus: RequestStatus.Idle
   },
   ...initialState ?? {},
 });

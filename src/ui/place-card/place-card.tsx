@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Offer } from '../../types/offer-type';
-import { getRaitingPercentage, capitalizeValue } from '../../utils/common';
+import { capitalizeValue, getRatingPercentage } from '../../utils/common';
 import { AppRoute } from '../../const';
 import FavoriteButton from '../../components/favorite-button/favorite-button';
 import { OfferAndFavorite } from '../../types/favorite-offer';
@@ -11,25 +11,21 @@ type PlaceCardProps = {
   imgClassName: string;
   imgWidth?: number;
   imgHeight?: number;
-  handleActiveCardChange?: (offer?: Offer) => void;
+  onActiveCardChange?: (offer?: Offer) => void;
 }
 
-const PlaceCard = ({offer, className, imgClassName, imgWidth = 260, imgHeight = 200, handleActiveCardChange}: PlaceCardProps): JSX.Element => {
-  const {id, isPremium, previewImage, price, isFavorite, rating, title, type} = offer;
-  const starsWidth = getRaitingPercentage(rating);
+const PlaceCard = ({offer, className, imgClassName, imgWidth = 260, imgHeight = 200, onActiveCardChange}: PlaceCardProps): JSX.Element => {
+  const {id, isPremium, isFavorite, previewImage, price, rating, title, type} = offer;
+  const starsWidth = getRatingPercentage(rating);
   const capitalizedType = capitalizeValue(type);
   const linkRoute = AppRoute.Offer.replace(':id', id);
 
   const handleCardMouseOver = () => {
-    if (handleActiveCardChange) {
-      handleActiveCardChange(offer);
-    }
+    onActiveCardChange?.(offer);
   };
 
   const handleCardMouseOut = () => {
-    if (handleActiveCardChange) {
-      handleActiveCardChange();
-    }
+    onActiveCardChange?.();
   };
 
   return (
@@ -40,7 +36,7 @@ const PlaceCard = ({offer, className, imgClassName, imgWidth = 260, imgHeight = 
       </div>}
       <div className={`${imgClassName} place-card__image-wrapper`}>
         <Link to={linkRoute}>
-          <img className="place-card__image" src={previewImage} width={imgWidth} height={imgHeight} alt="Place image"/>
+          <img className="place-card__image" src={previewImage} width={imgWidth} height={imgHeight} alt="Place image" data-testid="image"/>
         </Link>
       </div>
       <div className="place-card__info">
@@ -49,11 +45,19 @@ const PlaceCard = ({offer, className, imgClassName, imgWidth = 260, imgHeight = 
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <FavoriteButton id={id} isFavorite={isFavorite} className='place-card__bookmark-button' activeClassName='place-card__bookmark-button--active' svgClassName='place-card__bookmark-icon' imgWidth={18} imgHeight={19} />
+          <FavoriteButton
+            id={id}
+            className='place-card__bookmark-button'
+            activeClassName='place-card__bookmark-button--active'
+            svgClassName='place-card__bookmark-icon'
+            imgWidth={18}
+            imgHeight={19}
+            isFavorite={isFavorite}
+          />
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: starsWidth}}></span>
+            <span style={{width: starsWidth}} data-testid="rating-stars"></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
