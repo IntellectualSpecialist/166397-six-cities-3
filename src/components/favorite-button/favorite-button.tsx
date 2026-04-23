@@ -1,4 +1,4 @@
-import { MouseEvent, useEffect, useState } from 'react';
+import { MouseEvent, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { changeFavoriteStatusAction } from '../../store/api-actions';
 import { selectAuthorizationStatus } from '../../store/user-process/selectors';
