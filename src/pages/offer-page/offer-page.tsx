@@ -64,6 +64,7 @@ const OfferPage = (): JSX.Element => {
                   className="offer__image"
                   src={image}
                   alt="Photo studio"
+                  data-testid={image}
                 />
               </div>
             )).slice(0, MAX_PHOTOS_COUNT)}
@@ -85,17 +86,20 @@ const OfferPage = (): JSX.Element => {
                 className='offer__bookmark-button'
                 activeClassName='offer__bookmark-button--active'
                 svgClassName='offer__bookmark-icon'
+                testid="favorite-button"
               />
             </div>
             <div className="offer__rating rating">
               <div className="offer__stars rating__stars">
-                <span style={{ width: starsWidth }} />
+                <span style={{ width: starsWidth }} data-testid="rating-stars-main" />
                 <span className="visually-hidden">Rating</span>
               </div>
               <span className="offer__rating-value rating__value">{rating}</span>
             </div>
             <ul className="offer__features">
-              <li className="offer__feature offer__feature--entire">{capitalizeValue(type)}</li>
+              <li className="offer__feature offer__feature--entire" data-testid="offer-type">
+                {capitalizeValue(type)}
+              </li>
               <li className="offer__feature offer__feature--bedrooms">
                 {bedrooms} Bedrooms
               </li>
@@ -128,10 +132,10 @@ const OfferPage = (): JSX.Element => {
                   />
                 </div>
                 <span className="offer__user-name">{capitalizeValue(name)}</span>
-                {isPro && <span className="offer__user-status">Pro</span>}
+                {isPro && <span className="offer__user-status" data-testid="host-status">Pro</span>}
               </div>
               <div className="offer__description">
-                <p className="offer__text">
+                <p className="offer__text" data-testid="offer-description">
                   {description}
                 </p>
               </div>

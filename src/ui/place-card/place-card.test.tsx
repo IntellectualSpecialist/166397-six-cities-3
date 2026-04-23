@@ -3,6 +3,7 @@ import { withHistory, withStore } from '../../utils/mock-component';
 import PlaceCard from './place-card';
 import { makeFakeOffer, makeFakeStore } from '../../utils/mocks';
 import userEvent from '@testing-library/user-event';
+import { capitalizeValue, getRaitingPercentage } from '../../utils/common';
 
 describe('Component: PlaceCard', () => {
   it('should render correctly', () => {
@@ -28,6 +29,12 @@ describe('Component: PlaceCard', () => {
     expect(screen.getByRole('article')).toBeInTheDocument();
     expect(screen.getByRole('button')).toBeInTheDocument();
     expect(screen.getByRole('img')).toBeInTheDocument();
+    expect(screen.getByText(mockOffer.title)).toBeInTheDocument();
+    expect(screen.getByText(`€${mockOffer.price}`)).toBeInTheDocument();
+    expect(screen.getByText(capitalizeValue(mockOffer.type))).toBeInTheDocument();
+    expect(screen.getByTestId('rating-stars')).toHaveStyle(`width: ${getRaitingPercentage(mockOffer.rating)}`);
+    expect(screen.getByTestId('image')).toHaveAttribute('src', mockOffer.previewImage);
+    expect(screen.getByRole('button')).toHaveClass('place-card__bookmark-button--active');
   });
 
   it('should call handleActiveCardChange when hovered', async () => {

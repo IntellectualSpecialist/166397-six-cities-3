@@ -11,7 +11,7 @@ import { State } from '../types/state-type';
 
 export type AppThunkDispatch = ThunkDispatch<State, ReturnType<typeof createAPI>, Action>;
 
-export const makeFakeOffer = (): Offer => ({
+export const makeFakeOffer = (offersOptions?: Partial<Offer>): Offer => ({
   id: name.title(),
   title: name.title(),
   type: Housing.Apartment,
@@ -32,7 +32,8 @@ export const makeFakeOffer = (): Offer => ({
   },
   isFavorite: true,
   isPremium: false,
-  rating: 4.9
+  rating: 4.9,
+  ...offersOptions
 });
 
 export const makeFakeExtraOffer = (): ExtraOffer => ({

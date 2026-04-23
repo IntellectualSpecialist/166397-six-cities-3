@@ -14,9 +14,10 @@ type FavoriteButtonProps = {
   svgClassName: string;
   imgWidth?: number;
   imgHeight?: number;
+  testid?: string;
 }
 
-const FavoriteButton = ({id, isFavorite, className, activeClassName, svgClassName, imgWidth, imgHeight}: FavoriteButtonProps): JSX.Element => {
+const FavoriteButton = ({id, isFavorite, className, activeClassName, svgClassName, imgWidth, imgHeight, testid }: FavoriteButtonProps): JSX.Element => {
   const dispatch = useAppDispatch();
   const [favStatus, setFavStatus] = useState(isFavorite);
   const [isDisabled, setIsDisabled] = useState(false);
@@ -52,6 +53,7 @@ const FavoriteButton = ({id, isFavorite, className, activeClassName, svgClassNam
       className={`${className} ${favStatus ? activeClassName : ''} button`}
       type="button"
       disabled={isDisabled}
+      data-testid={testid}
     >
       <svg className={svgClassName} width={imgWidth || 31} height={imgHeight || 33}>
         <use xlinkHref="#icon-bookmark" />

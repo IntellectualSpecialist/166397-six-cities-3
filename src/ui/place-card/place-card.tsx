@@ -40,7 +40,7 @@ const PlaceCard = ({offer, className, imgClassName, imgWidth = 260, imgHeight = 
       </div>}
       <div className={`${imgClassName} place-card__image-wrapper`}>
         <Link to={linkRoute}>
-          <img className="place-card__image" src={previewImage} width={imgWidth} height={imgHeight} alt="Place image"/>
+          <img className="place-card__image" src={previewImage} width={imgWidth} height={imgHeight} alt="Place image" data-testid="image"/>
         </Link>
       </div>
       <div className="place-card__info">
@@ -53,7 +53,7 @@ const PlaceCard = ({offer, className, imgClassName, imgWidth = 260, imgHeight = 
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: starsWidth}}></span>
+            <span style={{width: starsWidth}} data-testid="rating-stars"></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
