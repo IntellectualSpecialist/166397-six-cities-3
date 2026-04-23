@@ -1,15 +1,17 @@
 import { Fragment, ReactEventHandler, useState } from 'react';
-import { ReviewLength } from '../../const';
-import { useAppDispatch } from '../../hooks';
+import { RequestStatus, ReviewLength } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { sendReviewAction } from '../../store/api-actions';
 import { NewReview } from '../../types/review-type';
+import { toast } from 'react-toastify';
+import { selectReviewStatus } from '../../store/reviews/selectors';
 
 type ReviewFormProps = {
   id: string;
 }
 type ChangeHandler = ReactEventHandler<HTMLInputElement | HTMLTextAreaElement>
 
-const RaitingValues = [
+const RATING_VALUES = [
   {
     value: 5,
     description: 'perfect'
@@ -34,27 +36,23 @@ const RaitingValues = [
 
 const ReviewForm = ({id}: ReviewFormProps): JSX.Element => {
   const [formData, setFormData] = useState<NewReview>({rating: 0, review: ''});
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const dispatch = useAppDispatch();
+  const reviewStatus = useAppSelector(selectReviewStatus);
+  const isSubmitting = reviewStatus === RequestStatus.Loading;
 
-  const shouldButtonDisabled =
+  const isButtonDisabled =
     formData.review.length < ReviewLength.Min ||
     formData.review.length >= ReviewLength.Max ||
     formData.rating === 0;
-
-  const isButtonDisabled = isSubmitting || shouldButtonDisabled;
 
   const handleFormSubmit = async (evt: React.FormEvent<HTMLFormElement>): Promise<void> => {
     evt.preventDefault();
 
     try {
-      setIsSubmitting(true);
       await dispatch(sendReviewAction({ id, formData })).unwrap();
       setFormData({ rating: 0, review: '' });
     } catch (error) {
-      throw new Error('Ошибка отправки отзыва');
-    } finally {
-      setIsSubmitting(false);
+      toast.error('Ошибка отправки отзыва');
     }
   };
 
@@ -76,7 +74,7 @@ const ReviewForm = ({id}: ReviewFormProps): JSX.Element => {
         Your review
       </label>
       <div className="reviews__rating-form form__rating">
-        {RaitingValues.map(({value, description}) => (
+        {RATING_VALUES.map(({value, description}) => (
           <Fragment key={value}>
             <input
               className="form__rating-input visually-hidden"
@@ -87,6 +85,7 @@ const ReviewForm = ({id}: ReviewFormProps): JSX.Element => {
               onChange={handleFormDataChange}
               checked={value === Number(formData.rating)}
               data-testid={description}
+              disabled={isSubmitting}
             />
             <label
               htmlFor={`${value}-stars`}
@@ -108,6 +107,7 @@ const ReviewForm = ({id}: ReviewFormProps): JSX.Element => {
         value={formData.review}
         onChange={handleFormDataChange}
         data-testid="review-textarea"
+        disabled={isSubmitting}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
@@ -119,7 +119,7 @@ const ReviewForm = ({id}: ReviewFormProps): JSX.Element => {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={isButtonDisabled}
+          disabled={isSubmitting || isButtonDisabled}
           data-testid="submit-button"
         >
           Submit

@@ -1,24 +1,23 @@
-import { ElementType, SyntheticEvent } from 'react';
+import { ElementType } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { CityNameType } from '../../types/offer-type';
+import { useAppDispatch } from '../../hooks';
+import { changeCity } from '../../store/offers/offers';
 
 type TabProp = {
   name: CityNameType ;
   className?: string;
-  onTabClick?: (name: CityNameType) => void;
   tag?: ElementType;
 }
 
-const Tab = ({name, className, onTabClick, tag}: TabProp): JSX.Element => {
+const Tab = ({name, className, tag}: TabProp): JSX.Element => {
   const Tag = tag || 'div';
 
-  const handleTabClick = (evt: SyntheticEvent): void => {
-    evt.preventDefault();
+  const dispatch = useAppDispatch();
 
-    if (onTabClick) {
-      onTabClick(name);
-    }
+  const handleTabClick = (): void => {
+    dispatch(changeCity(name));
   };
 
   return (
@@ -26,7 +25,7 @@ const Tab = ({name, className, onTabClick, tag}: TabProp): JSX.Element => {
       <Link
         className={`locations__item-link tabs__item ${className || ''}`}
         to={AppRoute.Root}
-        onClick={onTabClick ? (evt) => handleTabClick(evt) : undefined}
+        onClick={handleTabClick}
         data-testid="tab-link"
       >
         <span>{name}</span>

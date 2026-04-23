@@ -2,13 +2,14 @@ import { render, screen } from '@testing-library/react';
 import LoginForm from './login-form';
 import userEvent from '@testing-library/user-event';
 import { withStore } from '../../utils/mock-component';
+import { makeFakeStore } from '../../utils/mocks';
 
 describe('Component: LoginForm', () => {
   it('should render correctly', () => {
     const signInText = 'Sign in';
     const emailText = 'E-mail';
     const passwordText = 'Password';
-    const {withStoreComponent} = withStore(<LoginForm />);
+    const {withStoreComponent} = withStore(<LoginForm />, makeFakeStore());
 
     render(withStoreComponent);
 
@@ -22,7 +23,7 @@ describe('Component: LoginForm', () => {
     const passwordElementTestId = 'passwordElement';
     const expectedLoginValue = 'email@test.com';
     const expectedPasswordValue = '123456';
-    const {withStoreComponent} = withStore(<LoginForm />);
+    const {withStoreComponent} = withStore(<LoginForm />, makeFakeStore());
 
     render(withStoreComponent);
 

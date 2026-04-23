@@ -3,17 +3,19 @@ import userEvent from '@testing-library/user-event';
 import { withHistory, withStore } from '../../utils/mock-component';
 import ReviewForm from './review-form';
 import { makeFakeStore } from '../../utils/mocks';
-import { ReviewLength } from '../../const';
+import { RequestStatus, ReviewLength } from '../../const';
 import { vi } from 'vitest';
+import { State } from '../../types/state-type';
 
 vi.mock('../../store/api-actions', () => ({
   sendReviewAction: vi.fn(),
 }));
 
-// Мокаем useAppDispatch
 const mockDispatch = vi.fn();
+const mockUseAppSelector = vi.fn<[selector: (state: State) => unknown], unknown>();
 vi.mock('../../hooks', () => ({
   useAppDispatch: () => mockDispatch,
+  useAppSelector: (selector: (state: unknown) => unknown): unknown => mockUseAppSelector(selector) ,
 }));
 
 describe('Component: ReviewForm', () => {
@@ -24,6 +26,7 @@ describe('Component: ReviewForm', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
+    mockUseAppSelector.mockReturnValue(RequestStatus.Idle);
   });
 
   it('should render form correctly', () => {

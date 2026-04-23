@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import Tab from '../../ui/tab/tab';
+import Tab from '../../components/tab/tab';
 import PlaceCard from '../../ui/place-card/place-card';
 import { useAppSelector } from '../../hooks';
 import { selectFavorites, selectFavoritesStatus } from '../../store/favorite/selectors';

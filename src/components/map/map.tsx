@@ -45,7 +45,7 @@ const Map = ({offers = [], activeOffer, city, className}: MapProps): JSX.Element
 
   useEffect(() => {
     if (map) {
-
+      markerLayer.current.clearLayers();
       offers.forEach((offer) => {
         const {location} = offer;
         const {latitude, longitude} = location;

@@ -33,7 +33,6 @@ export type ReviewsData = {
 export type FavoriteData = {
   favorites: OfferAndFavorite[];
   favoritesStatus: RequestStatus;
-  favoriteStatus: RequestStatus;
 }
 
 export type State = ReturnType<typeof store.getState>

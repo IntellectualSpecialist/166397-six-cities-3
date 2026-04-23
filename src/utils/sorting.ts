@@ -1,5 +1,6 @@
 import { SortingOption } from '../const';
 import { Offer } from '../types/offer-type';
+import { ReviewType } from '../types/review-type';
 import { SortingOptionType } from '../types/sorting-option-type';
 
 const sortOffers = (sorting: SortingOptionType, offers: Offer[]): Offer[] => {
@@ -17,4 +18,6 @@ const sortOffers = (sorting: SortingOptionType, offers: Offer[]): Offer[] => {
   }
 };
 
-export {sortOffers};
+const getSortReviewsByDate = (elements: ReviewType[]) => [...elements].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+export {sortOffers, getSortReviewsByDate};

@@ -21,8 +21,13 @@ const App = (): JSX.Element => {
 
   useEffect(() => {
     dispatch(checkAuthAction());
-    dispatch(fetchFavoritesAction());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (isAuth(authorizationStatus)) {
+      dispatch(fetchFavoritesAction());
+    }
+  }, [dispatch, authorizationStatus]);
 
   if (authorizationStatus === AuthorizationStatus.Unknown) {
     return (

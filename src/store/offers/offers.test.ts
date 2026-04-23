@@ -1,6 +1,6 @@
 import { CityName, RequestStatus } from '../../const';
-import { makeFakeOffer } from '../../utils/mocks';
-import { fetchOffersAction } from '../api-actions';
+import { makeFakeFavoriteOffer, makeFakeOffer } from '../../utils/mocks';
+import { changeFavoriteStatusAction, fetchOffersAction } from '../api-actions';
 import { changeCity, offers } from './offers';
 
 describe('Offers Slice', () => {
@@ -76,6 +76,26 @@ describe('Offers Slice', () => {
     };
 
     const result = offers.reducer(undefined, fetchOffersAction.rejected);
+
+    expect(result).toEqual(expectedState);
+  });
+
+  it('should change isFavorite when "changeFavoriteStatusAction.fulfiled"', () => {
+    const offer = makeFakeOffer({ id: 'offer-1', isFavorite: false });
+    const mockOffer = { ...makeFakeFavoriteOffer(), id: 'offer-1', isFavorite: true };
+    const initialState = {
+      offers: [offer],
+      status: RequestStatus.Failed,
+      city: CityName[0],
+    };
+
+    const expectedState = {
+      offers: [{ ...offer, isFavorite: true }],
+      status: RequestStatus.Failed,
+      city: CityName[0],
+    };
+
+    const result = offers.reducer(initialState, changeFavoriteStatusAction.fulfilled(mockOffer, '', {id: mockOffer.id, status: 0}));
 
     expect(result).toEqual(expectedState);
   });

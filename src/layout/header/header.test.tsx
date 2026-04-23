@@ -15,7 +15,6 @@ describe('Component: Header', () => {
       FAVORITE: {
         favorites: [],
         favoritesStatus: RequestStatus.Idle,
-        favoriteStatus: RequestStatus.Idle,
       },
     });
 
@@ -48,7 +47,6 @@ describe('Component: Header', () => {
       FAVORITE: {
         favorites: Array.from({ length: mockFavoriteCount }, () => makeFakeOffer()),
         favoritesStatus: RequestStatus.Success,
-        favoriteStatus: RequestStatus.Idle,
       },
     });
 

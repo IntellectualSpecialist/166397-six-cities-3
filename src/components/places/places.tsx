@@ -16,7 +16,14 @@ const Places = ({ offers, className, listClassName, cardClassName, imgClassName,
     {children}
     <div className={`${listClassName} cities__places-list places__list tabs__content`}>
       {offers.map((offer) =>
-        (<PlaceCard key={offer.id} offer={offer} className={cardClassName} imgClassName={imgClassName} handleActiveCardChange={onActiveCardChange} />
+        (
+          <PlaceCard
+            key={offer.id}
+            offer={offer}
+            className={cardClassName}
+            imgClassName={imgClassName}
+            onActiveCardChange={onActiveCardChange}
+          />
         ))}
     </div>
   </section>

@@ -1,4 +1,4 @@
-import { Outlet, useLocation } from 'react-router-dom';
+import { matchPath, Outlet, useLocation } from 'react-router-dom';
 import Header from '../header/header';
 import Footer from '../footer/footer';
 import { AppRoute } from '../../const';
@@ -18,35 +18,35 @@ const PageWrapper = (): JSX.Element => {
   const currentOffers = useMemo(() => filterOffersByCity(offers, currentCityName), [offers, currentCityName]);
 
   const {pathname} = useLocation();
+  const isOfferPage = Boolean(matchPath(AppRoute.Offer, pathname));
   let pageClassName = '';
   let mainClassName = '';
   let hasFooter = false;
   let shouldRenderUser = true;
 
-  switch (pathname as AppRoute) {
-    case AppRoute.Root:
-      pageClassName = 'page--gray page--main';
-      mainClassName = `page__main--index ${currentOffers?.length ? '' : 'page__main--index-empty'}`;
+  if (isOfferPage) {
+    mainClassName = 'page__main--offer';
+  } else {
+    switch (pathname as AppRoute) {
+      case AppRoute.Root:
+        pageClassName = 'page--gray page--main';
+        mainClassName = `page__main--index ${currentOffers?.length ? '' : 'page__main--index-empty'}`;
 
-      break;
+        break;
 
-    case AppRoute.Login:
-      pageClassName = 'page--gray page--login';
-      mainClassName = 'page__main--login';
-      shouldRenderUser = false;
+      case AppRoute.Login:
+        pageClassName = 'page--gray page--login';
+        mainClassName = 'page__main--login';
+        shouldRenderUser = false;
 
-      break;
+        break;
 
-    case AppRoute.Favorites:
-      mainClassName = `page__main--favorites ${favorites?.length ? '' : 'page__main--favorites-empty'}`;
-      pageClassName = `${favorites?.length ? '' : 'page--favorites-empty'}`;
-      hasFooter = true;
-      break;
-
-    case AppRoute.Offer:
-      mainClassName = 'page__main--offer';
-
-      break;
+      case AppRoute.Favorites:
+        mainClassName = `page__main--favorites ${favorites?.length ? '' : 'page__main--favorites-empty'}`;
+        pageClassName = `${favorites?.length ? '' : 'page--favorites-empty'}`;
+        hasFooter = true;
+        break;
+    }
   }
 
   return (
