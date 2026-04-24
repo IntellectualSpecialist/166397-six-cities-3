@@ -4,3 +4,5 @@ import { AppDispatch, State } from '../types/state-type';
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 
 export const useAppSelector: TypedUseSelectorHook<State> = useSelector;
+
+export { default as useMap } from './use-map';
