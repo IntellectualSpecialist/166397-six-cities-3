@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import Tabs from './tabs';
-import { withHistory, withStore } from '../../utils/mock-component';
-import { makeFakeStore } from '../../utils/mocks';
+import { withHistory, withStore } from '../../utils';
+import { makeFakeStore } from '../../utils';
 
 describe(
   'Component: Tab',

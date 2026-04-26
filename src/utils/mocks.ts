@@ -1,13 +1,13 @@
 import {name, internet, lorem} from 'faker';
-import { Offer } from '../types/offer-type';
+import { Offer } from '../types';
 import { AuthorizationStatus, CityName, Housing, RequestStatus } from '../const';
-import { ExtraOffer } from '../types/extra-offer';
-import { ReviewType } from '../types/review-type';
-import { UserData } from '../types/user-data-type';
-import { FavoriteOffer } from '../types/favorite-offer';
+import { ExtraOffer } from '../types';
+import { ReviewType } from '../types';
+import { UserData } from '../types';
+import { FavoriteOffer } from '../types';
 import { Action, ThunkDispatch } from '@reduxjs/toolkit';
-import { createAPI } from '../services/api';
-import { State } from '../types/state-type';
+import { createAPI } from '../services';
+import { State } from '../types';
 
 export type AppThunkDispatch = ThunkDispatch<State, ReturnType<typeof createAPI>, Action>;
 

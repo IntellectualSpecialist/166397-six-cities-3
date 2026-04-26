@@ -1,5 +1,5 @@
 import { CityName, NameSpace, RequestStatus } from '../../const';
-import { makeFakeOffer } from '../../utils/mocks';
+import { makeFakeOffer } from '../../utils';
 import { selectCity, selectOffers, selectOffersStatus } from './selectors';
 
 describe('Offer selectors', () => {

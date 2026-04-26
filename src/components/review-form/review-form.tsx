@@ -2,7 +2,7 @@ import { Fragment, ReactEventHandler, useState } from 'react';
 import { RequestStatus, ReviewLength } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { sendReviewAction } from '../../store/api-actions';
-import { NewReview } from '../../types/review-type';
+import { NewReview } from '../../types';
 import { toast } from 'react-toastify';
 import { selectReviewStatus } from '../../store/reviews/selectors';
 

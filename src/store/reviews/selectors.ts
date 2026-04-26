@@ -1,7 +1,7 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
-import { State } from '../../types/state-type';
-import { getSortReviewsByDate } from '../../utils/sorting';
+import { State } from '../../types';
+import { getSortReviewsByDate } from '../../utils';
 
 export const selectReviews = createSelector(
   [(state: Pick<State, NameSpace.Reviews>) => state[NameSpace.Reviews].reviews],

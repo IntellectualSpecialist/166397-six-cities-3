@@ -1,6 +1,6 @@
 import { PropsWithChildren } from 'react';
 import PlaceCard from '../../ui/place-card/place-card';
-import { Offer } from '../../types/offer-type';
+import { Offer } from '../../types';
 
 type PlacesProps = PropsWithChildren<{
   offers: Offer[];

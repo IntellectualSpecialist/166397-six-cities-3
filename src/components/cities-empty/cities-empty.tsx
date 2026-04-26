@@ -1,4 +1,4 @@
-import { CityNameType } from '../../types/offer-type';
+import { CityNameType } from '../../types';
 
 type CitiesEmptyProps = {
   city: CityNameType;

@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace, RequestStatus } from '../../const';
-import { FavoriteData } from '../../types/state-type';
+import { FavoriteData } from '../../types';
 import { changeFavoriteStatusAction, fetchFavoritesAction } from '../api-actions';
 
 const initialState: FavoriteData = {

@@ -1,5 +1,5 @@
 import { CityName, RequestStatus } from '../../const';
-import { makeFakeFavoriteOffer, makeFakeOffer } from '../../utils/mocks';
+import { makeFakeFavoriteOffer, makeFakeOffer } from '../../utils';
 import { changeFavoriteStatusAction, fetchOffersAction } from '../api-actions';
 import { changeCity, offers } from './offers';
 

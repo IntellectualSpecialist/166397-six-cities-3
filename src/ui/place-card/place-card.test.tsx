@@ -1,9 +1,9 @@
 import { render, screen } from '@testing-library/react';
-import { withHistory, withStore } from '../../utils/mock-component';
+import { withHistory, withStore } from '../../utils';
 import PlaceCard from './place-card';
-import { makeFakeOffer, makeFakeStore } from '../../utils/mocks';
+import { makeFakeOffer, makeFakeStore } from '../../utils';
 import userEvent from '@testing-library/user-event';
-import { capitalizeValue, getRatingPercentage } from '../../utils/common';
+import { capitalizeValue, getRatingPercentage } from '../../utils';
 import { AuthorizationStatus, RequestStatus } from '../../const';
 
 describe('Component: PlaceCard', () => {

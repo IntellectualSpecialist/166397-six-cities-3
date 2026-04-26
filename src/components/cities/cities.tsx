@@ -1,8 +1,8 @@
 import { useCallback, useMemo, useState } from 'react';
-import { sortOffers } from '../../utils/sorting';
+import { sortOffers } from '../../utils';
 import { Nullable } from 'vitest';
-import { City, Offer } from '../../types/offer-type';
-import { SortingOptionType } from '../../types/sorting-option-type';
+import { City, Offer } from '../../types';
+import { SortingOptionType } from '../../types';
 import { CITIES, SortingOption } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { selectCity, selectOffers } from '../../store/offers/selectors';
@@ -10,7 +10,7 @@ import Places from '../places/places';
 import Sorting from '../sorting/sorting';
 import Map from '../map/map';
 import CitiesEmpty from '../cities-empty/cities-empty';
-import { filterOffersByCity } from '../../utils/common';
+import { filterOffersByCity } from '../../utils';
 
 const Cities = (): JSX.Element => {
   const [activeOffer, setActiveOffer] = useState <Nullable<Offer>>(null);

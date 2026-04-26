@@ -1,8 +1,8 @@
 
 import { render, screen } from '@testing-library/react';
-import { withHistory, withStore } from '../../utils/mock-component';
+import { withHistory, withStore } from '../../utils';
 import Places from './places';
-import { makeFakeOffer, makeFakeStore } from '../../utils/mocks';
+import { makeFakeOffer, makeFakeStore } from '../../utils';
 
 describe('Component: Tab', () => {
   it('should render correctly', () => {

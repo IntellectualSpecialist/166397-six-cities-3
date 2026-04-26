@@ -1,5 +1,5 @@
 import { AuthorizationStatus, RequestStatus } from '../../const';
-import { makeFakeUser } from '../../utils/mocks';
+import { makeFakeUser } from '../../utils';
 import { checkAuthAction, loginAction, logoutAction } from '../api-actions';
 import { userProcess } from './user-process';
 

@@ -1,14 +1,14 @@
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import MockAdapter from 'axios-mock-adapter';
 import thunk from 'redux-thunk';
-import { createAPI } from '../services/api';
-import { AppThunkDispatch, extractActionsTypes, makeFakeExtraOffer, makeFakeOffer, makeFakeReview, makeFakeUser } from '../utils/mocks';
-import { State } from '../types/state-type';
+import { createAPI } from '../services';
+import { AppThunkDispatch, extractActionsTypes, makeFakeExtraOffer, makeFakeOffer, makeFakeReview, makeFakeUser } from '../utils';
+import { State } from '../types';
 import { Action } from '@reduxjs/toolkit';
 import { APIRoute, AuthorizationStatus } from '../const';
 import { changeFavoriteStatusAction, checkAuthAction, fetchFavoritesAction, fetchNearbyAction, fetchOfferAction, fetchOffersAction, fetchReviewsAction, loginAction, logoutAction, sendReviewAction } from './api-actions';
 import { redirectToRoute } from './action';
-import * as tokenStorage from '../services/token';
+import * as tokenStorage from '../services';
 
 describe('Async actions', () => {
   const axios = createAPI();

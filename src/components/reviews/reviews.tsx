@@ -1,5 +1,5 @@
 import Review from '../../ui/review/review';
-import { ReviewType } from '../../types/review-type';
+import { ReviewType } from '../../types';
 
 type ReviewsProps = {
   reviews: ReviewType[];

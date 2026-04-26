@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace, RequestStatus } from '../../const';
-import { OfferData } from '../../types/state-type';
+import { OfferData } from '../../types';
 import { fetchNearbyAction, fetchOfferAction } from '../api-actions';
 
 const initialState: OfferData = {

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { isEscKey } from '../../utils/common';
+import { isEscKey } from '../../utils';
 import { SortingOption } from '../../const';
-import { SortingOptionType } from '../../types/sorting-option-type';
+import { SortingOptionType } from '../../types';
 
 type SortingProps = {
   currentOption: SortingOptionType;

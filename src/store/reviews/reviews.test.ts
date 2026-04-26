@@ -1,5 +1,5 @@
 import { RequestStatus } from '../../const';
-import { makeFakeReview } from '../../utils/mocks';
+import { makeFakeReview } from '../../utils';
 import { fetchReviewsAction, sendReviewAction } from '../api-actions';
 import { reviews } from './reviews';
 

@@ -1,11 +1,11 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { withHistory } from '../../utils/mock-component';
+import { withHistory } from '../../utils';
 import FavoriteButton from './favorite-button';
-import { makeFakeOffer, makeFakeUser } from '../../utils/mocks';
+import { makeFakeOffer, makeFakeUser } from '../../utils';
 import { AppRoute, AuthorizationStatus, RequestStatus } from '../../const';
 import { createMemoryHistory } from 'history';
-import type { State } from '../../types/state-type';
+import type { State } from '../../types';
 
 const mockDispatch = vi.fn();
 const mockUseAppSelector = vi.fn<[selector: (state: State) => unknown], unknown>();

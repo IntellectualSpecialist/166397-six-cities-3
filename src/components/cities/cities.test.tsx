@@ -1,14 +1,14 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { withHistory, withStore } from '../../utils/mock-component';
+import { withHistory, withStore } from '../../utils';
 import Cities from './cities';
-import { makeFakeOffer, makeFakeStore } from '../../utils/mocks';
+import { makeFakeOffer, makeFakeStore } from '../../utils';
 import { CityName, RequestStatus, SortingOption } from '../../const';
-import { filterOffersByCity } from '../../utils/common';
-import { sortOffers } from '../../utils/sorting';
+import { filterOffersByCity } from '../../utils';
+import { sortOffers } from '../../utils';
 import { vi } from 'vitest';
-import { Offer } from '../../types/offer-type';
-import { SortingOptionType } from '../../types/sorting-option-type';
+import { Offer } from '../../types';
+import { SortingOptionType } from '../../types';
 import * as hooks from '../../hooks';
 import { selectCity, selectOffers } from '../../store/offers/selectors';
 

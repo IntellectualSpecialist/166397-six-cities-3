@@ -1,5 +1,5 @@
 import { getSortReviewsByDate, sortOffers } from './sorting';
-import { makeFakeOffer, makeFakeReview } from '../utils/mocks';
+import { makeFakeOffer, makeFakeReview } from '../utils';
 import { SortingOption } from '../const';
 
 describe('sortOffers', () => {

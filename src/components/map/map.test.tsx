@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import Map from './map';
-import { makeFakeOffer } from '../../utils/mocks';
+import { makeFakeOffer } from '../../utils';
 
 describe('Component: Map', () => {
   it('should render Map component', () => {

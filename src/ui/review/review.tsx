@@ -1,4 +1,4 @@
-import { getRatingPercentage } from '../../utils/common';
+import { getRatingPercentage } from '../../utils';
 
 type ReviewProps = {
   date: string;

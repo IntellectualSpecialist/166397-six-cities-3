@@ -6,7 +6,7 @@ import { selectAuthorizationStatus } from '../../store/user-process/selectors';
 import { useAppSelector } from '../../hooks';
 import { selectCity, selectOffers } from '../../store/offers/selectors';
 import { selectFavorites } from '../../store/favorite/selectors';
-import { filterOffersByCity, isAuth } from '../../utils/common';
+import { filterOffersByCity, isAuth } from '../../utils';
 import { useMemo } from 'react';
 
 const PageWrapper = (): JSX.Element => {

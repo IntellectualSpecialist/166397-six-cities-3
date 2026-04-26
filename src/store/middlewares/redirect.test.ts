@@ -4,7 +4,7 @@ import browserHistory from '../../browser-history';
 import { AnyAction } from '@reduxjs/toolkit';
 import { redirectToRoute } from '../action';
 import { AppRoute } from '../../const';
-import { State } from '../../types/state-type';
+import { State } from '../../types';
 
 vi.mock('../../browser-history', () => ({
   default: {

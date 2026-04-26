@@ -1,7 +1,7 @@
 import { SortingOption } from '../const';
-import { Offer } from '../types/offer-type';
-import { ReviewType } from '../types/review-type';
-import { SortingOptionType } from '../types/sorting-option-type';
+import { Offer } from '../types';
+import { ReviewType } from '../types';
+import { SortingOptionType } from '../types';
 
 const sortOffers = (sorting: SortingOptionType, offers: Offer[]): Offer[] => {
   switch (sorting) {

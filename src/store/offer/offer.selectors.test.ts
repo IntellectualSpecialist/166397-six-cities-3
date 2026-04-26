@@ -1,5 +1,5 @@
 import { NameSpace, RequestStatus } from '../../const';
-import { makeFakeExtraOffer, makeFakeOffer } from '../../utils/mocks';
+import { makeFakeExtraOffer, makeFakeOffer } from '../../utils';
 import { selectNearby, selectOffer, selectOfferStatus } from './selectors';
 
 describe('Offer selectors', () => {

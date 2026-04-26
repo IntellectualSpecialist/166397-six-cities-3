@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
-import { withHistory, withStore } from '../../utils/mock-component';
+import { withHistory, withStore } from '../../utils';
 import Header from './header';
 import { AppRoute, AuthorizationStatus, RequestStatus } from '../../const';
-import { makeFakeOffer, makeFakeStore } from '../../utils/mocks';
+import { makeFakeOffer, makeFakeStore } from '../../utils';
 
 describe('Component: Header', () => {
   it('should render correctly when user is not signed in', () => {

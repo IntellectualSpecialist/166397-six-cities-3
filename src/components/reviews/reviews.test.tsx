@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
-import { withHistory } from '../../utils/mock-component';
-import { makeFakeReview } from '../../utils/mocks';
+import { withHistory } from '../../utils';
+import { makeFakeReview } from '../../utils';
 import Reviews from './reviews';
 
 describe('Component: Tab', () => {

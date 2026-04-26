@@ -4,7 +4,7 @@ import { changeFavoriteStatusAction } from '../../store/api-actions';
 import { selectAuthorizationStatus } from '../../store/user-process/selectors';
 import { AppRoute } from '../../const';
 import { useNavigate } from 'react-router-dom';
-import { isAuth } from '../../utils/common';
+import { isAuth } from '../../utils';
 import { toast } from 'react-toastify';
 import { selectFavorites } from '../../store/favorite/selectors';
 

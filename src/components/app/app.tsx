@@ -13,7 +13,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { checkAuthAction, fetchFavoritesAction } from '../../store/api-actions';
 import { useEffect } from 'react';
 import { selectAuthorizationStatus } from '../../store/user-process/selectors';
-import { isAuth } from '../../utils/common';
+import { isAuth } from '../../utils';
 
 const App = (): JSX.Element => {
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);

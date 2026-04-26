@@ -1,11 +1,11 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { withHistory, withStore } from '../../utils/mock-component';
+import { withHistory, withStore } from '../../utils';
 import ReviewForm from './review-form';
-import { makeFakeStore } from '../../utils/mocks';
+import { makeFakeStore } from '../../utils';
 import { RequestStatus, ReviewLength } from '../../const';
 import { vi } from 'vitest';
-import { State } from '../../types/state-type';
+import { State } from '../../types';
 
 vi.mock('../../store/api-actions', () => ({
   sendReviewAction: vi.fn(),

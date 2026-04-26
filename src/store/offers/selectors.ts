@@ -1,5 +1,5 @@
 import { NameSpace } from '../../const';
-import { State } from '../../types/state-type';
+import { State } from '../../types';
 
 export const selectOffers = (state: Pick<State, NameSpace.Offers>) => state[NameSpace.Offers].offers;
 export const selectOffersStatus = (state: Pick<State, NameSpace.Offers>) => state[NameSpace.Offers].status;

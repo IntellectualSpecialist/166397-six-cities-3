@@ -1,5 +1,5 @@
 import { AuthorizationStatus } from '../const';
-import { CityNameType, Offer } from '../types/offer-type';
+import { CityNameType, Offer } from '../types';
 
 const getRatingPercentage = (raiting: number): string => `${Math.round(raiting) / 5 * 100}%`;
 

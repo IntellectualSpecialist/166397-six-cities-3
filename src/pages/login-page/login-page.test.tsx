@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
-import { withHistory, withStore } from '../../utils/mock-component';
+import { withHistory, withStore } from '../../utils';
 import LoginPage from './login-page';
 import { createMemoryHistory, MemoryHistory } from 'history';
-import { makeFakeStore } from '../../utils/mocks';
+import { makeFakeStore } from '../../utils';
 import { AppRoute, AuthorizationStatus, RequestStatus } from '../../const';
 
 describe('Component: LoginPage', () => {

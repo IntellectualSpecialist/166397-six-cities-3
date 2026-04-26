@@ -1,10 +1,10 @@
 import { useEffect, useRef } from 'react';
-import { City, Offer } from '../../types/offer-type';
+import { City, Offer } from '../../types';
 import { layerGroup, Marker, Icon } from 'leaflet';
 import { Nullable } from 'vitest';
 import 'leaflet/dist/leaflet.css';
-import { AllOfferType } from '../../types/all-offer-type';
-import { ExtraOffer } from '../../types/extra-offer';
+import { AllOfferType } from '../../types';
+import { ExtraOffer } from '../../types';
 import { useMap } from '../../hooks';
 
 type MapProps = {

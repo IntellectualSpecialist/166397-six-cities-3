@@ -1,5 +1,5 @@
 import { RequestStatus } from '../../const';
-import { makeFakeExtraOffer, makeFakeOffer } from '../../utils/mocks';
+import { makeFakeExtraOffer, makeFakeOffer } from '../../utils';
 import { fetchNearbyAction, fetchOfferAction } from '../api-actions';
 import { offer } from './offer';
 

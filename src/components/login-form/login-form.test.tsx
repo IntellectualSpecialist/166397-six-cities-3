@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import LoginForm from './login-form';
 import userEvent from '@testing-library/user-event';
-import { withStore } from '../../utils/mock-component';
-import { makeFakeStore } from '../../utils/mocks';
+import { withStore } from '../../utils';
+import { makeFakeStore } from '../../utils';
 
 describe('Component: LoginForm', () => {
   it('should render correctly', () => {

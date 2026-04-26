@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
-import { Offer } from '../../types/offer-type';
-import { capitalizeValue, getRatingPercentage } from '../../utils/common';
+import { Offer } from '../../types';
+import { capitalizeValue, getRatingPercentage } from '../../utils';
 import { AppRoute } from '../../const';
 import FavoriteButton from '../../components/favorite-button/favorite-button';
-import { OfferAndFavorite } from '../../types/favorite-offer';
+import { OfferAndFavorite } from '../../types';
 
 type PlaceCardProps = {
   offer: OfferAndFavorite;

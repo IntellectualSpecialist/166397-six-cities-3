@@ -1,14 +1,14 @@
 import { render, screen } from '@testing-library/react';
-import { withHistory, withStore } from '../../utils/mock-component';
+import { withHistory, withStore } from '../../utils';
 import { createMemoryHistory, MemoryHistory } from 'history';
 import OfferPage from './offer-page';
-import { makeFakeExtraOffer, makeFakeOffer, makeFakeStore } from '../../utils/mocks';
+import { makeFakeExtraOffer, makeFakeOffer, makeFakeStore } from '../../utils';
 import { AppRoute, AuthorizationStatus, RequestStatus } from '../../const';
-import { State } from '../../types/state-type';
-import { ExtraOffer } from '../../types/extra-offer';
-import { capitalizeValue, getRatingPercentage } from '../../utils/common';
-import { ReviewType } from '../../types/review-type';
-import { Offer } from '../../types/offer-type';
+import { State } from '../../types';
+import { ExtraOffer } from '../../types';
+import { capitalizeValue, getRatingPercentage } from '../../utils';
+import { ReviewType } from '../../types';
+import { Offer } from '../../types';
 
 describe('Component: OfferPage', () => {
   let mockHistory: MemoryHistory;

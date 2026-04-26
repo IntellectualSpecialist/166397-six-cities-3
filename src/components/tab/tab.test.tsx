@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { withHistory } from '../../utils/mock-component';
+import { withHistory } from '../../utils';
 import Tab from './tab';
 import { CityName } from '../../const';
 import { useAppDispatch } from '../../hooks';

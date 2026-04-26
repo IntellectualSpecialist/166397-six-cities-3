@@ -1,7 +1,7 @@
 import { ElementType } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import { CityNameType } from '../../types/offer-type';
+import { CityNameType } from '../../types';
 import { useAppDispatch } from '../../hooks';
 import { changeCity } from '../../store/offers/offers';
 

@@ -1,15 +1,15 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { AppDispatch, State } from '../types/state-type';
+import { AppDispatch, State } from '../types';
 import { AxiosInstance } from 'axios';
-import { Offer } from '../types/offer-type';
+import { Offer } from '../types';
 import { APIRoute, AppRoute } from '../const';
 import { redirectToRoute } from './action';
-import { AuthData } from '../types/auth-data-type';
-import { UserData } from '../types/user-data-type';
-import { removeToken, saveToken } from '../services/token';
-import { ExtraOffer } from '../types/extra-offer';
-import { NewReview, ReviewType } from '../types/review-type';
-import { FavoriteOffer } from '../types/favorite-offer';
+import { AuthData } from '../types';
+import { UserData } from '../types';
+import { removeToken, saveToken } from '../services';
+import { ExtraOffer } from '../types';
+import { NewReview, ReviewType } from '../types';
+import { FavoriteOffer } from '../types';
 
 export const fetchOffersAction = createAsyncThunk<Offer[], undefined, {
   dispatch: AppDispatch;
