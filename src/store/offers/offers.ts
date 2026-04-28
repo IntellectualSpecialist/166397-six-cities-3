@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { CityName, NameSpace, RequestStatus } from '../../const';
+import { CityNames, NameSpace, RequestStatus } from '../../const';
 import { OffersData } from '../../types';
 import { changeFavoriteStatusAction, fetchOffersAction } from '../api-actions';
 import { CityNameType } from '../../types';
 
 const initialState: OffersData = {
   offers: [],
-  city: CityName[0],
+  city: CityNames[0],
   status: RequestStatus.Idle
 };
 

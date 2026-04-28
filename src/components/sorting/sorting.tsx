@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { isEscKey } from '../../utils';
-import { SortingOption } from '../../const';
+import { SortingOptions } from '../../const';
 import { SortingOptionType } from '../../types';
 
 type SortingProps = {
@@ -49,7 +49,7 @@ const Sorting = ({ currentOption, onSortingOptionClick }: SortingProps): JSX.Ele
         </svg>
       </span>
       <ul className={`places__options places__options--custom ${isSortingOpen ? 'places__options--opened' : ''}`} data-testid="list">
-        {SortingOption?.length && SortingOption.map((option) => (
+        {SortingOptions?.length && SortingOptions.map((option) => (
           <li
             key={option}
             className={`places__option ${option === currentOption ? 'places__option--active' : ''}`}

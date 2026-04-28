@@ -3,7 +3,7 @@ import { sortOffers } from '../../utils';
 import { Nullable } from 'vitest';
 import { City, Offer } from '../../types';
 import { SortingOptionType } from '../../types';
-import { CITIES, SortingOption } from '../../const';
+import { CITIES, SortingOptions } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { selectCity, selectOffers } from '../../store/offers/selectors';
 import Places from '../places/places';
@@ -14,7 +14,7 @@ import { filterOffersByCity } from '../../utils';
 
 const Cities = (): JSX.Element => {
   const [activeOffer, setActiveOffer] = useState <Nullable<Offer>>(null);
-  const [currentSorting, setCurrentSorting] = useState<SortingOptionType>(SortingOption[0]);
+  const [currentSorting, setCurrentSorting] = useState<SortingOptionType>(SortingOptions[0]);
   const currentCityName = useAppSelector(selectCity);
   const offers = useAppSelector(selectOffers);
 

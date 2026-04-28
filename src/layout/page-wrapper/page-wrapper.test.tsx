@@ -1,15 +1,15 @@
 import { render, screen } from '@testing-library/react';
-import { withHistory, withStore } from '../../utils';
+import { renderWithHistory, renderWithStore } from '../../test-utils';
 import PageWrapper from './page-wrapper';
-import { makeFakeStore } from '../../utils';
+import { makeFakeStore } from '../../test-utils';
 
 describe('Component: PageWrapper', () => {
   it('should render "PageWrapper" correctly', () => {
-    const withHistoryComponent = withHistory(
+    const withHistoryComponent = renderWithHistory(
       <PageWrapper />
     );
 
-    const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore());
+    const { withStoreComponent } = renderWithStore(withHistoryComponent, makeFakeStore());
     render(withStoreComponent);
 
     expect(screen.getByTestId('main')).toBeInTheDocument();

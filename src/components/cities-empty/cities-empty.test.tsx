@@ -1,10 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import CitiesEmpty from './cities-empty';
-import { CityName } from '../../const';
+import { CityNames } from '../../const';
 
 describe('CitiesEmpty component', () => {
   it('should render correctly with the given city', () => {
-    const city = CityName[0];
+    const city = CityNames[0];
 
     render(<CitiesEmpty city={city} />);
 

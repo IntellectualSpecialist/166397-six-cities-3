@@ -1,6 +1,6 @@
 import {name, internet, lorem} from 'faker';
 import { Offer } from '../types';
-import { AuthorizationStatus, CityName, Housing, RequestStatus } from '../const';
+import { AuthorizationStatus, CityNames, Housing, RequestStatus } from '../const';
 import { ExtraOffer } from '../types';
 import { ReviewType } from '../types';
 import { UserData } from '../types';
@@ -18,7 +18,7 @@ export const makeFakeOffer = (offersOptions?: Partial<Offer>): Offer => ({
   price: 104,
   previewImage: internet.url(),
   city: {
-    name: CityName[0],
+    name: CityNames[0],
     location: {
       latitude: 48.85661,
       longitude: 2.351499,
@@ -134,7 +134,7 @@ export const makeFakeStore = (initialState?: Partial<State>): State => ({
   },
   OFFERS: {
     offers: new Array(3).fill(null).map(() => makeFakeOffer()),
-    city: CityName[0],
+    city: CityNames[0],
     status: RequestStatus.Idle
   },
   OFFER: {

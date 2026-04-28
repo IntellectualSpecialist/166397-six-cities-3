@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { withHistory } from '../../utils';
+import { renderWithHistory } from '../../test-utils';
 import FavoriteButton from './favorite-button';
-import { makeFakeOffer, makeFakeUser } from '../../utils';
+import { makeFakeOffer, makeFakeUser } from '../../test-utils';
 import { AppRoute, AuthorizationStatus, RequestStatus } from '../../const';
 import { createMemoryHistory } from 'history';
 import type { State } from '../../types';
@@ -45,7 +45,7 @@ describe('Component: FavoriteButton', () => {
   it('should render correctly when item is not favorite', () => {
     const history = createMemoryHistory();
     history.push(AppRoute.Root);
-    const withHistoryComponent = withHistory(
+    const withHistoryComponent = renderWithHistory(
       <FavoriteButton
         id={mockId}
         className={mockClassName}
@@ -69,7 +69,7 @@ describe('Component: FavoriteButton', () => {
     mockUseAppSelector.mockImplementation((selector: (state: State) => unknown) => selector(buildMockState(true, [mockId]) as State));
     const history = createMemoryHistory();
     history.push(AppRoute.Root);
-    const withHistoryComponent = withHistory(
+    const withHistoryComponent = renderWithHistory(
       <FavoriteButton
         id={mockId}
         className={mockClassName}
@@ -89,7 +89,7 @@ describe('Component: FavoriteButton', () => {
   it('should use isFavorite prop before switching to store value', () => {
     const history = createMemoryHistory();
     history.push(AppRoute.Root);
-    const withHistoryComponent = withHistory(
+    const withHistoryComponent = renderWithHistory(
       <FavoriteButton
         id={mockId}
         className={mockClassName}
@@ -108,7 +108,7 @@ describe('Component: FavoriteButton', () => {
     mockUseAppSelector.mockImplementation((selector: (state: State) => unknown) => selector(buildMockState(false) as State));
     const history = createMemoryHistory();
     history.push(AppRoute.Root);
-    const withHistoryComponent = withHistory(
+    const withHistoryComponent = renderWithHistory(
       <FavoriteButton
         id={mockId}
         className={mockClassName}
@@ -132,7 +132,7 @@ describe('Component: FavoriteButton', () => {
     mockDispatch.mockReturnValue({ unwrap: mockUnwrap });
     const history = createMemoryHistory();
     history.push(AppRoute.Root);
-    const withHistoryComponent = withHistory(
+    const withHistoryComponent = renderWithHistory(
       <FavoriteButton
         id={mockId}
         className={mockClassName}

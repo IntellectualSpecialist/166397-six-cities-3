@@ -1,10 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Sorting from './sorting';
-import { SortingOption } from '../../const';
+import { SortingOptions } from '../../const';
 
 describe('Component: Sorting', () => {
-  const mockCurrentOption = SortingOption[0];
+  const mockCurrentOption = SortingOptions[0];
   const mockOnSortingOptionClick = vi.fn();
 
   beforeEach(() => {
@@ -25,7 +25,7 @@ describe('Component: Sorting', () => {
 
     expect(optionsList).not.toHaveClass('places__options--opened');
 
-    SortingOption.forEach((option) => {
+    SortingOptions.forEach((option) => {
       expect(screen.getByTestId(option)).toBeInTheDocument();
     });
   });
@@ -62,7 +62,7 @@ describe('Component: Sorting', () => {
     const optionsList = screen.getByTestId('list');
     expect(optionsList).toHaveClass('places__options--opened');
 
-    const secondOption = SortingOption[1];
+    const secondOption = SortingOptions[1];
     const optionElement = screen.getByTestId(secondOption);
     await userEvent.click(optionElement);
 
@@ -82,7 +82,7 @@ describe('Component: Sorting', () => {
     const sortingType = screen.getByTestId('sorting-type');
     await userEvent.click(sortingType);
 
-    const targetOption = SortingOption[2];
+    const targetOption = SortingOptions[2];
     const optionElement = screen.getByTestId(targetOption);
     await userEvent.click(optionElement);
 
@@ -91,7 +91,7 @@ describe('Component: Sorting', () => {
   });
 
   it('should highlight active option with "places__option--active" class', () => {
-    const activeOption = SortingOption[1];
+    const activeOption = SortingOptions[1];
     render(
       <Sorting
         currentOption={activeOption}
@@ -102,7 +102,7 @@ describe('Component: Sorting', () => {
     const activeElement = screen.getByTestId(activeOption);
     expect(activeElement).toHaveClass('places__option--active');
 
-    SortingOption.forEach((option) => {
+    SortingOptions.forEach((option) => {
       if (option !== activeOption) {
         expect(screen.getByTestId(option)).not.toHaveClass('places__option--active');
       }

@@ -50,9 +50,9 @@ export const ReviewLength = {
   Max: 300
 } as const;
 
-export const CityName = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'] as const;
+export const CityNames = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'] as const;
 
-export const SortingOption = [
+export const SortingOptions = [
   'Popular',
   'Price: low to high',
   'Price: high to low',

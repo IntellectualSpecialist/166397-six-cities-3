@@ -1,6 +1,6 @@
 import { RequestStatus } from '../../const';
 import { FavoriteData } from '../../types';
-import { makeFakeFavoriteOffer, makeFakeOffer } from '../../utils';
+import { makeFakeFavoriteOffer, makeFakeOffer } from '../../test-utils';
 import { changeFavoriteStatusAction, fetchFavoritesAction } from '../api-actions';
 import { favorite } from './favorite';
 

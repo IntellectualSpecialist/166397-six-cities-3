@@ -1,17 +1,17 @@
-import { SortingOption } from '../const';
+import { SortingOptions } from '../const';
 import { Offer } from '../types';
 import { ReviewType } from '../types';
 import { SortingOptionType } from '../types';
 
 const sortOffers = (sorting: SortingOptionType, offers: Offer[]): Offer[] => {
   switch (sorting) {
-    case SortingOption[0]:
+    case SortingOptions[0]:
       return offers;
-    case SortingOption[1]:
+    case SortingOptions[1]:
       return [...offers].sort((a, b): number => Number(a.price) - Number(b.price));
-    case SortingOption[2]:
+    case SortingOptions[2]:
       return [...offers].sort((a, b): number => Number(b.price) - Number(a.price));
-    case SortingOption[3]:
+    case SortingOptions[3]:
       return [...offers].sort((a, b): number => Number(b.rating) - Number(a.rating));
     default:
       return offers;

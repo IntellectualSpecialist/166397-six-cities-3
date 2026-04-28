@@ -1,5 +1,5 @@
-import { CityName, NameSpace, RequestStatus } from '../../const';
-import { makeFakeOffer } from '../../utils';
+import { CityNames, NameSpace, RequestStatus } from '../../const';
+import { makeFakeOffer } from '../../test-utils';
 import { selectCity, selectOffers, selectOffersStatus } from './selectors';
 
 describe('Offer selectors', () => {
@@ -7,7 +7,7 @@ describe('Offer selectors', () => {
   const state = {
     [NameSpace.Offers]: {
       offers: [mockOffer],
-      city: CityName[0],
+      city: CityNames[0],
       status: RequestStatus.Idle,
     }
   };

@@ -1,4 +1,4 @@
-import { CityName, Housing } from '../const';
+import { CityNames, Housing } from '../const';
 
 type Location = {
   latitude: number;
@@ -6,7 +6,7 @@ type Location = {
   zoom: number;
 }
 
-export type CityNameType = typeof CityName[number];
+export type CityNameType = typeof CityNames[number];
 
 export type City = {
     name: CityNameType;

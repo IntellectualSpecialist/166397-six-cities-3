@@ -1,5 +1,5 @@
-import { CityName, RequestStatus } from '../../const';
-import { makeFakeFavoriteOffer, makeFakeOffer } from '../../utils';
+import { CityNames, RequestStatus } from '../../const';
+import { makeFakeFavoriteOffer, makeFakeOffer } from '../../test-utils';
 import { changeFavoriteStatusAction, fetchOffersAction } from '../api-actions';
 import { changeCity, offers } from './offers';
 
@@ -9,7 +9,7 @@ describe('Offers Slice', () => {
     const expectedState = {
       offers: [],
       status: RequestStatus.Idle,
-      city: CityName[0],
+      city: CityNames[0],
     };
 
     const result = offers.reducer(expectedState, emptyAction);
@@ -22,7 +22,7 @@ describe('Offers Slice', () => {
     const expectedState = {
       offers: [],
       status: RequestStatus.Idle,
-      city: CityName[0],
+      city: CityNames[0],
     };
 
     const result = offers.reducer(undefined, emptyAction);
@@ -34,11 +34,11 @@ describe('Offers Slice', () => {
     const initialState = {
       offers: [],
       status: RequestStatus.Idle,
-      city: CityName[0],
+      city: CityNames[0],
     };
-    const expectedCity = CityName[1];
+    const expectedCity = CityNames[1];
 
-    const result = offers.reducer(initialState, changeCity(CityName[1]));
+    const result = offers.reducer(initialState, changeCity(CityNames[1]));
 
     expect(result.city).toBe(expectedCity);
   });
@@ -48,7 +48,7 @@ describe('Offers Slice', () => {
     const expectedState = {
       offers: [mockOffer],
       status: RequestStatus.Success,
-      city: CityName[0],
+      city: CityNames[0],
     };
 
     const result = offers.reducer(undefined, fetchOffersAction.fulfilled([mockOffer], '', undefined));
@@ -60,7 +60,7 @@ describe('Offers Slice', () => {
     const expectedState = {
       offers: [],
       status: RequestStatus.Loading,
-      city: CityName[0],
+      city: CityNames[0],
     };
 
     const result = offers.reducer(undefined, fetchOffersAction.pending);
@@ -72,7 +72,7 @@ describe('Offers Slice', () => {
     const expectedState = {
       offers: [],
       status: RequestStatus.Failed,
-      city: CityName[0],
+      city: CityNames[0],
     };
 
     const result = offers.reducer(undefined, fetchOffersAction.rejected);
@@ -86,13 +86,13 @@ describe('Offers Slice', () => {
     const initialState = {
       offers: [offer],
       status: RequestStatus.Failed,
-      city: CityName[0],
+      city: CityNames[0],
     };
 
     const expectedState = {
       offers: [{ ...offer, isFavorite: true }],
       status: RequestStatus.Failed,
-      city: CityName[0],
+      city: CityNames[0],
     };
 
     const result = offers.reducer(initialState, changeFavoriteStatusAction.fulfilled(mockOffer, '', {id: mockOffer.id, status: 0}));

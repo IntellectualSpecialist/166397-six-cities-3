@@ -42,7 +42,7 @@ const ReviewForm = ({id}: ReviewFormProps): JSX.Element => {
 
   const isButtonDisabled =
     formData.review.length < ReviewLength.Min ||
-    formData.review.length >= ReviewLength.Max ||
+    formData.review.length > ReviewLength.Max ||
     formData.rating === 0;
 
   const handleFormSubmit = async (evt: React.FormEvent<HTMLFormElement>): Promise<void> => {

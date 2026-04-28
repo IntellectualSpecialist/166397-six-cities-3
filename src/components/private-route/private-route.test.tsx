@@ -1,6 +1,6 @@
 import { MemoryHistory, createMemoryHistory } from 'history';
 import { AppRoute, AuthorizationStatus } from '../../const';
-import { withHistory } from '../../utils';
+import { renderWithHistory } from '../../test-utils';
 import { Route, Routes } from 'react-router-dom';
 import PrivateRoute from './private-route';
 import { render, screen } from '@testing-library/react';
@@ -21,7 +21,7 @@ describe('Component: PrivateRoute', () => {
     const authorizationStatus: AuthorizationStatus = AuthorizationStatus.NoAuth;
     const expectedText = 'public route';
     const notExpectedText = 'private route';
-    const preparedComponent = withHistory(
+    const preparedComponent = renderWithHistory(
       <Routes>
         <Route path={AppRoute.Login} element={<span>{expectedText}</span>} />
         <Route path={AppRoute.Favorites} element={
@@ -44,7 +44,7 @@ describe('Component: PrivateRoute', () => {
     const authorizationStatus = AuthorizationStatus.Auth;
     const expectedText = 'private route';
     const notExpectedText = 'public route';
-    const preparedComponent = withHistory(
+    const preparedComponent = renderWithHistory(
       <Routes>
         <Route path={AppRoute.Login} element={<span>{notExpectedText}</span>} />
         <Route path={AppRoute.Favorites} element={

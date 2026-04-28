@@ -1,9 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { withHistory, withStore } from '../../utils';
+import { renderWithHistory, renderWithStore } from '../../test-utils';
 import Cities from './cities';
-import { makeFakeOffer, makeFakeStore } from '../../utils';
-import { CityName, RequestStatus, SortingOption } from '../../const';
+import { makeFakeOffer, makeFakeStore } from '../../test-utils';
+import { CityNames, RequestStatus, SortingOptions } from '../../const';
 import { filterOffersByCity } from '../../utils';
 import { sortOffers } from '../../utils';
 import { vi } from 'vitest';
@@ -34,7 +34,7 @@ vi.mock('../places/places', () => ({
 vi.mock('../sorting/sorting', () => ({
   default: ({ currentOption, onSortingOptionClick }: { currentOption: SortingOptionType; onSortingOptionClick: (option: SortingOptionType) => void }) => (
     <div data-testid="sorting">
-      <button onClick={() => onSortingOptionClick(SortingOption[1])} data-testid="change-sorting">
+      <button onClick={() => onSortingOptionClick(SortingOptions[1])} data-testid="change-sorting">
         Change Sorting
       </button>
       <span>Current: {currentOption}</span>
@@ -63,8 +63,8 @@ describe('Component: Cities', () => {
 
   it('should render Places and Map when there are offers', () => {
     vi.mocked(filterOffersByCity).mockReturnValue([makeFakeOffer()]);
-    const withHistoryComponent = withHistory(<Cities />);
-    const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore());
+    const withHistoryComponent = renderWithHistory(<Cities />);
+    const { withStoreComponent } = renderWithStore(withHistoryComponent, makeFakeStore());
     render(withStoreComponent);
 
     expect(screen.getByTestId('places')).toBeInTheDocument();
@@ -85,8 +85,8 @@ describe('Component: Cities', () => {
       },
     });
 
-    const withHistoryComponent = withHistory(<Cities />);
-    const { withStoreComponent } = withStore(withHistoryComponent, fakeStore);
+    const withHistoryComponent = renderWithHistory(<Cities />);
+    const { withStoreComponent } = renderWithStore(withHistoryComponent, fakeStore);
     render(withStoreComponent);
 
     expect(screen.getByTestId('cities-empty')).toBeInTheDocument();
@@ -95,7 +95,7 @@ describe('Component: Cities', () => {
   });
 
   it('should change sorting option and call sortOffers with new option', async () => {
-    const mockCityName = CityName[0];
+    const mockCityName = CityNames[0];
     const mockOffers = [makeFakeOffer(), makeFakeOffer()];
     mockOffers[0].city.name = mockCityName;
     mockOffers[1].city.name = mockCityName;
@@ -118,9 +118,9 @@ describe('Component: Cities', () => {
     sortOffersMock.mockImplementation((_, offers) => offers);
 
 
-    const withHistoryComponent = withHistory(<Cities />);
+    const withHistoryComponent = renderWithHistory(<Cities />);
 
-    const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore());
+    const { withStoreComponent } = renderWithStore(withHistoryComponent, makeFakeStore());
     render(withStoreComponent);
 
     sortOffersMock.mockClear();

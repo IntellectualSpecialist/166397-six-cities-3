@@ -7,6 +7,8 @@ import { selectRequestStatus } from '../../store/user-process/selectors';
 type ChangeHandler = ReactEventHandler<HTMLInputElement>
 type SubmitHandler = FormEventHandler<HTMLFormElement>
 
+const PASSWORD_REG_EXP = '^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]+$';
+
 const LoginForm = (): JSX.Element => {
   const [formData, setFormData] = useState(
     {
@@ -61,7 +63,7 @@ const LoginForm = (): JSX.Element => {
           placeholder="Password"
           required
           data-testid="passwordElement"
-          pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$"
+          pattern={PASSWORD_REG_EXP}
         />
       </div>
       <button className="login__submit form__submit button" type="submit">Sign in</button>

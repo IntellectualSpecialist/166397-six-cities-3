@@ -1,5 +1,5 @@
 import { AuthorizationStatus, NameSpace, RequestStatus } from '../../const';
-import { makeFakeUser } from '../../utils';
+import { makeFakeUser } from '../../test-utils';
 import { selectAuthorizationStatus, selectRequestStatus, selectUser } from './selectors';
 
 describe('User selectors', () => {

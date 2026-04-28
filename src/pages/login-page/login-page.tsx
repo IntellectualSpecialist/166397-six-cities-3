@@ -1,13 +1,13 @@
 import { Helmet } from 'react-helmet-async';
 import Tab from '../../components/tab/tab';
 import LoginForm from '../../components/login-form/login-form';
-import { CityName } from '../../const';
+import { CityNames } from '../../const';
 import { useMemo } from 'react';
 
 const LoginPage = (): JSX.Element => {
   const randomCity = useMemo(() => {
-    const randomIndex = Math.floor(Math.random() * CityName.length);
-    return CityName[randomIndex];
+    const randomIndex = Math.floor(Math.random() * CityNames.length);
+    return CityNames[randomIndex];
   }, []);
 
   return (

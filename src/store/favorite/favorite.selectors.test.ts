@@ -1,5 +1,5 @@
 import { NameSpace, RequestStatus } from '../../const';
-import { makeFakeOffer } from '../../utils';
+import { makeFakeOffer } from '../../test-utils';
 import { selectFavorites, selectFavoritesStatus } from './selectors';
 
 describe('Favorite selectors', () => {

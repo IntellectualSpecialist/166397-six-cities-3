@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { withHistory } from '../../utils';
+import { renderWithHistory } from '../../test-utils';
 import Tab from './tab';
-import { CityName } from '../../const';
+import { CityNames } from '../../const';
 import { useAppDispatch } from '../../hooks';
 import { changeCity } from '../../store/offers/offers';
 
@@ -19,8 +19,8 @@ describe('Component: Tab', () => {
   });
 
   it('should render correctly', () => {
-    const expectedText = CityName[0];
-    const preparedComponent = withHistory(<Tab name={CityName[0]} />);
+    const expectedText = CityNames[0];
+    const preparedComponent = renderWithHistory(<Tab name={CityNames[0]} />);
 
     render(preparedComponent);
 
@@ -29,8 +29,8 @@ describe('Component: Tab', () => {
   });
 
   it('should dispatch changeCity action when clicked', async () => {
-    const cityName = CityName[0];
-    const preparedComponent = withHistory(<Tab name={cityName} />);
+    const cityName = CityNames[0];
+    const preparedComponent = renderWithHistory(<Tab name={cityName} />);
 
     render(preparedComponent);
     await userEvent.click(screen.getByTestId('tab-link'));

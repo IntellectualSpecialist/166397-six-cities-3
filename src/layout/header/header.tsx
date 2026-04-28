@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { AppRoute, RequestStatus } from '../../const';
 import Logo from '../../ui/logo/logo';
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -14,6 +14,7 @@ type HeaderProps = {
 type ReactEventHandler= React.MouseEventHandler<HTMLAnchorElement>
 
 const Header = ({isUserSignIn, shouldRenderUser = true}: HeaderProps): JSX.Element => {
+  const {pathname} = useLocation();
   const dispatch = useAppDispatch();
   const email = useAppSelector(selectUser)?.email;
   const favoriteCount = useAppSelector(selectFavorites).length;
@@ -33,7 +34,7 @@ const Header = ({isUserSignIn, shouldRenderUser = true}: HeaderProps): JSX.Eleme
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
-            <Logo className="header__logo-link header__logo-link--active" imgClassName="header__logo" />
+            <Logo className={`header__logo-link ${pathname as AppRoute === AppRoute.Root ? 'header__logo-link--active' : ''}`} imgClassName="header__logo" />
           </div>
           {shouldRenderUser &&
             <nav className="header__nav">

@@ -2,7 +2,7 @@ import { configureMockStore } from '@jedmao/redux-mock-store';
 import MockAdapter from 'axios-mock-adapter';
 import thunk from 'redux-thunk';
 import { createAPI } from '../services';
-import { AppThunkDispatch, extractActionsTypes, makeFakeExtraOffer, makeFakeOffer, makeFakeReview, makeFakeUser } from '../utils';
+import { AppThunkDispatch, extractActionsTypes, makeFakeExtraOffer, makeFakeOffer, makeFakeReview, makeFakeUser } from '../test-utils';
 import { State } from '../types';
 import { Action } from '@reduxjs/toolkit';
 import { APIRoute, AuthorizationStatus } from '../const';

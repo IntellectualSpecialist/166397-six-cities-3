@@ -1,12 +1,12 @@
 import { render, screen } from '@testing-library/react';
-import { withHistory } from '../../utils';
-import { makeFakeReview } from '../../utils';
+import { renderWithHistory } from '../../test-utils';
+import { makeFakeReview } from '../../test-utils';
 import Reviews from './reviews';
 
 describe('Component: Tab', () => {
   it('should render correctly', () => {
     const mockReview = makeFakeReview();
-    const preparedComponent = withHistory(<Reviews reviews={[mockReview]} />);
+    const preparedComponent = renderWithHistory(<Reviews reviews={[mockReview]} />);
 
     render(preparedComponent);
 

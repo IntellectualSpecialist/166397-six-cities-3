@@ -1,3 +1,3 @@
-import { SortingOption } from '../const';
+import { SortingOptions } from '../const';
 
-export type SortingOptionType = typeof SortingOption[number];
+export type SortingOptionType = typeof SortingOptions[number];

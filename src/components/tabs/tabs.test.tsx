@@ -1,14 +1,14 @@
 import { render, screen } from '@testing-library/react';
 import Tabs from './tabs';
-import { withHistory, withStore } from '../../utils';
-import { makeFakeStore } from '../../utils';
+import { renderWithHistory, renderWithStore } from '../../test-utils';
+import { makeFakeStore } from '../../test-utils';
 
 describe(
   'Component: Tab',
   () => {
     it('should render correctly', () => {
-      const preparedComponent = withHistory(<Tabs />);
-      const { withStoreComponent } = withStore(preparedComponent, makeFakeStore());
+      const preparedComponent = renderWithHistory(<Tabs />);
+      const { withStoreComponent } = renderWithStore(preparedComponent, makeFakeStore());
 
       render(withStoreComponent);
 

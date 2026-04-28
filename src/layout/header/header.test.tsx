@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
-import { withHistory, withStore } from '../../utils';
+import { renderWithHistory, renderWithStore } from '../../test-utils';
 import Header from './header';
 import { AppRoute, AuthorizationStatus, RequestStatus } from '../../const';
-import { makeFakeOffer, makeFakeStore } from '../../utils';
+import { makeFakeOffer, makeFakeStore } from '../../test-utils';
 
 describe('Component: Header', () => {
   it('should render correctly when user is not signed in', () => {
@@ -18,8 +18,8 @@ describe('Component: Header', () => {
       },
     });
 
-    const withHistoryComponent = withHistory(<Header isUserSignIn={false} />);
-    const { withStoreComponent } = withStore(withHistoryComponent, fakeStore);
+    const withHistoryComponent = renderWithHistory(<Header isUserSignIn={false} />);
+    const { withStoreComponent } = renderWithStore(withHistoryComponent, fakeStore);
     render(withStoreComponent);
 
     expect(screen.getByText('Sign In')).toBeInTheDocument();
@@ -50,8 +50,8 @@ describe('Component: Header', () => {
       },
     });
 
-    const withHistoryComponent = withHistory(<Header isUserSignIn />);
-    const { withStoreComponent } = withStore(withHistoryComponent, fakeStore);
+    const withHistoryComponent = renderWithHistory(<Header isUserSignIn />);
+    const { withStoreComponent } = renderWithStore(withHistoryComponent, fakeStore);
     render(withStoreComponent);
 
     expect(screen.getByText(mockEmail)).toBeInTheDocument();
@@ -65,10 +65,10 @@ describe('Component: Header', () => {
   it('should not render user navigation when shouldRenderUser is false', () => {
     const fakeStore = makeFakeStore();
 
-    const withHistoryComponent = withHistory(
+    const withHistoryComponent = renderWithHistory(
       <Header isUserSignIn shouldRenderUser={false} />
     );
-    const { withStoreComponent } = withStore(withHistoryComponent, fakeStore);
+    const { withStoreComponent } = renderWithStore(withHistoryComponent, fakeStore);
     render(withStoreComponent);
 
     expect(screen.queryByRole('navigation')).not.toBeInTheDocument();

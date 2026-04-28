@@ -1,7 +1,7 @@
 import { AuthorizationStatus } from '../const';
 import { CityNameType, Offer } from '../types';
 
-const getRatingPercentage = (raiting: number): string => `${Math.round(raiting) / 5 * 100}%`;
+const getRatingPercentage = (rating: number): string => `${Math.round(rating) / 5 * 100}%`;
 
 const capitalizeValue = (value: string): string => value[0].toUpperCase() + value.slice(1, value.length);
 

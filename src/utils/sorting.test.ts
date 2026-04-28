@@ -1,6 +1,6 @@
 import { getSortReviewsByDate, sortOffers } from './sorting';
-import { makeFakeOffer, makeFakeReview } from '../utils';
-import { SortingOption } from '../const';
+import { makeFakeOffer, makeFakeReview } from '../test-utils';
+import { SortingOptions } from '../const';
 
 describe('sortOffers', () => {
   const offers = [
@@ -10,7 +10,7 @@ describe('sortOffers', () => {
   ];
 
   it('should return original array for "Popular" sorting', () => {
-    const result = sortOffers(SortingOption[0], offers);
+    const result = sortOffers(SortingOptions[0], offers);
     expect(result).toEqual(offers);
   });
 

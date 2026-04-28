@@ -1,8 +1,8 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { withHistory, withStore } from '../../utils';
+import { renderWithHistory, renderWithStore } from '../../test-utils';
 import ReviewForm from './review-form';
-import { makeFakeStore } from '../../utils';
+import { makeFakeStore } from '../../test-utils';
 import { RequestStatus, ReviewLength } from '../../const';
 import { vi } from 'vitest';
 import { State } from '../../types';
@@ -31,8 +31,8 @@ describe('Component: ReviewForm', () => {
 
   it('should render form correctly', () => {
     const fakeStore = makeFakeStore();
-    const withHistoryComponent = withHistory(<ReviewForm id={mockOfferId} />);
-    const { withStoreComponent } = withStore(withHistoryComponent, fakeStore);
+    const withHistoryComponent = renderWithHistory(<ReviewForm id={mockOfferId} />);
+    const { withStoreComponent } = renderWithStore(withHistoryComponent, fakeStore);
 
     render(withStoreComponent);
 
@@ -51,8 +51,8 @@ describe('Component: ReviewForm', () => {
 
   it('should enable submit button only when rating is selected and review length is between Min and Max', async () => {
     const fakeStore = makeFakeStore();
-    const withHistoryComponent = withHistory(<ReviewForm id={mockOfferId} />);
-    const { withStoreComponent } = withStore(withHistoryComponent, fakeStore);
+    const withHistoryComponent = renderWithHistory(<ReviewForm id={mockOfferId} />);
+    const { withStoreComponent } = renderWithStore(withHistoryComponent, fakeStore);
 
     render(withStoreComponent);
 
@@ -79,8 +79,8 @@ describe('Component: ReviewForm', () => {
 
   it('should enable submit button only when the review text is within the allowed length', async () => {
     const fakeStore = makeFakeStore();
-    const withHistoryComponent = withHistory(<ReviewForm id={mockOfferId} />);
-    const { withStoreComponent } = withStore(withHistoryComponent, fakeStore);
+    const withHistoryComponent = renderWithHistory(<ReviewForm id={mockOfferId} />);
+    const { withStoreComponent } = renderWithStore(withHistoryComponent, fakeStore);
 
     render(withStoreComponent);
 
@@ -95,8 +95,8 @@ describe('Component: ReviewForm', () => {
 
   it('should update form data on user input', async () => {
     const fakeStore = makeFakeStore();
-    const withHistoryComponent = withHistory(<ReviewForm id={mockOfferId} />);
-    const { withStoreComponent } = withStore(withHistoryComponent, fakeStore);
+    const withHistoryComponent = renderWithHistory(<ReviewForm id={mockOfferId} />);
+    const { withStoreComponent } = renderWithStore(withHistoryComponent, fakeStore);
     render(withStoreComponent);
 
     const textarea = screen.getByTestId('review-textarea');
@@ -114,8 +114,8 @@ describe('Component: ReviewForm', () => {
     mockDispatch.mockReturnValue({ unwrap: mockUnwrap });
 
     const fakeStore = makeFakeStore();
-    const withHistoryComponent = withHistory(<ReviewForm id={mockOfferId} />);
-    const { withStoreComponent } = withStore(withHistoryComponent, fakeStore);
+    const withHistoryComponent = renderWithHistory(<ReviewForm id={mockOfferId} />);
+    const { withStoreComponent } = renderWithStore(withHistoryComponent, fakeStore);
     render(withStoreComponent);
 
     const textarea = screen.getByTestId('review-textarea');
@@ -138,8 +138,8 @@ describe('Component: ReviewForm', () => {
     mockDispatch.mockReturnValue({ unwrap: mockUnwrap });
 
     const fakeStore = makeFakeStore();
-    const withHistoryComponent = withHistory(<ReviewForm id={mockOfferId} />);
-    const { withStoreComponent } = withStore(withHistoryComponent, fakeStore);
+    const withHistoryComponent = renderWithHistory(<ReviewForm id={mockOfferId} />);
+    const { withStoreComponent } = renderWithStore(withHistoryComponent, fakeStore);
     render(withStoreComponent);
 
     const textarea = screen.getByTestId('review-textarea');
@@ -162,8 +162,8 @@ describe('Component: ReviewForm', () => {
     mockDispatch.mockReturnValue({ unwrap: mockUnwrap });
 
     const fakeStore = makeFakeStore();
-    const withHistoryComponent = withHistory(<ReviewForm id={mockOfferId} />);
-    const { withStoreComponent } = withStore(withHistoryComponent, fakeStore);
+    const withHistoryComponent = renderWithHistory(<ReviewForm id={mockOfferId} />);
+    const { withStoreComponent } = renderWithStore(withHistoryComponent, fakeStore);
     render(withStoreComponent);
 
     const textarea = screen.getByTestId('review-textarea');

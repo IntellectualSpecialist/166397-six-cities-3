@@ -1,4 +1,4 @@
-import { CityName } from '../../const';
+import { CityNames } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { selectCity } from '../../store/offers/selectors';
 
@@ -11,7 +11,7 @@ const Tabs = (): JSX.Element => {
     <div className="tabs">
       <section className="locations container">
         <ul className="locations__list tabs__list" data-testid="tabs-list">
-          {CityName.map((name) =>
+          {CityNames.map((name) =>
             (
               <Tab
                 name={name}

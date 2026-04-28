@@ -1,13 +1,13 @@
 import { render, screen } from '@testing-library/react';
-import { withHistory, withStore } from '../../utils';
+import { renderWithHistory, renderWithStore } from '../../test-utils';
 import MainPage from './main-page';
-import { makeFakeStore } from '../../utils';
+import { makeFakeStore } from '../../test-utils';
 
 describe('Component: MainPage', () => {
   it('should render correctly', () => {
     const expectedText = 'Cities';
-    const preparedComponent = withHistory(<MainPage />);
-    const { withStoreComponent } = withStore(preparedComponent, makeFakeStore());
+    const preparedComponent = renderWithHistory(<MainPage />);
+    const { withStoreComponent } = renderWithStore(preparedComponent, makeFakeStore());
 
     render(withStoreComponent);
 

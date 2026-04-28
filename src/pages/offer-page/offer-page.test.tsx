@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
-import { withHistory, withStore } from '../../utils';
+import { renderWithHistory, renderWithStore } from '../../test-utils';
 import { createMemoryHistory, MemoryHistory } from 'history';
 import OfferPage from './offer-page';
-import { makeFakeExtraOffer, makeFakeOffer, makeFakeStore } from '../../utils';
+import { makeFakeExtraOffer, makeFakeOffer, makeFakeStore } from '../../test-utils';
 import { AppRoute, AuthorizationStatus, RequestStatus } from '../../const';
 import { State } from '../../types';
 import { ExtraOffer } from '../../types';
@@ -18,16 +18,16 @@ describe('Component: OfferPage', () => {
   });
 
   it('should render correctly', () => {
-    const withHistoryComponent = withHistory(<OfferPage />, mockHistory);
-    const { mockStore } = withStore(withHistoryComponent, makeFakeStore());
+    const withHistoryComponent = renderWithHistory(<OfferPage />, mockHistory);
+    const { mockStore } = renderWithStore(withHistoryComponent, makeFakeStore());
     const state = mockStore.getState() as State;
 
     const offer = { ...(state.OFFER.offer as ExtraOffer), isFavorite: true };
     const reviews = state.REVIEWS.reviews;
     const nearby = state.OFFER.nearby;
     const offerId = offer.id;
-    const withFavoriteStateComponent = withHistory(<OfferPage />, mockHistory);
-    const { withStoreComponent: withFavoriteStoreComponent } = withStore(withFavoriteStateComponent, makeFakeStore({
+    const withFavoriteStateComponent = renderWithHistory(<OfferPage />, mockHistory);
+    const { withStoreComponent: withFavoriteStoreComponent } = renderWithStore(withFavoriteStateComponent, makeFakeStore({
       OFFER: {
         ...state.OFFER,
         offer,
@@ -80,8 +80,8 @@ describe('Component: OfferPage', () => {
   it('should render isPro when host is Pro', () => {
     const offer = makeFakeExtraOffer();
     offer.host.isPro = true;
-    const withHistoryComponent = withHistory(<OfferPage />, mockHistory);
-    const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore({
+    const withHistoryComponent = renderWithHistory(<OfferPage />, mockHistory);
+    const { withStoreComponent } = renderWithStore(withHistoryComponent, makeFakeStore({
       OFFER: {
         offer: offer,
         status: RequestStatus.Success,
@@ -99,8 +99,8 @@ describe('Component: OfferPage', () => {
   it('should not render isPro when host is not Pro', () => {
     const offer = makeFakeExtraOffer();
     offer.host.isPro = false;
-    const withHistoryComponent = withHistory(<OfferPage />, mockHistory);
-    const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore({
+    const withHistoryComponent = renderWithHistory(<OfferPage />, mockHistory);
+    const { withStoreComponent } = renderWithStore(withHistoryComponent, makeFakeStore({
       OFFER: {
         offer: offer,
         status: RequestStatus.Success,
@@ -117,8 +117,8 @@ describe('Component: OfferPage', () => {
 
   it('should render Form when user is logged in', () => {
     const offer = makeFakeExtraOffer();
-    const withHistoryComponent = withHistory(<OfferPage />, mockHistory);
-    const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore({
+    const withHistoryComponent = renderWithHistory(<OfferPage />, mockHistory);
+    const { withStoreComponent } = renderWithStore(withHistoryComponent, makeFakeStore({
       OFFER: {
         offer: offer,
         status: RequestStatus.Success,
@@ -140,8 +140,8 @@ describe('Component: OfferPage', () => {
 
   it('should not render Form when user is not logged in', () => {
     const offer = makeFakeExtraOffer();
-    const withHistoryComponent = withHistory(<OfferPage />, mockHistory);
-    const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore({
+    const withHistoryComponent = renderWithHistory(<OfferPage />, mockHistory);
+    const { withStoreComponent } = renderWithStore(withHistoryComponent, makeFakeStore({
       OFFER: {
         offer: offer,
         status: RequestStatus.Success,
@@ -165,8 +165,8 @@ describe('Component: OfferPage', () => {
     const offer = makeFakeExtraOffer();
     mockHistory.push(AppRoute.Offer.replace(':id', 'non-existent-id'));
 
-    const withHistoryComponent = withHistory(<OfferPage />, mockHistory);
-    const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore({
+    const withHistoryComponent = renderWithHistory(<OfferPage />, mockHistory);
+    const { withStoreComponent } = renderWithStore(withHistoryComponent, makeFakeStore({
       OFFER: {
         offer: offer,
         status: RequestStatus.Failed,
@@ -181,8 +181,8 @@ describe('Component: OfferPage', () => {
 
   it('should render Loading message when offer is loading', () => {
     const offer = makeFakeExtraOffer();
-    const withHistoryComponent = withHistory(<OfferPage />, mockHistory);
-    const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore({
+    const withHistoryComponent = renderWithHistory(<OfferPage />, mockHistory);
+    const { withStoreComponent } = renderWithStore(withHistoryComponent, makeFakeStore({
       OFFER: {
         offer: offer,
         status: RequestStatus.Loading,

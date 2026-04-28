@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
-import { withHistory, withStore } from '../../utils';
+import { renderWithHistory, renderWithStore } from '../../test-utils';
 import PlaceCard from './place-card';
-import { makeFakeOffer, makeFakeStore } from '../../utils';
+import { makeFakeOffer, makeFakeStore } from '../../test-utils';
 import userEvent from '@testing-library/user-event';
 import { capitalizeValue, getRatingPercentage } from '../../utils';
 import { AuthorizationStatus, RequestStatus } from '../../const';
@@ -23,14 +23,14 @@ describe('Component: PlaceCard', () => {
         favoritesStatus: RequestStatus.Idle,
       },
     });
-    const { withStoreComponent } = withStore(
+    const { withStoreComponent } = renderWithStore(
       <PlaceCard
         offer={mockOffer}
         className="test-class"
         imgClassName="test-img-class"
       />, fakeStore
     );
-    const preparedComponent = withHistory(
+    const preparedComponent = renderWithHistory(
       withStoreComponent
     );
 
@@ -52,7 +52,7 @@ describe('Component: PlaceCard', () => {
   it('should call handleActiveCardChange when hovered', async () => {
     const mockHandleActiveCardChange = vi.fn();
     const mockOffer = makeFakeOffer();
-    const { withStoreComponent } = withStore(
+    const { withStoreComponent } = renderWithStore(
       <PlaceCard
         offer={mockOffer}
         className="test-class"
@@ -60,7 +60,7 @@ describe('Component: PlaceCard', () => {
         onActiveCardChange={mockHandleActiveCardChange}
       />, makeFakeStore()
     );
-    const preparedComponent = withHistory(
+    const preparedComponent = renderWithHistory(
       withStoreComponent
     );
 
@@ -76,7 +76,7 @@ describe('Component: PlaceCard', () => {
   it('should call handleActiveCardChange with undefined when unhovered', async () => {
     const mockHandleActiveCardChange = vi.fn();
     const mockOffer = makeFakeOffer();
-    const { withStoreComponent } = withStore(
+    const { withStoreComponent } = renderWithStore(
       <PlaceCard
         offer={mockOffer}
         className="test-class"
@@ -84,7 +84,7 @@ describe('Component: PlaceCard', () => {
         onActiveCardChange={mockHandleActiveCardChange}
       />, makeFakeStore()
     );
-    const preparedComponent = withHistory(
+    const preparedComponent = renderWithHistory(
       withStoreComponent
     );
 
@@ -100,14 +100,14 @@ describe('Component: PlaceCard', () => {
   it('should render Premium badge when offer is premium', () => {
     const mockOffer = makeFakeOffer();
     mockOffer.isPremium = true;
-    const { withStoreComponent } = withStore(
+    const { withStoreComponent } = renderWithStore(
       <PlaceCard
         offer={mockOffer}
         className="test-class"
         imgClassName="test-img-class"
       />, makeFakeStore()
     );
-    const preparedComponent = withHistory(
+    const preparedComponent = renderWithHistory(
       withStoreComponent
     );
 
@@ -119,14 +119,14 @@ describe('Component: PlaceCard', () => {
   it('should render Premium badge when offer is false', () => {
     const mockOffer = makeFakeOffer();
     mockOffer.isPremium = false;
-    const { withStoreComponent } = withStore(
+    const { withStoreComponent } = renderWithStore(
       <PlaceCard
         offer={mockOffer}
         className="test-class"
         imgClassName="test-img-class"
       />, makeFakeStore()
     );
-    const preparedComponent = withHistory(
+    const preparedComponent = renderWithHistory(
       withStoreComponent
     );
 
@@ -148,14 +148,14 @@ describe('Component: PlaceCard', () => {
         favoritesStatus: RequestStatus.Idle,
       },
     });
-    const { withStoreComponent } = withStore(
+    const { withStoreComponent } = renderWithStore(
       <PlaceCard
         offer={mockOffer}
         className="test-class"
         imgClassName="test-img-class"
       />, fakeStore
     );
-    const preparedComponent = withHistory(
+    const preparedComponent = renderWithHistory(
       withStoreComponent
     );
 
@@ -167,14 +167,14 @@ describe('Component: PlaceCard', () => {
   it('should render bookmark button without active class when offer is not favorite', () => {
     const mockOffer = makeFakeOffer();
     mockOffer.isFavorite = false;
-    const { withStoreComponent } = withStore(
+    const { withStoreComponent } = renderWithStore(
       <PlaceCard
         offer={mockOffer}
         className="test-class"
         imgClassName="test-img-class"
       />, makeFakeStore()
     );
-    const preparedComponent = withHistory(
+    const preparedComponent = renderWithHistory(
       withStoreComponent
     );
 
